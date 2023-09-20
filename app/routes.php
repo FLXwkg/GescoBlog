@@ -27,7 +27,13 @@ return function (App $app) {
     });
 
     $app->get('/home', function ($request, $response, $args) {
+        $pdo = $this->get('db');
+        $stmt = $pdo->query('SELECT * FROM article');
+        $dataFromDatabase = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
         $renderer = new PhpRenderer('../templates');
+        $args['dataFromDatabase'] = $dataFromDatabase;
+
         return $renderer->render($response, "view.html", $args);
     });
 
