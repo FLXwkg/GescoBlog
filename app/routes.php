@@ -31,11 +31,32 @@ return function (App $app) {
         return $renderer->render($response, "view.html", $args);
     });
 
+    $app->get('/genArticle', function ($request, $response, $args) {
+        // Chemin vers le fichier generate_data.php
+        $scriptPath = __DIR__ . '/../scripts/generateData.php';
+    
+        // Exécutez le script generate_data.php
+        exec("php $scriptPath", $output, $exitCode);
+    
+        // Vérifiez si l'exécution s'est terminée avec succès
+        if ($exitCode === 0) {
+            $message = "Le script generate_data.php a été exécuté avec succès.";
+        } else {
+            $message = "Une erreur s'est produite lors de l'exécution du script generate_data.php. \n";
+            $message .= implode(PHP_EOL, $output);
+        }
+    
+        // Vous pouvez personnaliser la réponse en fonction du résultat de l'exécution
+        $response->getBody()->write($message);
+        return $response;
+    });
+    
+
     $app->get('/categories', function (Request $request, Response $response) {
         $pdo = $this->get('db'); // Récupérez l'objet PDO à partir du conteneur
     
         // Utilisez PDO pour récupérer des données depuis la base de données
-        $stmt = $pdo->query('SELECT * FROM Categorie');
+        $stmt = $pdo->query('SELECT nom_categorie FROM categorie');
         $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
     
         // Retournez les données dans la réponse Slim
