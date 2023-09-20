@@ -27,7 +27,19 @@ return function (App $app) {
     });
 
     $app->get('/home', function ($request, $response, $args) {
-        $renderer = new PhpRenderer('../src/templates');
+        $renderer = new PhpRenderer('../templates');
         return $renderer->render($response, "view.html", $args);
+    });
+
+    $app->get('/categories', function (Request $request, Response $response) {
+        $pdo = $this->get('db'); // Récupérez l'objet PDO à partir du conteneur
+    
+        // Utilisez PDO pour récupérer des données depuis la base de données
+        $stmt = $pdo->query('SELECT * FROM Categorie');
+        $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+        // Retournez les données dans la réponse Slim
+        $response->getBody()->write(json_encode($data));
+        return $response->withHeader('Content-Type', 'application/json');
     });
 };
