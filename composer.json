@@ -23,7 +23,6 @@
     ],
     "require": {
         "php": "^7.4 || ^8.0",
-        "ext-json": "*",
         "illuminate/database": "^10.24",
         "monolog/monolog": "^2.8",
         "php-di/php-di": "^6.4",
@@ -32,6 +31,7 @@
         "slim/slim": "4.*"
     },
     "require-dev": {
+        "fzaninotto/faker": "^1.5",
         "jangregor/phpstan-prophecy": "^1.0.0",
         "phpspec/prophecy-phpunit": "^2.0",
         "phpstan/extension-installer": "^1.2.0",
