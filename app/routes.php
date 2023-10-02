@@ -32,10 +32,13 @@ return function (App $app) {
     $app->get('/home', function ($request, $response, $args) {
         $pdo = $this->get('db');
         $stmt = $pdo->query('SELECT * FROM article;');
-        $dataFromDatabase = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt2 = $pdo->query('SELECT nom_categorie FROM categorie WHERE id_categorie = 14;');
+        $article = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $categorie = $stmt2->fetchAll(PDO::FETCH_ASSOC);
 
         $renderer = new PhpRenderer('../templates');
-        $args['dataFromDatabase'] = $dataFromDatabase;
+        $args['article'] = $article;
+        $args['categorie'] = $categorie;
 
         return $renderer->render($response, "view.html", $args);
     });
@@ -43,10 +46,19 @@ return function (App $app) {
     $app->get('/world', function ($request, $response, $args) {
         $pdo = $this->get('db');
         $stmt = $pdo->query('SELECT * FROM article WHERE id_categorie = 4;');
-        $dataFromDatabase = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt2 = $pdo->query('SELECT nom_categorie FROM categorie WHERE id_categorie = 4;');
+        $article = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $categorie = $stmt2->fetchAll(PDO::FETCH_ASSOC);
+    
+        /*$stmt3 = $pdo->query("SELECT * FROM commentaire INNER JOIN article ON commentaire.id_article = article.id_article WHERE article.id_article = '$article['id_article']';");
+        $commentaire = $stmt3->fetchAll(PDO::FETCH_ASSOC);*/
+        
+        
 
         $renderer = new PhpRenderer('../templates');
-        $args['dataFromDatabase'] = $dataFromDatabase;
+        $args['article'] = $article;
+        $args['categorie'] = $categorie;
+        //$args['commentaires'] = $commentaire;
 
         return $renderer->render($response, "view.html", $args);
     });
@@ -54,10 +66,13 @@ return function (App $app) {
     $app->get('/technology', function ($request, $response, $args) {
         $pdo = $this->get('db');
         $stmt = $pdo->query('SELECT * FROM article WHERE id_categorie = 5;');
-        $dataFromDatabase = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt2 = $pdo->query('SELECT nom_categorie FROM categorie WHERE id_categorie = 5;');
+        $article = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $categorie = $stmt2->fetchAll(PDO::FETCH_ASSOC);
 
         $renderer = new PhpRenderer('../templates');
-        $args['dataFromDatabase'] = $dataFromDatabase;
+        $args['article'] = $article;
+        $args['categorie'] = $categorie;
 
         return $renderer->render($response, "view.html", $args);
     });
@@ -65,10 +80,13 @@ return function (App $app) {
     $app->get('/design', function ($request, $response, $args) {
         $pdo = $this->get('db');
         $stmt = $pdo->query('SELECT * FROM article WHERE id_categorie = 6;');
-        $dataFromDatabase = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt2 = $pdo->query('SELECT nom_categorie FROM categorie WHERE id_categorie = 6;');
+        $article = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $categorie = $stmt2->fetchAll(PDO::FETCH_ASSOC);
 
         $renderer = new PhpRenderer('../templates');
-        $args['dataFromDatabase'] = $dataFromDatabase;
+        $args['article'] = $article;
+        $args['categorie'] = $categorie;
 
         return $renderer->render($response, "view.html", $args);
     });
@@ -76,10 +94,13 @@ return function (App $app) {
     $app->get('/culture', function ($request, $response, $args) {
         $pdo = $this->get('db');
         $stmt = $pdo->query('SELECT * FROM article WHERE id_categorie = 7;');
-        $dataFromDatabase = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt2 = $pdo->query('SELECT nom_categorie FROM categorie WHERE id_categorie = 7;');
+        $article = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $categorie = $stmt2->fetchAll(PDO::FETCH_ASSOC);
 
         $renderer = new PhpRenderer('../templates');
-        $args['dataFromDatabase'] = $dataFromDatabase;
+        $args['article'] = $article;
+        $args['categorie'] = $categorie;
 
         return $renderer->render($response, "view.html", $args);
     });
@@ -87,10 +108,13 @@ return function (App $app) {
     $app->get('/business', function ($request, $response, $args) {
         $pdo = $this->get('db');
         $stmt = $pdo->query('SELECT * FROM article WHERE id_categorie = 8;');
-        $dataFromDatabase = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt2 = $pdo->query('SELECT nom_categorie FROM categorie WHERE id_categorie = 8;');
+        $article = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $categorie = $stmt2->fetchAll(PDO::FETCH_ASSOC);
 
         $renderer = new PhpRenderer('../templates');
-        $args['dataFromDatabase'] = $dataFromDatabase;
+        $args['article'] = $article;
+        $args['categorie'] = $categorie;
 
         return $renderer->render($response, "view.html", $args);
     });
@@ -98,10 +122,13 @@ return function (App $app) {
     $app->get('/politics', function ($request, $response, $args) {
         $pdo = $this->get('db');
         $stmt = $pdo->query('SELECT * FROM article WHERE id_categorie = 9;');
-        $dataFromDatabase = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt2 = $pdo->query('SELECT nom_categorie FROM categorie WHERE id_categorie = 9;');
+        $article = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $categorie = $stmt2->fetchAll(PDO::FETCH_ASSOC);
 
         $renderer = new PhpRenderer('../templates');
-        $args['dataFromDatabase'] = $dataFromDatabase;
+        $args['article'] = $article;
+        $args['categorie'] = $categorie;
 
         return $renderer->render($response, "view.html", $args);
     });
@@ -109,10 +136,13 @@ return function (App $app) {
     $app->get('/science', function ($request, $response, $args) {
         $pdo = $this->get('db');
         $stmt = $pdo->query('SELECT * FROM article WHERE id_categorie = 10;');
-        $dataFromDatabase = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt2 = $pdo->query('SELECT nom_categorie FROM categorie WHERE id_categorie = 10;');
+        $article = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $categorie = $stmt2->fetchAll(PDO::FETCH_ASSOC);
 
         $renderer = new PhpRenderer('../templates');
-        $args['dataFromDatabase'] = $dataFromDatabase;
+        $args['article'] = $article;
+        $args['categorie'] = $categorie;
 
         return $renderer->render($response, "view.html", $args);
     });
@@ -120,10 +150,13 @@ return function (App $app) {
     $app->get('/health', function ($request, $response, $args) {
         $pdo = $this->get('db');
         $stmt = $pdo->query('SELECT * FROM article WHERE id_categorie = 11;');
-        $dataFromDatabase = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt2 = $pdo->query('SELECT nom_categorie FROM categorie WHERE id_categorie = 11;');
+        $article = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $categorie = $stmt2->fetchAll(PDO::FETCH_ASSOC);
 
         $renderer = new PhpRenderer('../templates');
-        $args['dataFromDatabase'] = $dataFromDatabase;
+        $args['article'] = $article;
+        $args['categorie'] = $categorie;
 
         return $renderer->render($response, "view.html", $args);
     });
@@ -131,10 +164,13 @@ return function (App $app) {
     $app->get('/style', function ($request, $response, $args) {
         $pdo = $this->get('db');
         $stmt = $pdo->query('SELECT * FROM article WHERE id_categorie = 12;');
-        $dataFromDatabase = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt2 = $pdo->query('SELECT nom_categorie FROM categorie WHERE id_categorie = 12;');
+        $article = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $categorie = $stmt2->fetchAll(PDO::FETCH_ASSOC);
 
         $renderer = new PhpRenderer('../templates');
-        $args['dataFromDatabase'] = $dataFromDatabase;
+        $args['article'] = $article;
+        $args['categorie'] = $categorie;
 
         return $renderer->render($response, "view.html", $args);
     });
@@ -142,10 +178,13 @@ return function (App $app) {
     $app->get('/travel', function ($request, $response, $args) {
         $pdo = $this->get('db');
         $stmt = $pdo->query('SELECT * FROM article WHERE id_categorie = 13;');
-        $dataFromDatabase = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt2 = $pdo->query('SELECT nom_categorie FROM categorie WHERE id_categorie = 13;');
+        $article = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $categorie = $stmt2->fetchAll(PDO::FETCH_ASSOC);
 
         $renderer = new PhpRenderer('../templates');
-        $args['dataFromDatabase'] = $dataFromDatabase;
+        $args['article'] = $article;
+        $args['categorie'] = $categorie;
 
         return $renderer->render($response, "view.html", $args);
     });

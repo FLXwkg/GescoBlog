@@ -39,8 +39,8 @@ try {
         $stmt->bindParam(':titre_article', $titre);
         $stmt->bindParam(':texte_article', $text);
         $stmt->bindParam(':date_article', $date);
-        $stmt->bindParam(':date_modification_article', $modifDate)
-        ;$stmt->bindParam(':auteur_article', $author);
+        $stmt->bindParam(':date_modification_article', $modifDate);
+        $stmt->bindParam(':auteur_article', $author);
         $stmt->bindParam(':id_categorie', $catId);
         $stmt->execute();
     }
