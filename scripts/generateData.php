@@ -13,17 +13,24 @@ try {
 }
 
 // Appel de Faker pour générer des données
-$faker = Faker\Factory::create();
+$faker = Faker\Factory::create('fr_FR');
 
 try {
     
 
     // Insertion d'articles fictifs
     for ($i = 0; $i < 1; $i++) {
+        /*$titre = $faker->name;
+        $text = $faker->paragraph($nbSentences = 3, $variableNbSentences = true);
+        $date = $faker->date($format = 'Y-m-d', $max = 'now');
+        $modifDate = $faker->date($format = 'Y-m-d', $max < $date);
+        $author = $faker->name($gender = 'male'|'female');
+        $catId = $faker->numberBetween($min = 4, $max = 13);*/
+
         $titre = $faker->name;
         $text = $faker->realText($maxNbChars = 200);
-        $date = $faker->dateTimeThisDecade($format = 'Y-m-d', $max = 'now');
-        $modifDate = $faker->datetime($format = 'Y-m-d', $max < $date);
+        $date = $faker->date($format = 'Y-m-d', $max = 'now');
+        $modifDate = $faker->date($format = 'Y-m-d', $max = $date);
         $author = $faker->name($gender = 'male'|'female');
         $catId = $faker->numberBetween($min = 4, $max = 13);
 
