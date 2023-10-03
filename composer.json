@@ -28,7 +28,8 @@
         "php-di/php-di": "^6.4",
         "slim/php-view": "^3.2",
         "slim/psr7": "^1.6",
-        "slim/slim": "4.*"
+        "slim/slim": "4.*",
+        "ext-pdo": "*"
     },
     "require-dev": {
         "fzaninotto/faker": "^1.5",
