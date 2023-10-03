@@ -32,7 +32,7 @@
             <main role="main" class="container">
                 <div class="row">
                     <h1 class="pb-3 mb-4 font-italic border-bottom ">
-                        <?php echo $categorie[0]['nom_categorie'] ?>
+                        <?= $categorie[0]['nom_categorie'] ?>
                         
                     </h1>
                     <div class="blog-post">
@@ -52,20 +52,25 @@
                             <p>Le framework que j'ai utilisé pour coder ce site</p>
                         <hr>
                     </div>
+                    
                     <?php foreach ($article as $article): ?>
                     <div class="blog-section">
                         <div class="blog-post">
-                            <h2 class="blog-post-title"><?php echo $article['titre_article']; ?></h2>
-                            <p class="blog-post-meta"><?php echo $article['date_modification_article']; ?> by <a href="#"><?php echo $article['auteur_article']; ?></a></p>
+                            <h2 class="blog-post-title"><?= $article['titre_article']; ?></h2>
+                            <p class="blog-post-meta"><?= $article['date_modification_article']; ?> by <a href="#"><?php echo $article['auteur_article']; ?></a></p>
 
-                            <p><?php echo $article['texte_article']; ?></p>
-                        </div>
-                        <?php foreach ($commentaire as $commentaire): ?>
-                        <div class="blog-commentaries">
-                            <h4><?php echo $commentaire['titre_article']; ?></h4>
+                            <p><?= $article['texte_article']; ?></p>
                         </div>
                         <hr>
-                        <?php endforeach; ?>
+                        <div class="blog-commentaries d-flex justify-content-evenly">
+                            <?php foreach ($commentaire as $commentaire): ?>
+                            <div class="blog-commentary border-bottom">
+                                <h5><?= $commentaire['auteur_commentaire']; ?></h5>
+                                <p class="blog-commentaries-meta">Published on <?= $commentaire['date_commentaire'];?></p>
+                                <p><?= $commentaire['texte_commentaire'];?></p>
+                            </div>
+                            <?php endforeach; ?>
+                        </div>
                     </div>
                     <?php endforeach; ?>
                     

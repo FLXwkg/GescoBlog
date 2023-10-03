@@ -31,7 +31,7 @@ return function (ContainerBuilder $containerBuilder) {
 
     $containerBuilder->addDefinitions([
         'db' => function (ContainerInterface $container) {
-            $host = 'dev.local';
+            $host = 'localhost';
             $dbname = 'homestead';
             $username = 'homestead';
             $password = 'secret';

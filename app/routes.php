@@ -50,18 +50,15 @@ return function (App $app) {
         $article = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $categorie = $stmt2->fetchAll(PDO::FETCH_ASSOC);
         
-        //var_dump($article);die();
-
-        $article_id = $article['id_article'];
-
-        $stmt3 = $pdo->query('SELECT * FROM commentaire INNER JOIN article ON commentaire.id_article = article.id_article WHERE article.id_article = "' . $article_id .'";');
+        $stmt3 = $pdo->query('SELECT * FROM commentaire INNER JOIN article ON commentaire.id_article = article.id_article WHERE article.id_article = "' . $article[0]['id_article'] .'";');
         $commentaire = $stmt3->fetchAll(PDO::FETCH_ASSOC);
-        
+
+        //var_dump($commentaire);die();
 
         $renderer = new PhpRenderer('../templates');
         $args['article'] = $article;
         $args['categorie'] = $categorie;
-        $args['commentaires'] = $commentaire;
+        $args['commentaire'] = $commentaire;
 
         return $renderer->render($response, "view.html", $args);
     });
