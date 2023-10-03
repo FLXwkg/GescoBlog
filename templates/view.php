@@ -59,18 +59,55 @@
                     <?php foreach ($article as $article): ?>
                     <div class="blog-section">
                         <div class="blog-post">
-                            <h2 class="blog-post-title"><?= $article['titre_article']; ?></h2>
-                            <p class="blog-post-meta"><?= $article['date_modification_article']; ?> by <a href="#"><?php echo $article['auteur_article']; ?></a></p>
-
-                            <p><?= $article['texte_article']; ?></p>
+                            <h2 class="blog-post-title">
+                                <?php
+                                    $titleArticle = $article ?? [];
+                                    echo $titleArticle['titre_article'] ?? 'Titre';
+                                ?>
+                            </h2>
+                            <p class="blog-post-meta">
+                                <?php
+                                    $dateArticle = $article ?? [];
+                                    echo $dateArticle['date_article'] ?? 'Date';
+                                ?>
+                                by 
+                                <a href="#">
+                                <?php
+                                    $authorArticle = $article ?? [];
+                                    echo $authorArticle['auteur_article'] ?? 'Auteur';
+                                ?>
+                                </a>
+                            </p>
+                            <p>
+                                <?php
+                                    $textArticle = $article ?? [];
+                                    echo $textArticle['texte_article'] ?? 'Texte';
+                                ?>
+                            </p>
                         </div>
                         <hr>
-                        <div class="blog-commentaries d-flex justify-content-evenly">
+                        <div class="blog-commentaries d-flex justify-content-evenly ">
                             <?php foreach ($commentaire as $commentaire): ?>
-                            <div class="blog-commentary border-bottom">
-                                <h5><?= $commentaire['auteur_commentaire']; ?></h5>
-                                <p class="blog-commentaries-meta">Published on <?= $commentaire['date_commentaire'];?></p>
-                                <p><?= $commentaire['texte_commentaire'];?></p>
+                            <div class="blog-commentary border-bottom bg-body-tertiary px-2 py-1">
+                                <h5>
+                                    <?php
+                                        $authorCommentary = $commentaire ?? [];
+                                        echo $authorCommentary['auteur_commentaire'] ?? 'Auteur';
+                                    ?>
+                                </h5>
+                                <p class="blog-commentaries-meta">
+                                    Published on 
+                                    <?php
+                                        $dateCommentary = $commentaire ?? [];
+                                        echo $dateCommentary['date_modification_commentaire'] ?? 'Date';
+                                    ?>
+                                </p>
+                                <p>
+                                <?php
+                                        $textCommentary = $commentaire ?? [];
+                                        echo $textCommentary['texte_commentaire'] ?? 'Texte';
+                                    ?>
+                                </p>
                             </div>
                             <?php endforeach; ?>
                         </div>
@@ -87,7 +124,12 @@
                 </div><!-- /.row -->
 
             </main>
-            <footer></footer>
+            <footer class="py-5 text-center text-body-secondary ">
+                <p>Blog built by <a href="#">FLX</a>.</p>
+                <p class="mb-0">
+                    <a href="#">Back to top</a>
+                </p>
+            </footer>
         </div>
     </body>
 </html>

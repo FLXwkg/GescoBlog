@@ -26,166 +26,236 @@ return function (App $app) {
         $group->get('/{id}', ViewUserAction::class);
     });
 
-///////////////////////
-//Routes des différentes catégories
+
+    //Routes des différentes catégories
 
     $app->get('/home', function ($request, $response, $args) {
         $pdo = $this->get('db');
-        $stmt = $pdo->query('SELECT * FROM article;');
-        $stmt2 = $pdo->query('SELECT nom_categorie FROM categorie WHERE id_categorie = 14;');
-        $article = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        $categorie = $stmt2->fetchAll(PDO::FETCH_ASSOC);
 
-        $renderer = new PhpRenderer('../templates');
+        $stmt = $pdo->query('SELECT * FROM article;');
+        $article = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $args['article'] = $article;
+
+        $stmt2 = $pdo->query('SELECT nom_categorie FROM categorie WHERE id_categorie = 14;');
+        $categorie = $stmt2->fetchAll(PDO::FETCH_ASSOC);
         $args['categorie'] = $categorie;
 
+        if($article){
+            $stmt3 = $pdo->query('SELECT * FROM commentaire INNER JOIN article ON commentaire.id_article = article.id_article WHERE article.id_article = "' . $article[0]['id_article'] .'";');
+            $commentaire = $stmt3->fetchAll(PDO::FETCH_ASSOC);
+            $args['commentaire'] = $commentaire;
+        }
+
+        $renderer = new PhpRenderer('../templates');
         return $renderer->render($response, "view.php", $args);
     });
 
     $app->get('/world', function ($request, $response, $args) {
         $pdo = $this->get('db');
+
         $stmt = $pdo->query('SELECT * FROM article WHERE id_categorie = 4;');
-        $stmt2 = $pdo->query('SELECT nom_categorie FROM categorie WHERE id_categorie = 4;');
         $article = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $args['article'] = $article;
+
+        $stmt2 = $pdo->query('SELECT nom_categorie FROM categorie WHERE id_categorie = 4;');
         $categorie = $stmt2->fetchAll(PDO::FETCH_ASSOC);
+        $args['categorie'] = $categorie;
 
-        $stmt3 = $pdo->query('SELECT * FROM commentaire INNER JOIN article ON commentaire.id_article = article.id_article WHERE article.id_article = "' . $article[0]['id_article'] .'";');
-        $commentaire = $stmt3->fetchAll(PDO::FETCH_ASSOC);
-
-        //var_dump($commentaire);die();
+        if($article){
+            $stmt3 = $pdo->query('SELECT * FROM commentaire INNER JOIN article ON commentaire.id_article = article.id_article WHERE article.id_article = "' . $article[0]['id_article'] .'";');
+            $commentaire = $stmt3->fetchAll(PDO::FETCH_ASSOC);
+            $args['commentaire'] = $commentaire;
+        }
 
         $renderer = new PhpRenderer('../templates');
-        $args['article'] = $article;
-        $args['categorie'] = $categorie;
-        $args['commentaire'] = $commentaire;
-
         return $renderer->render($response, "view.php", $args);
     });
 
     $app->get('/technology', function ($request, $response, $args) {
         $pdo = $this->get('db');
-        $stmt = $pdo->query('SELECT * FROM article WHERE id_categorie = 5;');
-        $stmt2 = $pdo->query('SELECT nom_categorie FROM categorie WHERE id_categorie = 5;');
-        $article = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        $categorie = $stmt2->fetchAll(PDO::FETCH_ASSOC);
 
-        $renderer = new PhpRenderer('../templates');
+        $stmt = $pdo->query('SELECT * FROM article WHERE id_categorie = 5;');
+        $article = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $args['article'] = $article;
+
+        $stmt2 = $pdo->query('SELECT nom_categorie FROM categorie WHERE id_categorie = 5;');
+        $categorie = $stmt2->fetchAll(PDO::FETCH_ASSOC);
         $args['categorie'] = $categorie;
 
+        if($article){
+            $stmt3 = $pdo->query('SELECT * FROM commentaire INNER JOIN article ON commentaire.id_article = article.id_article WHERE article.id_article = "' . $article[0]['id_article'] .'";');
+            $commentaire = $stmt3->fetchAll(PDO::FETCH_ASSOC);
+            $args['commentaire'] = $commentaire;
+        }
+
+        $renderer = new PhpRenderer('../templates');
         return $renderer->render($response, "view.php", $args);
     });
 
     $app->get('/design', function ($request, $response, $args) {
         $pdo = $this->get('db');
-        $stmt = $pdo->query('SELECT * FROM article WHERE id_categorie = 6;');
-        $stmt2 = $pdo->query('SELECT nom_categorie FROM categorie WHERE id_categorie = 6;');
-        $article = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        $categorie = $stmt2->fetchAll(PDO::FETCH_ASSOC);
 
-        $renderer = new PhpRenderer('../templates');
+        $stmt = $pdo->query('SELECT * FROM article WHERE id_categorie = 6;');
+        $article = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $args['article'] = $article;
+
+        $stmt2 = $pdo->query('SELECT nom_categorie FROM categorie WHERE id_categorie = 6;');
+        $categorie = $stmt2->fetchAll(PDO::FETCH_ASSOC);
         $args['categorie'] = $categorie;
 
+        if($article){
+            $stmt3 = $pdo->query('SELECT * FROM commentaire INNER JOIN article ON commentaire.id_article = article.id_article WHERE article.id_article = "' . $article[0]['id_article'] .'";');
+            $commentaire = $stmt3->fetchAll(PDO::FETCH_ASSOC);
+            $args['commentaire'] = $commentaire;
+        }
+
+        $renderer = new PhpRenderer('../templates');
         return $renderer->render($response, "view.php", $args);
     });
 
     $app->get('/culture', function ($request, $response, $args) {
         $pdo = $this->get('db');
-        $stmt = $pdo->query('SELECT * FROM article WHERE id_categorie = 7;');
-        $stmt2 = $pdo->query('SELECT nom_categorie FROM categorie WHERE id_categorie = 7;');
-        $article = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        $categorie = $stmt2->fetchAll(PDO::FETCH_ASSOC);
 
-        $renderer = new PhpRenderer('../templates');
+        $stmt = $pdo->query('SELECT * FROM article WHERE id_categorie = 7;');
+        $article = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $args['article'] = $article;
+
+        $stmt2 = $pdo->query('SELECT nom_categorie FROM categorie WHERE id_categorie = 7;');
+        $categorie = $stmt2->fetchAll(PDO::FETCH_ASSOC);
         $args['categorie'] = $categorie;
 
+        if($article){
+            $stmt3 = $pdo->query('SELECT * FROM commentaire INNER JOIN article ON commentaire.id_article = article.id_article WHERE article.id_article = "' . $article[0]['id_article'] .'";');
+            $commentaire = $stmt3->fetchAll(PDO::FETCH_ASSOC);
+            $args['commentaire'] = $commentaire;
+        }
+
+        $renderer = new PhpRenderer('../templates');
         return $renderer->render($response, "view.php", $args);
     });
 
     $app->get('/business', function ($request, $response, $args) {
         $pdo = $this->get('db');
-        $stmt = $pdo->query('SELECT * FROM article WHERE id_categorie = 8;');
-        $stmt2 = $pdo->query('SELECT nom_categorie FROM categorie WHERE id_categorie = 8;');
-        $article = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        $categorie = $stmt2->fetchAll(PDO::FETCH_ASSOC);
 
-        $renderer = new PhpRenderer('../templates');
+        $stmt = $pdo->query('SELECT * FROM article WHERE id_categorie = 8;');
+        $article = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $args['article'] = $article;
+
+        $stmt2 = $pdo->query('SELECT nom_categorie FROM categorie WHERE id_categorie = 8;');
+        $categorie = $stmt2->fetchAll(PDO::FETCH_ASSOC);
         $args['categorie'] = $categorie;
 
+        if($article){
+            $stmt3 = $pdo->query('SELECT * FROM commentaire INNER JOIN article ON commentaire.id_article = article.id_article WHERE article.id_article = "' . $article[0]['id_article'] .'";');
+            $commentaire = $stmt3->fetchAll(PDO::FETCH_ASSOC);
+            $args['commentaire'] = $commentaire;
+        }
+
+        $renderer = new PhpRenderer('../templates');
         return $renderer->render($response, "view.php", $args);
     });
 
     $app->get('/politics', function ($request, $response, $args) {
         $pdo = $this->get('db');
-        $stmt = $pdo->query('SELECT * FROM article WHERE id_categorie = 9;');
-        $stmt2 = $pdo->query('SELECT nom_categorie FROM categorie WHERE id_categorie = 9;');
-        $article = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        $categorie = $stmt2->fetchAll(PDO::FETCH_ASSOC);
 
-        $renderer = new PhpRenderer('../templates');
+        $stmt = $pdo->query('SELECT * FROM article WHERE id_categorie = 9;');
+        $article = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $args['article'] = $article;
+
+        $stmt2 = $pdo->query('SELECT nom_categorie FROM categorie WHERE id_categorie = 9;');
+        $categorie = $stmt2->fetchAll(PDO::FETCH_ASSOC);
         $args['categorie'] = $categorie;
 
+        if($article){
+            $stmt3 = $pdo->query('SELECT * FROM commentaire INNER JOIN article ON commentaire.id_article = article.id_article WHERE article.id_article = "' . $article[0]['id_article'] .'";');
+            $commentaire = $stmt3->fetchAll(PDO::FETCH_ASSOC);
+            $args['commentaire'] = $commentaire;
+        }
+
+        $renderer = new PhpRenderer('../templates');
         return $renderer->render($response, "view.php", $args);
     });
 
     $app->get('/science', function ($request, $response, $args) {
         $pdo = $this->get('db');
-        $stmt = $pdo->query('SELECT * FROM article WHERE id_categorie = 10;');
-        $stmt2 = $pdo->query('SELECT nom_categorie FROM categorie WHERE id_categorie = 10;');
-        $article = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        $categorie = $stmt2->fetchAll(PDO::FETCH_ASSOC);
 
-        $renderer = new PhpRenderer('../templates');
+        $stmt = $pdo->query('SELECT * FROM article WHERE id_categorie = 10;');
+        $article = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $args['article'] = $article;
+
+        $stmt2 = $pdo->query('SELECT nom_categorie FROM categorie WHERE id_categorie = 10;');
+        $categorie = $stmt2->fetchAll(PDO::FETCH_ASSOC);
         $args['categorie'] = $categorie;
 
+        if($article){
+            $stmt3 = $pdo->query('SELECT * FROM commentaire INNER JOIN article ON commentaire.id_article = article.id_article WHERE article.id_article = "' . $article[0]['id_article'] .'";');
+            $commentaire = $stmt3->fetchAll(PDO::FETCH_ASSOC);
+            $args['commentaire'] = $commentaire;
+        }
+
+        $renderer = new PhpRenderer('../templates');
         return $renderer->render($response, "view.php", $args);
     });
 
     $app->get('/health', function ($request, $response, $args) {
         $pdo = $this->get('db');
-        $stmt = $pdo->query('SELECT * FROM article WHERE id_categorie = 11;');
-        $stmt2 = $pdo->query('SELECT nom_categorie FROM categorie WHERE id_categorie = 11;');
-        $article = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        $categorie = $stmt2->fetchAll(PDO::FETCH_ASSOC);
 
-        $renderer = new PhpRenderer('../templates');
+        $stmt = $pdo->query('SELECT * FROM article WHERE id_categorie = 11;');
+        $article = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $args['article'] = $article;
+
+        $stmt2 = $pdo->query('SELECT nom_categorie FROM categorie WHERE id_categorie = 11;');
+        $categorie = $stmt2->fetchAll(PDO::FETCH_ASSOC);
         $args['categorie'] = $categorie;
 
+        if($article){
+            $stmt3 = $pdo->query('SELECT * FROM commentaire INNER JOIN article ON commentaire.id_article = article.id_article WHERE article.id_article = "' . $article[0]['id_article'] .'";');
+            $commentaire = $stmt3->fetchAll(PDO::FETCH_ASSOC);
+            $args['commentaire'] = $commentaire;
+        }
+
+        $renderer = new PhpRenderer('../templates');
         return $renderer->render($response, "view.php", $args);
     });
 
     $app->get('/style', function ($request, $response, $args) {
         $pdo = $this->get('db');
-        $stmt = $pdo->query('SELECT * FROM article WHERE id_categorie = 12;');
-        $stmt2 = $pdo->query('SELECT nom_categorie FROM categorie WHERE id_categorie = 12;');
-        $article = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        $categorie = $stmt2->fetchAll(PDO::FETCH_ASSOC);
 
-        $renderer = new PhpRenderer('../templates');
+        $stmt = $pdo->query('SELECT * FROM article WHERE id_categorie = 12;');
+        $article = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $args['article'] = $article;
+
+        $stmt2 = $pdo->query('SELECT nom_categorie FROM categorie WHERE id_categorie = 12;');
+        $categorie = $stmt2->fetchAll(PDO::FETCH_ASSOC);
         $args['categorie'] = $categorie;
 
+        if($article){
+            $stmt3 = $pdo->query('SELECT * FROM commentaire INNER JOIN article ON commentaire.id_article = article.id_article WHERE article.id_article = "' . $article[0]['id_article'] .'";');
+            $commentaire = $stmt3->fetchAll(PDO::FETCH_ASSOC);
+            $args['commentaire'] = $commentaire;
+        }
+
+        $renderer = new PhpRenderer('../templates');
         return $renderer->render($response, "view.php", $args);
     });
 
     $app->get('/travel', function ($request, $response, $args) {
         $pdo = $this->get('db');
         $stmt = $pdo->query('SELECT * FROM article WHERE id_categorie = 13;');
-        $stmt2 = $pdo->query('SELECT nom_categorie FROM categorie WHERE id_categorie = 13;');
         $article = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        $categorie = $stmt2->fetchAll(PDO::FETCH_ASSOC);
-
-        $renderer = new PhpRenderer('../templates');
         $args['article'] = $article;
+
+        $stmt2 = $pdo->query('SELECT nom_categorie FROM categorie WHERE id_categorie = 13;');
+        $categorie = $stmt2->fetchAll(PDO::FETCH_ASSOC);
         $args['categorie'] = $categorie;
 
+        if($article){
+            $stmt3 = $pdo->query('SELECT * FROM commentaire INNER JOIN article ON commentaire.id_article = article.id_article WHERE article.id_article = "' . $article[0]['id_article'] .'";');
+            $commentaire = $stmt3->fetchAll(PDO::FETCH_ASSOC);
+            $args['commentaire'] = $commentaire;
+        }
+
+        $renderer = new PhpRenderer('../templates');
         return $renderer->render($response, "view.php", $args);
     });
 };
