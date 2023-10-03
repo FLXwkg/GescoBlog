@@ -16,39 +16,29 @@ try {
 $faker = Faker\Factory::create('fr_FR');
 
 try {
-
-
-    // Insertion d'articles fictifs
-    for ($i = 0; $i < 10; $i++) {
-        /*$titre = $faker->name;
-        $text = $faker->paragraph($nbSentences = 3, $variableNbSentences = true);
-        $date = $faker->date($format = 'Y-m-d', $max = 'now');
-        $modifDate = $faker->date($format = 'Y-m-d', $max < $date);
-        $author = $faker->name($gender = 'male'|'female');
-        $catId = $faker->numberBetween($min = 4, $max = 13);*/
-
-        $titre = $faker->realTextBetween(25, 45);
-        $text = $faker->realText($maxNbChars = 200);
-        $date = $faker->date($format = 'Y-m-d', $max = 'now');
-        $modifDate = $faker->date($format = 'Y-m-d', $max = $date);
-        $author = $faker->name($gender = 'male' | 'female');
-        $catId = $faker->numberBetween($min = 4, $max = 13);
-
-        $sql = "INSERT INTO article 
+    // preparation de la requete
+    $stmt = $pdo->prepare("INSERT INTO article 
                     (titre_article, texte_article, date_article, date_modification_article, auteur_article, id_categorie) 
                 VALUES 
-                    (:titre_article, :texte_article, :date_article, :date_modification_article, :auteur_article, :id_categorie);";
-        $stmt = $pdo->prepare($sql);
-        $stmt->bindParam(':titre_article', $titre);
-        $stmt->bindParam(':texte_article', $text);
-        $stmt->bindParam(':date_article', $date);
-        $stmt->bindParam(':date_modification_article', $modifDate);
-        $stmt->bindParam(':auteur_article', $author);
-        $stmt->bindParam(':id_categorie', $catId);
-        $stmt->execute();
+                    (:titre_article, :texte_article, :date_article, :date_modification_article, :auteur_article, :id_categorie);");
+
+
+    // boucle pour generation d'articles aleatoires
+    for ($i = 0; $i < 10; $i++) {
+
+        $date = $faker->date($format = 'Y-m-d', $max = 'now');
+
+        $stmt->execute([
+            ':titre_article' => $faker->realTextBetween(25, 45),
+            ':texte_article' => $faker->realText($maxNbChars = 200),
+            ':date_article' => $date,
+            ':date_modification_article' => $faker->date($format = 'Y-m-d', $max = $date),
+            ':auteur_article' => $faker->name($gender = 'male' | 'female'),
+            ':id_categorie' => $faker->numberBetween($min = 4, $max = 13),
+        ]);
     }
 
-    echo "Données Faker insérées avec succès dans la base de données.";
+    echo "Données Faker insérées avec succès dans la base de données." . PHP_EOL;
 } catch (PDOException $e) {
     die("Erreur : " . $e->getMessage());
 }
