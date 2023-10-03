@@ -59,10 +59,8 @@
                             <p class="blog-post-meta"><?php echo $article['date_modification_article']; ?> by <a href="#"><?php echo $article['auteur_article']; ?></a></p>
 
                             <p><?php echo $article['texte_article']; ?></p>
-
-                            <!-- Si vous avez d'autres données spécifiques à afficher, ajoutez-les ici. -->
                         </div>
-                        <?php foreach ($commentaries as $commentaries): ?>
+                        <?php foreach ($commentaire as $commentaire): ?>
                         <div class="blog-commentaries">
                             <h4><?php echo $commentaire['titre_article']; ?></h4>
                         </div>

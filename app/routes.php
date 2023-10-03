@@ -49,16 +49,19 @@ return function (App $app) {
         $stmt2 = $pdo->query('SELECT nom_categorie FROM categorie WHERE id_categorie = 4;');
         $article = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $categorie = $stmt2->fetchAll(PDO::FETCH_ASSOC);
-    
-        /*$stmt3 = $pdo->query("SELECT * FROM commentaire INNER JOIN article ON commentaire.id_article = article.id_article WHERE article.id_article = '$article['id_article']';");
-        $commentaire = $stmt3->fetchAll(PDO::FETCH_ASSOC);*/
         
+        //var_dump($article);die();
+
+        $article_id = $article['id_article'];
+
+        $stmt3 = $pdo->query('SELECT * FROM commentaire INNER JOIN article ON commentaire.id_article = article.id_article WHERE article.id_article = "' . $article_id .'";');
+        $commentaire = $stmt3->fetchAll(PDO::FETCH_ASSOC);
         
 
         $renderer = new PhpRenderer('../templates');
         $args['article'] = $article;
         $args['categorie'] = $categorie;
-        //$args['commentaires'] = $commentaire;
+        $args['commentaires'] = $commentaire;
 
         return $renderer->render($response, "view.html", $args);
     });
