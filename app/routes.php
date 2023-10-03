@@ -40,7 +40,7 @@ return function (App $app) {
         $args['article'] = $article;
         $args['categorie'] = $categorie;
 
-        return $renderer->render($response, "view.html", $args);
+        return $renderer->render($response, "view.php", $args);
     });
 
     $app->get('/world', function ($request, $response, $args) {
@@ -49,7 +49,7 @@ return function (App $app) {
         $stmt2 = $pdo->query('SELECT nom_categorie FROM categorie WHERE id_categorie = 4;');
         $article = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $categorie = $stmt2->fetchAll(PDO::FETCH_ASSOC);
-        
+
         $stmt3 = $pdo->query('SELECT * FROM commentaire INNER JOIN article ON commentaire.id_article = article.id_article WHERE article.id_article = "' . $article[0]['id_article'] .'";');
         $commentaire = $stmt3->fetchAll(PDO::FETCH_ASSOC);
 
@@ -60,7 +60,7 @@ return function (App $app) {
         $args['categorie'] = $categorie;
         $args['commentaire'] = $commentaire;
 
-        return $renderer->render($response, "view.html", $args);
+        return $renderer->render($response, "view.php", $args);
     });
 
     $app->get('/technology', function ($request, $response, $args) {
@@ -74,7 +74,7 @@ return function (App $app) {
         $args['article'] = $article;
         $args['categorie'] = $categorie;
 
-        return $renderer->render($response, "view.html", $args);
+        return $renderer->render($response, "view.php", $args);
     });
 
     $app->get('/design', function ($request, $response, $args) {
@@ -88,7 +88,7 @@ return function (App $app) {
         $args['article'] = $article;
         $args['categorie'] = $categorie;
 
-        return $renderer->render($response, "view.html", $args);
+        return $renderer->render($response, "view.php", $args);
     });
 
     $app->get('/culture', function ($request, $response, $args) {
@@ -102,7 +102,7 @@ return function (App $app) {
         $args['article'] = $article;
         $args['categorie'] = $categorie;
 
-        return $renderer->render($response, "view.html", $args);
+        return $renderer->render($response, "view.php", $args);
     });
 
     $app->get('/business', function ($request, $response, $args) {
@@ -116,7 +116,7 @@ return function (App $app) {
         $args['article'] = $article;
         $args['categorie'] = $categorie;
 
-        return $renderer->render($response, "view.html", $args);
+        return $renderer->render($response, "view.php", $args);
     });
 
     $app->get('/politics', function ($request, $response, $args) {
@@ -130,7 +130,7 @@ return function (App $app) {
         $args['article'] = $article;
         $args['categorie'] = $categorie;
 
-        return $renderer->render($response, "view.html", $args);
+        return $renderer->render($response, "view.php", $args);
     });
 
     $app->get('/science', function ($request, $response, $args) {
@@ -144,7 +144,7 @@ return function (App $app) {
         $args['article'] = $article;
         $args['categorie'] = $categorie;
 
-        return $renderer->render($response, "view.html", $args);
+        return $renderer->render($response, "view.php", $args);
     });
 
     $app->get('/health', function ($request, $response, $args) {
@@ -158,7 +158,7 @@ return function (App $app) {
         $args['article'] = $article;
         $args['categorie'] = $categorie;
 
-        return $renderer->render($response, "view.html", $args);
+        return $renderer->render($response, "view.php", $args);
     });
 
     $app->get('/style', function ($request, $response, $args) {
@@ -172,7 +172,7 @@ return function (App $app) {
         $args['article'] = $article;
         $args['categorie'] = $categorie;
 
-        return $renderer->render($response, "view.html", $args);
+        return $renderer->render($response, "view.php", $args);
     });
 
     $app->get('/travel', function ($request, $response, $args) {
@@ -186,6 +186,6 @@ return function (App $app) {
         $args['article'] = $article;
         $args['categorie'] = $categorie;
 
-        return $renderer->render($response, "view.html", $args);
+        return $renderer->render($response, "view.php", $args);
     });
 };

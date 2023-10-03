@@ -32,15 +32,18 @@
             <main role="main" class="container">
                 <div class="row">
                     <h1 class="pb-3 mb-4 font-italic border-bottom ">
-                        <?= $categorie[0]['nom_categorie'] ?>
-                        
+                        <?php
+                        $firstCategory = $categorie[0] ?? [];
+                        echo $firstCategory['nom_categorie'] ?? 'non defini';
+                        ?>
+
                     </h1>
                     <div class="blog-post">
                         <h2 class="blog-post-title">Laravel-Homestead</h2>
                             <p class="blog-post-meta">September 19, 2023 by <a href="#">FLX</a></p>
-                
+
                             <p>Ce post à pour but d'expliquer en quoi consiste <strong>Laravel-Homestead</strong></p>
-                            
+
                             <p>Il utilise <a href="#">Vagrant</a> qui configure <a href="#">Virtualbox</a> afin de créer une machine virtuelle qui nous servira d'<strong>environnement de travail</strong>.</p>
                             <blockquote>
                         <h2>Configuration de Homestead</h2>
@@ -52,7 +55,7 @@
                             <p>Le framework que j'ai utilisé pour coder ce site</p>
                         <hr>
                     </div>
-                    
+
                     <?php foreach ($article as $article): ?>
                     <div class="blog-section">
                         <div class="blog-post">
@@ -73,16 +76,16 @@
                         </div>
                     </div>
                     <?php endforeach; ?>
-                    
-        
+
+
                     <nav class="blog-pagination">
                     <a class="btn btn-outline-primary" href="#">Top</a>
                     <a class="btn btn-outline-secondary disabled" href="#">Bottom</a>
                     </nav>
 
-        
+
                 </div><!-- /.row -->
-        
+
             </main>
             <footer></footer>
         </div>
