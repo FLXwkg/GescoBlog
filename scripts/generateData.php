@@ -1,7 +1,7 @@
 <?php
 require __DIR__ . '/../vendor/autoload.php';
 
-$host = 'dev.local';
+$host = 'localhost';
 $dbname = 'homestead';
 $username = 'homestead';
 $password = 'secret';
@@ -16,10 +16,10 @@ try {
 $faker = Faker\Factory::create('fr_FR');
 
 try {
-    
+
 
     // Insertion d'articles fictifs
-    for ($i = 0; $i < 1; $i++) {
+    for ($i = 0; $i < 10; $i++) {
         /*$titre = $faker->name;
         $text = $faker->paragraph($nbSentences = 3, $variableNbSentences = true);
         $date = $faker->date($format = 'Y-m-d', $max = 'now');
