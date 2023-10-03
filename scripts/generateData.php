@@ -31,10 +31,13 @@ try {
         $text = $faker->realText($maxNbChars = 200);
         $date = $faker->date($format = 'Y-m-d', $max = 'now');
         $modifDate = $faker->date($format = 'Y-m-d', $max = $date);
-        $author = $faker->name($gender = 'male'|'female');
+        $author = $faker->name($gender = 'male' | 'female');
         $catId = $faker->numberBetween($min = 4, $max = 13);
 
-        $sql = "INSERT INTO article (titre_article, texte_article, date_article, date_modification_article, auteur_article, id_categorie) VALUES (:titre_article, :texte_article, :date_article, :date_modification_article, :auteur_article, :id_categorie);";
+        $sql = "INSERT INTO article 
+                    (titre_article, texte_article, date_article, date_modification_article, auteur_article, id_categorie) 
+                VALUES 
+                    (:titre_article, :texte_article, :date_article, :date_modification_article, :auteur_article, :id_categorie);";
         $stmt = $pdo->prepare($sql);
         $stmt->bindParam(':titre_article', $titre);
         $stmt->bindParam(':texte_article', $text);

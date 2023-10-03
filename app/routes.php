@@ -40,8 +40,8 @@ return function (App $app) {
         $categorie = $stmt2->fetchAll(PDO::FETCH_ASSOC);
         $args['categorie'] = $categorie;
 
-        if($article){
-            $stmt3 = $pdo->query('SELECT * FROM commentaire INNER JOIN article ON commentaire.id_article = article.id_article WHERE article.id_article = "' . $article[0]['id_article'] .'";');
+        if ($article) {
+            $stmt3 = $pdo->query('SELECT * FROM commentaire INNER JOIN article ON commentaire.id_article = article.id_article WHERE article.id_article = "' . $article[0]['id_article'] . '";');
             $commentaire = $stmt3->fetchAll(PDO::FETCH_ASSOC);
             $args['commentaire'] = $commentaire;
         }
@@ -61,8 +61,8 @@ return function (App $app) {
         $categorie = $stmt2->fetchAll(PDO::FETCH_ASSOC);
         $args['categorie'] = $categorie;
 
-        if($article){
-            $stmt3 = $pdo->query('SELECT * FROM commentaire INNER JOIN article ON commentaire.id_article = article.id_article WHERE article.id_article = "' . $article[0]['id_article'] .'";');
+        if ($article) {
+            $stmt3 = $pdo->query('SELECT * FROM commentaire INNER JOIN article ON commentaire.id_article = article.id_article WHERE article.id_article = "' . $article[0]['id_article'] . '";');
             $commentaire = $stmt3->fetchAll(PDO::FETCH_ASSOC);
             $args['commentaire'] = $commentaire;
         }
@@ -82,8 +82,8 @@ return function (App $app) {
         $categorie = $stmt2->fetchAll(PDO::FETCH_ASSOC);
         $args['categorie'] = $categorie;
 
-        if($article){
-            $stmt3 = $pdo->query('SELECT * FROM commentaire INNER JOIN article ON commentaire.id_article = article.id_article WHERE article.id_article = "' . $article[0]['id_article'] .'";');
+        if ($article) {
+            $stmt3 = $pdo->query('SELECT * FROM commentaire INNER JOIN article ON commentaire.id_article = article.id_article WHERE article.id_article = "' . $article[0]['id_article'] . '";');
             $commentaire = $stmt3->fetchAll(PDO::FETCH_ASSOC);
             $args['commentaire'] = $commentaire;
         }
@@ -103,8 +103,8 @@ return function (App $app) {
         $categorie = $stmt2->fetchAll(PDO::FETCH_ASSOC);
         $args['categorie'] = $categorie;
 
-        if($article){
-            $stmt3 = $pdo->query('SELECT * FROM commentaire INNER JOIN article ON commentaire.id_article = article.id_article WHERE article.id_article = "' . $article[0]['id_article'] .'";');
+        if ($article) {
+            $stmt3 = $pdo->query('SELECT * FROM commentaire INNER JOIN article ON commentaire.id_article = article.id_article WHERE article.id_article = "' . $article[0]['id_article'] . '";');
             $commentaire = $stmt3->fetchAll(PDO::FETCH_ASSOC);
             $args['commentaire'] = $commentaire;
         }
@@ -124,8 +124,8 @@ return function (App $app) {
         $categorie = $stmt2->fetchAll(PDO::FETCH_ASSOC);
         $args['categorie'] = $categorie;
 
-        if($article){
-            $stmt3 = $pdo->query('SELECT * FROM commentaire INNER JOIN article ON commentaire.id_article = article.id_article WHERE article.id_article = "' . $article[0]['id_article'] .'";');
+        if ($article) {
+            $stmt3 = $pdo->query('SELECT * FROM commentaire INNER JOIN article ON commentaire.id_article = article.id_article WHERE article.id_article = "' . $article[0]['id_article'] . '";');
             $commentaire = $stmt3->fetchAll(PDO::FETCH_ASSOC);
             $args['commentaire'] = $commentaire;
         }
@@ -145,8 +145,8 @@ return function (App $app) {
         $categorie = $stmt2->fetchAll(PDO::FETCH_ASSOC);
         $args['categorie'] = $categorie;
 
-        if($article){
-            $stmt3 = $pdo->query('SELECT * FROM commentaire INNER JOIN article ON commentaire.id_article = article.id_article WHERE article.id_article = "' . $article[0]['id_article'] .'";');
+        if ($article) {
+            $stmt3 = $pdo->query('SELECT * FROM commentaire INNER JOIN article ON commentaire.id_article = article.id_article WHERE article.id_article = "' . $article[0]['id_article'] . '";');
             $commentaire = $stmt3->fetchAll(PDO::FETCH_ASSOC);
             $args['commentaire'] = $commentaire;
         }
@@ -166,8 +166,8 @@ return function (App $app) {
         $categorie = $stmt2->fetchAll(PDO::FETCH_ASSOC);
         $args['categorie'] = $categorie;
 
-        if($article){
-            $stmt3 = $pdo->query('SELECT * FROM commentaire INNER JOIN article ON commentaire.id_article = article.id_article WHERE article.id_article = "' . $article[0]['id_article'] .'";');
+        if ($article) {
+            $stmt3 = $pdo->query('SELECT * FROM commentaire INNER JOIN article ON commentaire.id_article = article.id_article WHERE article.id_article = "' . $article[0]['id_article'] . '";');
             $commentaire = $stmt3->fetchAll(PDO::FETCH_ASSOC);
             $args['commentaire'] = $commentaire;
         }
@@ -187,8 +187,8 @@ return function (App $app) {
         $categorie = $stmt2->fetchAll(PDO::FETCH_ASSOC);
         $args['categorie'] = $categorie;
 
-        if($article){
-            $stmt3 = $pdo->query('SELECT * FROM commentaire INNER JOIN article ON commentaire.id_article = article.id_article WHERE article.id_article = "' . $article[0]['id_article'] .'";');
+        if ($article) {
+            $stmt3 = $pdo->query('SELECT * FROM commentaire INNER JOIN article ON commentaire.id_article = article.id_article WHERE article.id_article = "' . $article[0]['id_article'] . '";');
             $commentaire = $stmt3->fetchAll(PDO::FETCH_ASSOC);
             $args['commentaire'] = $commentaire;
         }
@@ -208,8 +208,8 @@ return function (App $app) {
         $categorie = $stmt2->fetchAll(PDO::FETCH_ASSOC);
         $args['categorie'] = $categorie;
 
-        if($article){
-            $stmt3 = $pdo->query('SELECT * FROM commentaire INNER JOIN article ON commentaire.id_article = article.id_article WHERE article.id_article = "' . $article[0]['id_article'] .'";');
+        if ($article) {
+            $stmt3 = $pdo->query('SELECT * FROM commentaire INNER JOIN article ON commentaire.id_article = article.id_article WHERE article.id_article = "' . $article[0]['id_article'] . '";');
             $commentaire = $stmt3->fetchAll(PDO::FETCH_ASSOC);
             $args['commentaire'] = $commentaire;
         }
@@ -229,8 +229,8 @@ return function (App $app) {
         $categorie = $stmt2->fetchAll(PDO::FETCH_ASSOC);
         $args['categorie'] = $categorie;
 
-        if($article){
-            $stmt3 = $pdo->query('SELECT * FROM commentaire INNER JOIN article ON commentaire.id_article = article.id_article WHERE article.id_article = "' . $article[0]['id_article'] .'";');
+        if ($article) {
+            $stmt3 = $pdo->query('SELECT * FROM commentaire INNER JOIN article ON commentaire.id_article = article.id_article WHERE article.id_article = "' . $article[0]['id_article'] . '";');
             $commentaire = $stmt3->fetchAll(PDO::FETCH_ASSOC);
             $args['commentaire'] = $commentaire;
         }
@@ -249,8 +249,8 @@ return function (App $app) {
         $categorie = $stmt2->fetchAll(PDO::FETCH_ASSOC);
         $args['categorie'] = $categorie;
 
-        if($article){
-            $stmt3 = $pdo->query('SELECT * FROM commentaire INNER JOIN article ON commentaire.id_article = article.id_article WHERE article.id_article = "' . $article[0]['id_article'] .'";');
+        if ($article) {
+            $stmt3 = $pdo->query('SELECT * FROM commentaire INNER JOIN article ON commentaire.id_article = article.id_article WHERE article.id_article = "' . $article[0]['id_article'] . '";');
             $commentaire = $stmt3->fetchAll(PDO::FETCH_ASSOC);
             $args['commentaire'] = $commentaire;
         }
