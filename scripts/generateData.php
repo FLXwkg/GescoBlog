@@ -27,7 +27,7 @@ try {
         $author = $faker->name($gender = 'male'|'female');
         $catId = $faker->numberBetween($min = 4, $max = 13);*/
 
-        $titre = $faker->name;
+        $titre = $faker->realTextBetween(25, 45);
         $text = $faker->realText($maxNbChars = 200);
         $date = $faker->date($format = 'Y-m-d', $max = 'now');
         $modifDate = $faker->date($format = 'Y-m-d', $max = $date);
