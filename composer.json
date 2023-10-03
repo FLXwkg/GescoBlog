@@ -32,6 +32,7 @@
         "ext-pdo": "*"
     },
     "require-dev": {
+        "fakerphp/faker": "^1.23",
         "jangregor/phpstan-prophecy": "^1.0.0",
         "phpspec/prophecy-phpunit": "^2.0",
         "phpstan/extension-installer": "^1.2.0",
