@@ -35,7 +35,7 @@
         <div class="row">
             <h1 class="pb-3 mb-4 font-italic border-bottom ">
                 <?php
-                $firstCategory = $categorie[0] ?? [];
+                $firstCategory = $categories[0] ?? [];
                 echo $firstCategory['nom_categorie'] ?? 'non defini';
                 ?>
 
@@ -61,7 +61,7 @@
                     <hr>
             </div>
 
-            <?php foreach ($article as $article): ?>
+            <?php foreach ($articles as $article): ?>
                 <div class="blog-section">
                     <div class="blog-post">
                         <h2 class="blog-post-title">
@@ -92,28 +92,30 @@
                     </div>
                     <hr>
                     <div class="blog-commentaries d-flex justify-content-evenly ">
-                        <?php foreach ($commentaire as $commentaire): ?>
-                            <div class="blog-commentary border-bottom bg-body-tertiary px-2 py-1">
-                                <h5>
-                                    <?php
-                                    $authorCommentary = $commentaire ?? [];
-                                    echo $authorCommentary['auteur_commentaire'] ?? 'Auteur';
-                                    ?>
-                                </h5>
-                                <p class="blog-commentaries-meta">
-                                    Published on
-                                    <?php
-                                    $dateCommentary = $commentaire ?? [];
-                                    echo $dateCommentary['date_modification_commentaire'] ?? 'Date';
-                                    ?>
-                                </p>
-                                <p>
-                                    <?php
-                                    $textCommentary = $commentaire ?? [];
-                                    echo $textCommentary['texte_commentaire'] ?? 'Texte';
-                                    ?>
-                                </p>
-                            </div>
+                        <?php foreach ($commentaires as $commentaire): ?>
+                            <?php if ($commentaire['id_article'] == $article['id_article']): ?>
+                                <div class="blog-commentary border-bottom bg-body-tertiary px-2 py-1">
+                                    <h5>
+                                        <?php
+                                        $authorCommentary = $commentaire ?? [];
+                                        echo $authorCommentary['auteur_commentaire'] ?? 'Auteur';
+                                        ?>
+                                    </h5>
+                                    <p class="blog-commentaries-meta">
+                                        Published on
+                                        <?php
+                                        $dateCommentary = $commentaire ?? [];
+                                        echo $dateCommentary['date_modification_commentaire'] ?? 'Date';
+                                        ?>
+                                    </p>
+                                    <p>
+                                        <?php
+                                        $textCommentary = $commentaire ?? [];
+                                        echo $textCommentary['texte_commentaire'] ?? 'Texte';
+                                        ?>
+                                    </p>
+                                </div>
+                            <?php endif?>
                         <?php endforeach; ?>
                     </div>
                 </div>
