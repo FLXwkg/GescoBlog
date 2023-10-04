@@ -1,4 +1,5 @@
 <?php
+
 class PDOConfiguration
 {
     protected $configuration = [];
@@ -22,7 +23,7 @@ class PDOConfiguration
 
         return $this;
     }
-    
+
     public function getConfiguration(): array
     {
         return $this->configuration;

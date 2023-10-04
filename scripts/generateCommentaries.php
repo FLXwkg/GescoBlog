@@ -17,7 +17,6 @@ try {
                     VALUES (:auteur_commentaire, :texte_commentaire, :date_commentaire, :date_modification_commentaire, :id_article);");
     // boucle pour generation d'articles aleatoires
     for ($i = 0; $i < 10; $i++) {
-
         $date = $faker->date($format = 'Y-m-d', $max = 'now');
 
         $stmt->execute([
