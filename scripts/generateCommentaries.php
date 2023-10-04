@@ -1,41 +1,35 @@
 <?php
 require __DIR__ . '/../vendor/autoload.php';
-
-$host = 'dev.local';
-$dbname = 'homestead';
-$username = 'homestead';
-$password = 'secret';
-try {
-    $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $password);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch (PDOException $e) {
-    die("Erreur de connexion : " . $e->getMessage());
-}
-
-// Appel de Faker pour générer des données
-$faker = Faker\Factory::create('fr_FR');
+require __DIR__ . '/../src/PDOConfiguration.php';
+require __DIR__ . '/../resources/config/application.config.php';
 
 try {
-    // Insertion de commentaires fictifs
-    for ($i = 0; $i < 5; $i++) {
+    $config = new PDOConfiguration(require __DIR__ . '/../resources/config/application.config.php');
+    $pdo = $config->getPDO();
 
-        $author = $faker->name;
-        $text = $faker->realText($maxNbChars = 50);
+    // Appel de Faker pour générer des données
+    $faker = Faker\Factory::create('fr_FR');
+
+
+    // preparation de la requete
+    $stmt = $pdo->prepare("INSERT INTO 
+                    commentaire (auteur_commentaire, texte_commentaire, date_commentaire, date_modification_commentaire, id_article) 
+                    VALUES (:auteur_commentaire, :texte_commentaire, :date_commentaire, :date_modification_commentaire, :id_article);");
+    // boucle pour generation d'articles aleatoires
+    for ($i = 0; $i < 10; $i++) {
+
         $date = $faker->date($format = 'Y-m-d', $max = 'now');
-        $modifDate = $faker->date($format = 'Y-m-d', $min = $date);
-        $ArtId = $faker->numberBetween($min = 1, $max = 13);
 
-        $sql = "INSERT INTO commentaire (auteur_commentaire, texte_commentaire, date_commentaire, date_modification_commentaire, id_article) VALUES (:auteur_commentaire, :texte_commentaire, :date_commentaire, :date_modification_commentaire, :id_article);";
-        $stmt = $pdo->prepare($sql);
-        $stmt->bindParam(':auteur_commentaire', $author);
-        $stmt->bindParam(':texte_commentaire', $text);
-        $stmt->bindParam(':date_commentaire', $date);
-        $stmt->bindParam(':date_modification_commentaire', $modifDate);
-        $stmt->bindParam(':id_article', $ArtId);
-        $stmt->execute();
+        $stmt->execute([
+            ':auteur_commentaire' => $faker->realTextBetween(25, 45),
+            ':texte_commentaire' => $faker->realText($maxNbChars = 200),
+            ':date_commentaire' => $date,
+            ':date_modification_commentaire' => $faker->date($format = 'Y-m-d', $max = $date),
+            ':id_article' => $faker->numberBetween($min = 3, $max = 23),
+        ]);
     }
 
-    echo "Données Faker insérées avec succès dans la base de données.";
+    echo "Données Faker insérées avec succès dans la base de données." . PHP_EOL;
 } catch (PDOException $e) {
     die("Erreur : " . $e->getMessage());
 }

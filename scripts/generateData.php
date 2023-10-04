@@ -1,21 +1,16 @@
 <?php
 require __DIR__ . '/../vendor/autoload.php';
-
-$host = 'localhost';
-$dbname = 'homestead';
-$username = 'homestead';
-$password = 'secret';
-try {
-    $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $password);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch (PDOException $e) {
-    die("Erreur de connexion : " . $e->getMessage());
-}
-
-// Appel de Faker pour générer des données
-$faker = Faker\Factory::create('fr_FR');
+require __DIR__ . '/../src/PDOConfiguration.php';
+require __DIR__ . '/../resources/config/application.config.php';
 
 try {
+    $config = new PDOConfiguration(require __DIR__ . '/../resources/config/application.config.php');
+    $pdo = $config->getPDO();
+
+    // Appel de Faker pour générer des données
+    $faker = Faker\Factory::create('fr_FR');
+
+
     // preparation de la requete
     $stmt = $pdo->prepare("INSERT INTO article 
                     (titre_article, texte_article, date_article, date_modification_article, auteur_article, id_categorie) 
