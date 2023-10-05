@@ -16,14 +16,9 @@ class PDOConfiguration
     public function setConfiguration(array $configuration): PDOConfiguration
     {
         $this->configuration = $configuration;
-
-        try {
-            $this->pdo = new PDO('mysql:host=' . $configuration['host'] .';dbname='. $configuration['name'] .';charset=utf8', $configuration['login'], $configuration['password']);
-            $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        } catch (PDOException $e) {
-            die("Erreur de connexion : " . $e->getMessage());
-        }
-
+        $this->pdo = new PDO('mysql:host=' . $configuration['host'] .';dbname='. $configuration['name'] .';charset=utf8', $configuration['login'], $configuration['password']);
+        $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        
         return $this;
     }
 
@@ -36,5 +31,4 @@ class PDOConfiguration
     {
         return $this->pdo;
     }
-};
-?>
+}
