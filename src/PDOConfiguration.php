@@ -1,7 +1,7 @@
 <?php
 namespace App;
 
-class PDOConfiguration2
+class PDOConfiguration
 {
     protected $configuration = [];
     protected $pdo;
@@ -11,7 +11,7 @@ class PDOConfiguration2
         $this->setConfiguration($configuration);
     }
 
-    public function setConfiguration(array $configuration): PDOConfiguration2
+    public function setConfiguration(array $configuration): PDOConfiguration
     {
         $this->configuration = $configuration;
 
