@@ -1,6 +1,8 @@
 <?php
 namespace App;
 
+use PDO;
+
 class PDOConfiguration
 {
     protected $configuration = [];

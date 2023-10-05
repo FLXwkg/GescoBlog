@@ -1,6 +1,8 @@
 <?php
+
+use App\PDOConfiguration;
+
 require __DIR__ . '/../vendor/autoload.php';
-require __DIR__ . '/../src/PDOConfiguration.php';
 require __DIR__ . '/../resources/config/application.config.php';
 
 try {
