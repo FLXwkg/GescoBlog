@@ -40,7 +40,7 @@
                 ?>
 
             </h1>
-            <div class="blog-post">
+            <!--<div class="blog-post">
                 <h2 class="blog-post-title">Laravel-Homestead</h2>
                 <p class="blog-post-meta">September 19, 2023 by <a href="#">FLX</a></p>
 
@@ -59,7 +59,7 @@
                     <h3>Slim Framework</h3>
                     <p>Le framework que j'ai utilisé pour coder ce site</p>
                     <hr>
-            </div>
+            </div>-->
 
             <?php foreach ($articles as $article): ?>
                 <div class="blog-section">
