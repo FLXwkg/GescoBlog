@@ -27,13 +27,6 @@ class Article extends Categorie
         return $this;
     }
 
-    /*public function setIdArticles()
-    {
-        for($i=0;$i<count($this->articles);$i++){
-            $this->idArticle[] = $this->articles[$i]['id_article'];
-        };
-    }*/
-
     public function getArticles(): array
     {
         return $this->articles;

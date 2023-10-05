@@ -10,6 +10,10 @@ use Slim\App;
 use Slim\Interfaces\RouteCollectorProxyInterface as Group;
 use Slim\Views\PhpRenderer;
 
+use App\Categorie;
+use App\Article;
+use App\Commentaire;
+
 return function (App $app) {
     $app->options('/{routes:.*}', function (Request $request, Response $response) {
         // CORS Pre-Flight OPTIONS Request Handler
@@ -30,7 +34,7 @@ return function (App $app) {
     //Routes des différentes catégories
 
     $app->get('/home', function ($request, $response, $args) {
-        $pdo = $this->get('db');
+        /*$pdo = $this->get('db');
 
         $stmt = $pdo->query('SELECT * FROM article;');
         $article = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -50,6 +54,30 @@ return function (App $app) {
                 }
             }
             $args['commentaires'] = $commentaires;
+        }*/
+
+        //comment récuperer tous les articles? extend de article
+
+        $id = 14;
+        $categorie = new Categorie($id);
+        $nomCategorie = $categorie->getCategories();
+        $args['categories'] = $nomCategorie;
+        
+        $article = new Article($id);
+        $contentArticle = $article->getArticles();
+        $args['articles'] = $contentArticle;
+        
+
+        if ($contentArticle) {
+            $commentairesPage = [];
+            if(count($contentArticle)> 0){
+                for($i=0;$i<count($contentArticle);$i++){
+                    $commentaire = new Commentaire($article,$i);
+                    $commentairesArticle = $commentaire->getCommentaires();
+                    $commentairesPage = array_merge($commentairesPage,$commentairesArticle);
+                }
+            }
+            $args['commentaires'] = $commentairesPage;
         }
 
         $renderer = new PhpRenderer('../templates');
@@ -57,26 +85,26 @@ return function (App $app) {
     });
 
     $app->get('/world', function ($request, $response, $args) {
-        $pdo = $this->get('db');
+        $id = 4;
+        $categorie = new Categorie($id);
+        $nomCategorie = $categorie->getCategories();
+        $args['categories'] = $nomCategorie;
+        
+        $article = new Article($id);
+        $contentArticle = $article->getArticles();
+        $args['articles'] = $contentArticle;
+        
 
-        $stmt = $pdo->query('SELECT * FROM article WHERE id_categorie = 4;');
-        $article = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        $args['articles'] = $article;
-
-        $stmt2 = $pdo->query('SELECT nom_categorie FROM categorie WHERE id_categorie = 4;');
-        $categorie = $stmt2->fetchAll(PDO::FETCH_ASSOC);
-        $args['categories'] = $categorie;
-
-        if ($article) {
-            $commentaires = [];
-            if(count($article)> 0){
-                for($i=0;$i<count($article);$i++){
-                    $stmt3 = $pdo->query('SELECT * FROM commentaire WHERE id_article = ' . $article[$i]['id_article'] . ';');
-                    $commentaire = $stmt3->fetchAll(PDO::FETCH_ASSOC);
-                    $commentaires = array_merge($commentaires,$commentaire);
+        if ($contentArticle) {
+            $commentairesPage = [];
+            if(count($contentArticle)> 0){
+                for($i=0;$i<count($contentArticle);$i++){
+                    $commentaire = new Commentaire($article,$i);
+                    $commentairesArticle = $commentaire->getCommentaires();
+                    $commentairesPage = array_merge($commentairesPage,$commentairesArticle);
                 }
             }
-            $args['commentaires'] = $commentaires;
+            $args['commentaires'] = $commentairesPage;
         }
 
         $renderer = new PhpRenderer('../templates');
@@ -84,26 +112,26 @@ return function (App $app) {
     });
 
     $app->get('/technology', function ($request, $response, $args) {
-        $pdo = $this->get('db');
+        $id = 5;
+        $categorie = new Categorie($id);
+        $nomCategorie = $categorie->getCategories();
+        $args['categories'] = $nomCategorie;
+        
+        $article = new Article($id);
+        $contentArticle = $article->getArticles();
+        $args['articles'] = $contentArticle;
+        
 
-        $stmt = $pdo->query('SELECT * FROM article WHERE id_categorie = 5;');
-        $article = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        $args['articles'] = $article;
-
-        $stmt2 = $pdo->query('SELECT nom_categorie FROM categorie WHERE id_categorie = 5;');
-        $categorie = $stmt2->fetchAll(PDO::FETCH_ASSOC);
-        $args['categories'] = $categorie;
-
-        if ($article) {
-            $commentaires = [];
-            if(count($article)> 0){
-                for($i=0;$i<count($article);$i++){
-                    $stmt3 = $pdo->query('SELECT * FROM commentaire WHERE id_article = ' . $article[$i]['id_article'] . ';');
-                    $commentaire = $stmt3->fetchAll(PDO::FETCH_ASSOC);
-                    $commentaires = array_merge($commentaires,$commentaire);
+        if ($contentArticle) {
+            $commentairesPage = [];
+            if(count($contentArticle)> 0){
+                for($i=0;$i<count($contentArticle);$i++){
+                    $commentaire = new Commentaire($article,$i);
+                    $commentairesArticle = $commentaire->getCommentaires();
+                    $commentairesPage = array_merge($commentairesPage,$commentairesArticle);
                 }
             }
-            $args['commentaires'] = $commentaires;
+            $args['commentaires'] = $commentairesPage;
         }
 
         $renderer = new PhpRenderer('../templates');
@@ -111,26 +139,26 @@ return function (App $app) {
     });
 
     $app->get('/design', function ($request, $response, $args) {
-        $pdo = $this->get('db');
+        $id = 6;
+        $categorie = new Categorie($id);
+        $nomCategorie = $categorie->getCategories();
+        $args['categories'] = $nomCategorie;
+        
+        $article = new Article($id);
+        $contentArticle = $article->getArticles();
+        $args['articles'] = $contentArticle;
+        
 
-        $stmt = $pdo->query('SELECT * FROM article WHERE id_categorie = 6;');
-        $article = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        $args['articles'] = $article;
-
-        $stmt2 = $pdo->query('SELECT nom_categorie FROM categorie WHERE id_categorie = 6;');
-        $categorie = $stmt2->fetchAll(PDO::FETCH_ASSOC);
-        $args['categories'] = $categorie;
-
-        if ($article) {
-            $commentaires = [];
-            if(count($article)> 0){
-                for($i=0;$i<count($article);$i++){
-                    $stmt3 = $pdo->query('SELECT * FROM commentaire WHERE id_article = ' . $article[$i]['id_article'] . ';');
-                    $commentaire = $stmt3->fetchAll(PDO::FETCH_ASSOC);
-                    $commentaires = array_merge($commentaires,$commentaire);
+        if ($contentArticle) {
+            $commentairesPage = [];
+            if(count($contentArticle)> 0){
+                for($i=0;$i<count($contentArticle);$i++){
+                    $commentaire = new Commentaire($article,$i);
+                    $commentairesArticle = $commentaire->getCommentaires();
+                    $commentairesPage = array_merge($commentairesPage,$commentairesArticle);
                 }
             }
-            $args['commentaires'] = $commentaires;
+            $args['commentaires'] = $commentairesPage;
         }
 
         $renderer = new PhpRenderer('../templates');
@@ -138,26 +166,26 @@ return function (App $app) {
     });
 
     $app->get('/culture', function ($request, $response, $args) {
-        $pdo = $this->get('db');
+        $id = 7;
+        $categorie = new Categorie($id);
+        $nomCategorie = $categorie->getCategories();
+        $args['categories'] = $nomCategorie;
+        
+        $article = new Article($id);
+        $contentArticle = $article->getArticles();
+        $args['articles'] = $contentArticle;
+        
 
-        $stmt = $pdo->query('SELECT * FROM article WHERE id_categorie = 7;');
-        $article = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        $args['articles'] = $article;
-
-        $stmt2 = $pdo->query('SELECT nom_categorie FROM categorie WHERE id_categorie = 7;');
-        $categorie = $stmt2->fetchAll(PDO::FETCH_ASSOC);
-        $args['categories'] = $categorie;
-
-        if ($article) {
-            $commentaires = [];
-            if(count($article)> 0){
-                for($i=0;$i<count($article);$i++){
-                    $stmt3 = $pdo->query('SELECT * FROM commentaire WHERE id_article = ' . $article[$i]['id_article'] . ';');
-                    $commentaire = $stmt3->fetchAll(PDO::FETCH_ASSOC);
-                    $commentaires = array_merge($commentaires,$commentaire);
+        if ($contentArticle) {
+            $commentairesPage = [];
+            if(count($contentArticle)> 0){
+                for($i=0;$i<count($contentArticle);$i++){
+                    $commentaire = new Commentaire($article,$i);
+                    $commentairesArticle = $commentaire->getCommentaires();
+                    $commentairesPage = array_merge($commentairesPage,$commentairesArticle);
                 }
             }
-            $args['commentaires'] = $commentaires;
+            $args['commentaires'] = $commentairesPage;
         }
 
         $renderer = new PhpRenderer('../templates');
@@ -165,26 +193,26 @@ return function (App $app) {
     });
 
     $app->get('/business', function ($request, $response, $args) {
-        $pdo = $this->get('db');
+        $id = 8;
+        $categorie = new Categorie($id);
+        $nomCategorie = $categorie->getCategories();
+        $args['categories'] = $nomCategorie;
+        
+        $article = new Article($id);
+        $contentArticle = $article->getArticles();
+        $args['articles'] = $contentArticle;
+        
 
-        $stmt = $pdo->query('SELECT * FROM article WHERE id_categorie = 8;');
-        $article = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        $args['articles'] = $article;
-
-        $stmt2 = $pdo->query('SELECT nom_categorie FROM categorie WHERE id_categorie = 8;');
-        $categorie = $stmt2->fetchAll(PDO::FETCH_ASSOC);
-        $args['categories'] = $categorie;
-
-        if ($article) {
-            $commentaires = [];
-            if(count($article)> 0){
-                for($i=0;$i<count($article);$i++){
-                    $stmt3 = $pdo->query('SELECT * FROM commentaire WHERE id_article = ' . $article[$i]['id_article'] . ';');
-                    $commentaire = $stmt3->fetchAll(PDO::FETCH_ASSOC);
-                    $commentaires = array_merge($commentaires,$commentaire);
+        if ($contentArticle) {
+            $commentairesPage = [];
+            if(count($contentArticle)> 0){
+                for($i=0;$i<count($contentArticle);$i++){
+                    $commentaire = new Commentaire($article,$i);
+                    $commentairesArticle = $commentaire->getCommentaires();
+                    $commentairesPage = array_merge($commentairesPage,$commentairesArticle);
                 }
             }
-            $args['commentaires'] = $commentaires;
+            $args['commentaires'] = $commentairesPage;
         }
 
         $renderer = new PhpRenderer('../templates');
@@ -192,27 +220,26 @@ return function (App $app) {
     });
 
     $app->get('/politics', function ($request, $response, $args) {
-        $pdo = $this->get('db');
-
-        $stmt = $pdo->query('SELECT * FROM article WHERE id_categorie = 9;');
-        $article = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        $args['articles'] = $article;
-
+        $id = 9;
+        $categorie = new Categorie($id);
+        $nomCategorie = $categorie->getCategories();
+        $args['categories'] = $nomCategorie;
         
-        $stmt2 = $pdo->query('SELECT nom_categorie FROM categorie WHERE id_categorie = 9;');
-        $categorie = $stmt2->fetchAll(PDO::FETCH_ASSOC);
-        $args['categories'] = $categorie;
+        $article = new Article($id);
+        $contentArticle = $article->getArticles();
+        $args['articles'] = $contentArticle;
+        
 
-        if ($article) {
-            $commentaires = [];
-            if(count($article)> 0){
-                for($i=0;$i<count($article);$i++){
-                    $stmt3 = $pdo->query('SELECT * FROM commentaire WHERE id_article = ' . $article[$i]['id_article'] . ';');
-                    $commentaire = $stmt3->fetchAll(PDO::FETCH_ASSOC);
-                    $commentaires = array_merge($commentaires,$commentaire);
+        if ($contentArticle) {
+            $commentairesPage = [];
+            if(count($contentArticle)> 0){
+                for($i=0;$i<count($contentArticle);$i++){
+                    $commentaire = new Commentaire($article,$i);
+                    $commentairesArticle = $commentaire->getCommentaires();
+                    $commentairesPage = array_merge($commentairesPage,$commentairesArticle);
                 }
             }
-            $args['commentaires'] = $commentaires;
+            $args['commentaires'] = $commentairesPage;
         }
 
         $renderer = new PhpRenderer('../templates');
@@ -220,26 +247,26 @@ return function (App $app) {
     });
 
     $app->get('/science', function ($request, $response, $args) {
-        $pdo = $this->get('db');
+        $id = 10;
+        $categorie = new Categorie($id);
+        $nomCategorie = $categorie->getCategories();
+        $args['categories'] = $nomCategorie;
+        
+        $article = new Article($id);
+        $contentArticle = $article->getArticles();
+        $args['articles'] = $contentArticle;
+        
 
-        $stmt = $pdo->query('SELECT * FROM article WHERE id_categorie = 10;');
-        $article = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        $args['articles'] = $article;
-
-        $stmt2 = $pdo->query('SELECT nom_categorie FROM categorie WHERE id_categorie = 10;');
-        $categorie = $stmt2->fetchAll(PDO::FETCH_ASSOC);
-        $args['categories'] = $categorie;
-
-        if ($article) {
-            $commentaires = [];
-            if(count($article)> 0){
-                for($i=0;$i<count($article);$i++){
-                    $stmt3 = $pdo->query('SELECT * FROM commentaire WHERE id_article = ' . $article[$i]['id_article'] . ';');
-                    $commentaire = $stmt3->fetchAll(PDO::FETCH_ASSOC);
-                    $commentaires = array_merge($commentaires,$commentaire);
+        if ($contentArticle) {
+            $commentairesPage = [];
+            if(count($contentArticle)> 0){
+                for($i=0;$i<count($contentArticle);$i++){
+                    $commentaire = new Commentaire($article,$i);
+                    $commentairesArticle = $commentaire->getCommentaires();
+                    $commentairesPage = array_merge($commentairesPage,$commentairesArticle);
                 }
             }
-            $args['commentaires'] = $commentaires;
+            $args['commentaires'] = $commentairesPage;
         }
 
         $renderer = new PhpRenderer('../templates');
@@ -247,26 +274,26 @@ return function (App $app) {
     });
 
     $app->get('/health', function ($request, $response, $args) {
-        $pdo = $this->get('db');
+        $id = 11;
+        $categorie = new Categorie($id);
+        $nomCategorie = $categorie->getCategories();
+        $args['categories'] = $nomCategorie;
+        
+        $article = new Article($id);
+        $contentArticle = $article->getArticles();
+        $args['articles'] = $contentArticle;
+        
 
-        $stmt = $pdo->query('SELECT * FROM article WHERE id_categorie = 11;');
-        $article = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        $args['articles'] = $article;
-
-        $stmt2 = $pdo->query('SELECT nom_categorie FROM categorie WHERE id_categorie = 11;');
-        $categorie = $stmt2->fetchAll(PDO::FETCH_ASSOC);
-        $args['categories'] = $categorie;
-
-        if ($article) {
-            $commentaires = [];
-            if(count($article)> 0){
-                for($i=0;$i<count($article);$i++){
-                    $stmt3 = $pdo->query('SELECT * FROM commentaire WHERE id_article = ' . $article[$i]['id_article'] . ';');
-                    $commentaire = $stmt3->fetchAll(PDO::FETCH_ASSOC);
-                    $commentaires = array_merge($commentaires,$commentaire);
+        if ($contentArticle) {
+            $commentairesPage = [];
+            if(count($contentArticle)> 0){
+                for($i=0;$i<count($contentArticle);$i++){
+                    $commentaire = new Commentaire($article,$i);
+                    $commentairesArticle = $commentaire->getCommentaires();
+                    $commentairesPage = array_merge($commentairesPage,$commentairesArticle);
                 }
             }
-            $args['commentaires'] = $commentaires;
+            $args['commentaires'] = $commentairesPage;
         }
 
         $renderer = new PhpRenderer('../templates');
@@ -274,26 +301,26 @@ return function (App $app) {
     });
 
     $app->get('/style', function ($request, $response, $args) {
-        $pdo = $this->get('db');
+        $id = 12;
+        $categorie = new Categorie($id);
+        $nomCategorie = $categorie->getCategories();
+        $args['categories'] = $nomCategorie;
+        
+        $article = new Article($id);
+        $contentArticle = $article->getArticles();
+        $args['articles'] = $contentArticle;
+        
 
-        $stmt = $pdo->query('SELECT * FROM article WHERE id_categorie = 12;');
-        $article = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        $args['articles'] = $article;
-
-        $stmt2 = $pdo->query('SELECT nom_categorie FROM categorie WHERE id_categorie = 12;');
-        $categorie = $stmt2->fetchAll(PDO::FETCH_ASSOC);
-        $args['categories'] = $categorie;
-
-        if ($article) {
-            $commentaires = [];
-            if(count($article)> 0){
-                for($i=0;$i<count($article);$i++){
-                    $stmt3 = $pdo->query('SELECT * FROM commentaire WHERE id_article = ' . $article[$i]['id_article'] . ';');
-                    $commentaire = $stmt3->fetchAll(PDO::FETCH_ASSOC);
-                    $commentaires = array_merge($commentaires,$commentaire);
+        if ($contentArticle) {
+            $commentairesPage = [];
+            if(count($contentArticle)> 0){
+                for($i=0;$i<count($contentArticle);$i++){
+                    $commentaire = new Commentaire($article,$i);
+                    $commentairesArticle = $commentaire->getCommentaires();
+                    $commentairesPage = array_merge($commentairesPage,$commentairesArticle);
                 }
             }
-            $args['commentaires'] = $commentaires;
+            $args['commentaires'] = $commentairesPage;
         }
 
         $renderer = new PhpRenderer('../templates');
@@ -301,25 +328,26 @@ return function (App $app) {
     });
 
     $app->get('/travel', function ($request, $response, $args) {
-        $pdo = $this->get('db');
-        $stmt = $pdo->query('SELECT * FROM article WHERE id_categorie = 13;');
-        $article = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        $args['articles'] = $article;
+        $id = 13;
+        $categorie = new Categorie($id);
+        $nomCategorie = $categorie->getCategories();
+        $args['categories'] = $nomCategorie;
+        
+        $article = new Article($id);
+        $contentArticle = $article->getArticles();
+        $args['articles'] = $contentArticle;
+        
 
-        $stmt2 = $pdo->query('SELECT nom_categorie FROM categorie WHERE id_categorie = 13;');
-        $categorie = $stmt2->fetchAll(PDO::FETCH_ASSOC);
-        $args['categories'] = $categorie;
-
-        if ($article) {
-            $commentaires = [];
-            if(count($article)> 0){
-                for($i=0;$i<count($article);$i++){
-                    $stmt3 = $pdo->query('SELECT * FROM commentaire WHERE id_article = ' . $article[$i]['id_article'] . ';');
-                    $commentaire = $stmt3->fetchAll(PDO::FETCH_ASSOC);
-                    $commentaires = array_merge($commentaires,$commentaire);
+        if ($contentArticle) {
+            $commentairesPage = [];
+            if(count($contentArticle)> 0){
+                for($i=0;$i<count($contentArticle);$i++){
+                    $commentaire = new Commentaire($article,$i);
+                    $commentairesArticle = $commentaire->getCommentaires();
+                    $commentairesPage = array_merge($commentairesPage,$commentairesArticle);
                 }
             }
-            $args['commentaires'] = $commentaires;
+            $args['commentaires'] = $commentairesPage;
         }
 
         $renderer = new PhpRenderer('../templates');
