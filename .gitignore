@@ -8,4 +8,4 @@
 .coveralls.yml
 .github/
 .htaccess
-/resources/config/application.config.php
+/config/application.config.php
