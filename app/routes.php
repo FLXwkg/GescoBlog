@@ -8,11 +8,9 @@ use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\App;
 use Slim\Interfaces\RouteCollectorProxyInterface as Group;
-use Slim\Views\PhpRenderer;
 
-use App\Categorie;
-use App\Article;
-use App\Commentaire;
+use App\GenericController;
+use App\HomeController;
 
 return function (App $app) {
     $app->options('/{routes:.*}', function (Request $request, Response $response) {
@@ -58,33 +56,11 @@ return function (App $app) {
 
         //comment récuperer tous les articles? extend de article
 
-        $id = 14;
-        $categorie = new Categorie($id);
-        $nomCategorie = $categorie->getCategories();
-        $args['categories'] = $nomCategorie;
-        
-        $article = new Article($id);
-        $contentArticle = $article->getArticles();
-        $args['articles'] = $contentArticle;
-        
-
-        if ($contentArticle) {
-            $commentairesPage = [];
-            if(count($contentArticle)> 0){
-                for($i=0;$i<count($contentArticle);$i++){
-                    $commentaire = new Commentaire($article,$i);
-                    $commentairesArticle = $commentaire->getCommentaires();
-                    $commentairesPage = array_merge($commentairesPage,$commentairesArticle);
-                }
-            }
-            $args['commentaires'] = $commentairesPage;
-        }
-
-        $renderer = new PhpRenderer('../templates');
-        return $renderer->render($response, "view.php", $args);
+        $homeController = new HomeController();
+        return $homeController->handleRoute($request, $response, $args, 14);
     });
 
-    $app->get('/world', function ($request, $response, $args) {
+    /*$app->get('/world', function ($request, $response, $args) {
         $id = 4;
         $categorie = new Categorie($id);
         $nomCategorie = $categorie->getCategories();
@@ -109,248 +85,55 @@ return function (App $app) {
 
         $renderer = new PhpRenderer('../templates');
         return $renderer->render($response, "view.php", $args);
+    });*/
+
+    $app->get('/world', function ($request, $response, $args) {
+        $genericController = new GenericController();
+        return $genericController->handleRoute($request, $response, $args, 4);
     });
-
+    
     $app->get('/technology', function ($request, $response, $args) {
-        $id = 5;
-        $categorie = new Categorie($id);
-        $nomCategorie = $categorie->getCategories();
-        $args['categories'] = $nomCategorie;
-        
-        $article = new Article($id);
-        $contentArticle = $article->getArticles();
-        $args['articles'] = $contentArticle;
-        
-
-        if ($contentArticle) {
-            $commentairesPage = [];
-            if(count($contentArticle)> 0){
-                for($i=0;$i<count($contentArticle);$i++){
-                    $commentaire = new Commentaire($article,$i);
-                    $commentairesArticle = $commentaire->getCommentaires();
-                    $commentairesPage = array_merge($commentairesPage,$commentairesArticle);
-                }
-            }
-            $args['commentaires'] = $commentairesPage;
-        }
-
-        $renderer = new PhpRenderer('../templates');
-        return $renderer->render($response, "view.php", $args);
+        $genericController = new GenericController();
+        return $genericController->handleRoute($request, $response, $args, 5);
     });
 
     $app->get('/design', function ($request, $response, $args) {
-        $id = 6;
-        $categorie = new Categorie($id);
-        $nomCategorie = $categorie->getCategories();
-        $args['categories'] = $nomCategorie;
-        
-        $article = new Article($id);
-        $contentArticle = $article->getArticles();
-        $args['articles'] = $contentArticle;
-        
-
-        if ($contentArticle) {
-            $commentairesPage = [];
-            if(count($contentArticle)> 0){
-                for($i=0;$i<count($contentArticle);$i++){
-                    $commentaire = new Commentaire($article,$i);
-                    $commentairesArticle = $commentaire->getCommentaires();
-                    $commentairesPage = array_merge($commentairesPage,$commentairesArticle);
-                }
-            }
-            $args['commentaires'] = $commentairesPage;
-        }
-
-        $renderer = new PhpRenderer('../templates');
-        return $renderer->render($response, "view.php", $args);
+        $genericController = new GenericController();
+        return $genericController->handleRoute($request, $response, $args, 6);
     });
 
     $app->get('/culture', function ($request, $response, $args) {
-        $id = 7;
-        $categorie = new Categorie($id);
-        $nomCategorie = $categorie->getCategories();
-        $args['categories'] = $nomCategorie;
-        
-        $article = new Article($id);
-        $contentArticle = $article->getArticles();
-        $args['articles'] = $contentArticle;
-        
-
-        if ($contentArticle) {
-            $commentairesPage = [];
-            if(count($contentArticle)> 0){
-                for($i=0;$i<count($contentArticle);$i++){
-                    $commentaire = new Commentaire($article,$i);
-                    $commentairesArticle = $commentaire->getCommentaires();
-                    $commentairesPage = array_merge($commentairesPage,$commentairesArticle);
-                }
-            }
-            $args['commentaires'] = $commentairesPage;
-        }
-
-        $renderer = new PhpRenderer('../templates');
-        return $renderer->render($response, "view.php", $args);
+        $genericController = new GenericController();
+        return $genericController->handleRoute($request, $response, $args, 7);
     });
 
     $app->get('/business', function ($request, $response, $args) {
-        $id = 8;
-        $categorie = new Categorie($id);
-        $nomCategorie = $categorie->getCategories();
-        $args['categories'] = $nomCategorie;
-        
-        $article = new Article($id);
-        $contentArticle = $article->getArticles();
-        $args['articles'] = $contentArticle;
-        
-
-        if ($contentArticle) {
-            $commentairesPage = [];
-            if(count($contentArticle)> 0){
-                for($i=0;$i<count($contentArticle);$i++){
-                    $commentaire = new Commentaire($article,$i);
-                    $commentairesArticle = $commentaire->getCommentaires();
-                    $commentairesPage = array_merge($commentairesPage,$commentairesArticle);
-                }
-            }
-            $args['commentaires'] = $commentairesPage;
-        }
-
-        $renderer = new PhpRenderer('../templates');
-        return $renderer->render($response, "view.php", $args);
+        $genericController = new GenericController();
+        return $genericController->handleRoute($request, $response, $args, 8);
     });
 
     $app->get('/politics', function ($request, $response, $args) {
-        $id = 9;
-        $categorie = new Categorie($id);
-        $nomCategorie = $categorie->getCategories();
-        $args['categories'] = $nomCategorie;
-        
-        $article = new Article($id);
-        $contentArticle = $article->getArticles();
-        $args['articles'] = $contentArticle;
-        
-
-        if ($contentArticle) {
-            $commentairesPage = [];
-            if(count($contentArticle)> 0){
-                for($i=0;$i<count($contentArticle);$i++){
-                    $commentaire = new Commentaire($article,$i);
-                    $commentairesArticle = $commentaire->getCommentaires();
-                    $commentairesPage = array_merge($commentairesPage,$commentairesArticle);
-                }
-            }
-            $args['commentaires'] = $commentairesPage;
-        }
-
-        $renderer = new PhpRenderer('../templates');
-        return $renderer->render($response, "view.php", $args);
+        $genericController = new GenericController();
+        return $genericController->handleRoute($request, $response, $args, 9);
     });
 
     $app->get('/science', function ($request, $response, $args) {
-        $id = 10;
-        $categorie = new Categorie($id);
-        $nomCategorie = $categorie->getCategories();
-        $args['categories'] = $nomCategorie;
-        
-        $article = new Article($id);
-        $contentArticle = $article->getArticles();
-        $args['articles'] = $contentArticle;
-        
-
-        if ($contentArticle) {
-            $commentairesPage = [];
-            if(count($contentArticle)> 0){
-                for($i=0;$i<count($contentArticle);$i++){
-                    $commentaire = new Commentaire($article,$i);
-                    $commentairesArticle = $commentaire->getCommentaires();
-                    $commentairesPage = array_merge($commentairesPage,$commentairesArticle);
-                }
-            }
-            $args['commentaires'] = $commentairesPage;
-        }
-
-        $renderer = new PhpRenderer('../templates');
-        return $renderer->render($response, "view.php", $args);
+        $genericController = new GenericController();
+        return $genericController->handleRoute($request, $response, $args, 10);
     });
 
     $app->get('/health', function ($request, $response, $args) {
-        $id = 11;
-        $categorie = new Categorie($id);
-        $nomCategorie = $categorie->getCategories();
-        $args['categories'] = $nomCategorie;
-        
-        $article = new Article($id);
-        $contentArticle = $article->getArticles();
-        $args['articles'] = $contentArticle;
-        
-
-        if ($contentArticle) {
-            $commentairesPage = [];
-            if(count($contentArticle)> 0){
-                for($i=0;$i<count($contentArticle);$i++){
-                    $commentaire = new Commentaire($article,$i);
-                    $commentairesArticle = $commentaire->getCommentaires();
-                    $commentairesPage = array_merge($commentairesPage,$commentairesArticle);
-                }
-            }
-            $args['commentaires'] = $commentairesPage;
-        }
-
-        $renderer = new PhpRenderer('../templates');
-        return $renderer->render($response, "view.php", $args);
+        $genericController = new GenericController();
+        return $genericController->handleRoute($request, $response, $args, 11);
     });
 
     $app->get('/style', function ($request, $response, $args) {
-        $id = 12;
-        $categorie = new Categorie($id);
-        $nomCategorie = $categorie->getCategories();
-        $args['categories'] = $nomCategorie;
-        
-        $article = new Article($id);
-        $contentArticle = $article->getArticles();
-        $args['articles'] = $contentArticle;
-        
-
-        if ($contentArticle) {
-            $commentairesPage = [];
-            if(count($contentArticle)> 0){
-                for($i=0;$i<count($contentArticle);$i++){
-                    $commentaire = new Commentaire($article,$i);
-                    $commentairesArticle = $commentaire->getCommentaires();
-                    $commentairesPage = array_merge($commentairesPage,$commentairesArticle);
-                }
-            }
-            $args['commentaires'] = $commentairesPage;
-        }
-
-        $renderer = new PhpRenderer('../templates');
-        return $renderer->render($response, "view.php", $args);
+        $genericController = new GenericController();
+        return $genericController->handleRoute($request, $response, $args, 12);
     });
 
     $app->get('/travel', function ($request, $response, $args) {
-        $id = 13;
-        $categorie = new Categorie($id);
-        $nomCategorie = $categorie->getCategories();
-        $args['categories'] = $nomCategorie;
-        
-        $article = new Article($id);
-        $contentArticle = $article->getArticles();
-        $args['articles'] = $contentArticle;
-        
-
-        if ($contentArticle) {
-            $commentairesPage = [];
-            if(count($contentArticle)> 0){
-                for($i=0;$i<count($contentArticle);$i++){
-                    $commentaire = new Commentaire($article,$i);
-                    $commentairesArticle = $commentaire->getCommentaires();
-                    $commentairesPage = array_merge($commentairesPage,$commentairesArticle);
-                }
-            }
-            $args['commentaires'] = $commentairesPage;
-        }
-
-        $renderer = new PhpRenderer('../templates');
-        return $renderer->render($response, "view.php", $args);
+        $genericController = new GenericController();
+        return $genericController->handleRoute($request, $response, $args, 13);
     });
 };
