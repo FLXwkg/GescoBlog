@@ -26,6 +26,16 @@ class Article extends Categorie
 
         return $this;
     }
+    public function setHomeArticles(): Article
+    {
+        $config = new PDOConfiguration(require __DIR__.'/../config/application.config.php');
+        $pdo = $config->getPDO();
+        $sql = 'SELECT * FROM article;';
+        $requete = $pdo->query($sql);
+        $this->articles = $requete->fetchAll(PDO::FETCH_ASSOC);
+
+        return $this;
+    }
 
     public function getArticles(): array
     {
