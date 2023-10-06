@@ -65,10 +65,12 @@
                 <div class="blog-section">
                     <div class="blog-post">
                         <h2 class="blog-post-title">
-                            <?php
-                            $titleArticle = $article ?? [];
-                            echo $titleArticle['titre_article'] ?? 'Titre';
-                            ?>
+                            <a href=
+                                "/<?php echo $firstCategory['nom_categorie'] ?? 'non_defini'; ?>
+                                /<?php echo  $titleArticle = $article ?? [];
+                                $titleArticle['titre_article'] ?? 'Titre'; ?>">
+                                <?php echo $titleArticle['titre_article'] ?? 'Titre'; ?>
+                            </a>
                         </h2>
                         <p class="blog-post-meta">
                             <?php
