@@ -19,16 +19,17 @@
     </header>
     <div class="nav-scroller py-1 mb-2">
         <nav class="nav d-flex justify-content-between my-2">
-            <a class="p-2 text-muted" href="/world">World</a>
-            <a class="p-2 text-muted" href="/technology">Technology</a>
-            <a class="p-2 text-muted" href="/design">Design</a>
-            <a class="p-2 text-muted" href="/culture">Culture</a>
-            <a class="p-2 text-muted" href="/business">Business</a>
-            <a class="p-2 text-muted" href="/politics">Politics</a>
-            <a class="p-2 text-muted" href="/science">Science</a>
-            <a class="p-2 text-muted" href="/health">Health</a>
-            <a class="p-2 text-muted" href="/style">Style</a>
-            <a class="p-2 text-muted" href="/travel">Travel</a>
+            <?php foreach ($sections as $section):?>
+                <a class="p-2 text-muted" href="/<?php echo 
+                    isset($section['nom_categorie']) ? 
+                    strtolower($section['nom_categorie'] ) : 'non_defini';
+                    ?>">
+                    <?php echo
+                    isset($section['nom_categorie']) ? 
+                    htmlspecialchars($section['nom_categorie']) : 'non_defini'; 
+                    ?>
+                </a>
+            <?php endforeach ?>
         </nav>
     </div>
     <main role="main" class="container">
@@ -65,12 +66,20 @@
                 <div class="blog-section">
                     <div class="blog-post">
                         <h2 class="blog-post-title">
-                            <a href=
-                                "/<?php echo $firstCategory['nom_categorie'] ?? 'non_defini'; ?>
+                            <!--<a href=
+                                "/<?php $articleCategory = $categories[0] ?? [];
+                                echo $articleCategory['nom_categorie'] ?? 'non_defini'; ?>
                                 /<?php echo  $titleArticle = $article ?? [];
                                 $titleArticle['titre_article'] ?? 'Titre'; ?>">
                                 <?php echo $titleArticle['titre_article'] ?? 'Titre'; ?>
+                            </a>-->
+                            <a href=
+                                "/<?php echo isset($articleCategory['nom_categorie']) ? 
+                                htmlspecialchars($articleCategory['nom_categorie']) : 'non_defini'; ?>
+                                /<?php echo isset($titleArticle['titre_article']) ? htmlspecialchars($titleArticle['titre_article']) : 'Titre'; ?>">
+                                <?php echo isset($titleArticle['titre_article']) ? htmlspecialchars($titleArticle['titre_article']) : 'Titre'; ?>
                             </a>
+
                         </h2>
                         <p class="blog-post-meta">
                             <?php

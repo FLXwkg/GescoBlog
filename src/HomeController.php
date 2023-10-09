@@ -3,6 +3,7 @@ namespace App;
 
 use Slim\Views\PhpRenderer;
 
+use App\Section;
 use App\Categorie;
 use App\Article;
 use App\Commentaire;
@@ -18,6 +19,9 @@ class HomeController extends GenericController
     public function handleRoute($request, $response, $args, int $id)
     {
         $this->id = $id;
+        $section = new Section();
+        $args['sections'] = $section->getSections();
+        
         $categorie = new Categorie($this->id);
         $args['categories'] = $categorie->getCategories();
         
