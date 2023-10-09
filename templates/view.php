@@ -22,7 +22,7 @@
             <?php foreach ($sections as $section):?>
                 <a class="p-2 text-muted" href="/<?php echo 
                     isset($section['nom_categorie']) ? 
-                    strtolower($section['nom_categorie'] ) : 'non_defini';
+                    strtolower($section['nom_categorie']) : 'non_defini';
                     ?>">
                     <?php echo
                     isset($section['nom_categorie']) ? 
@@ -32,6 +32,7 @@
             <?php endforeach ?>
         </nav>
     </div>
+    
     <main role="main" class="container">
         <div class="row">
             <h1 class="pb-3 mb-4 font-italic border-bottom ">
@@ -41,43 +42,15 @@
                 ?>
 
             </h1>
-            <!--<div class="blog-post">
-                <h2 class="blog-post-title">Laravel-Homestead</h2>
-                <p class="blog-post-meta">September 19, 2023 by <a href="#">FLX</a></p>
-
-                <p>Ce post à pour but d'expliquer en quoi consiste <strong>Laravel-Homestead</strong></p>
-
-                <p>Il utilise <a href="#">Vagrant</a> qui configure <a href="#">Virtualbox</a> afin de créer une machine
-                    virtuelle qui nous servira d'<strong>environnement de travail</strong>.</p>
-                <blockquote>
-                    <h2>Configuration de Homestead</h2>
-                    <p>Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Duis mollis, est non
-                        commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Morbi leo risus,
-                        porta ac consectetur ac, vestibulum at eros.</p>
-                    <h3>Vagrant</h3>
-                    <p>Permet de lancer la machine virtuelle et de s'y connecter avec :</p>
-                    <pre><code>vagrant ssh</code></pre>
-                    <h3>Slim Framework</h3>
-                    <p>Le framework que j'ai utilisé pour coder ce site</p>
-                    <hr>
-            </div>-->
-
             <?php foreach ($articles as $article): ?>
                 <div class="blog-section">
                     <div class="blog-post">
                         <h2 class="blog-post-title">
-                            <!--<a href=
-                                "/<?php $articleCategory = $categories[0] ?? [];
-                                echo $articleCategory['nom_categorie'] ?? 'non_defini'; ?>
-                                /<?php echo  $titleArticle = $article ?? [];
-                                $titleArticle['titre_article'] ?? 'Titre'; ?>">
-                                <?php echo $titleArticle['titre_article'] ?? 'Titre'; ?>
-                            </a>-->
                             <a href=
-                                "/<?php echo isset($articleCategory['nom_categorie']) ? 
-                                htmlspecialchars($articleCategory['nom_categorie']) : 'non_defini'; ?>
-                                /<?php echo isset($titleArticle['titre_article']) ? htmlspecialchars($titleArticle['titre_article']) : 'Titre'; ?>">
-                                <?php echo isset($titleArticle['titre_article']) ? htmlspecialchars($titleArticle['titre_article']) : 'Titre'; ?>
+                                "/<?php $articleCategory = $categories[0] ?? [];
+                                echo strtolower(rtrim($articleCategory['nom_categorie'])) ?? 'non_defini';?>/<?php $titleArticle = $article ?? [];
+                                echo strtolower($titleArticle['titre_article']) ?? 'Titre'; ?>">
+                                <?php echo $titleArticle['titre_article'] ?? 'Titre';?>
                             </a>
 
                         </h2>

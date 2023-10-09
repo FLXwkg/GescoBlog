@@ -17,7 +17,7 @@ class GenericController
 
     }
 
-    public function handleRoute($request, $response, $args, int $id)
+    public function handleRoute($request, $response, $args, $id)
     {
         $this->id = $id;
         $section = new Section();
@@ -26,7 +26,7 @@ class GenericController
         $this->id = $id;
         $categorie = new Categorie($this->id);
         $args['categories'] = $categorie->getCategories();
-        
+        //var_dump($args);die();
         $article = new Article($this->id);
         $contentArticle = $article->getArticles();
         $args['articles'] = $contentArticle;

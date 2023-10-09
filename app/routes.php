@@ -10,6 +10,7 @@ use Slim\App;
 use Slim\Interfaces\RouteCollectorProxyInterface as Group;
 use Slim\Views\PhpRenderer;
 
+use App\RouteCategorie;
 use App\GenericController;
 use App\HomeController;
 
@@ -32,66 +33,18 @@ return function (App $app) {
 
     //Routes des différentes catégories
 
-    $app->get('/home', function ($request, $response, $args) {
-        $homeController = new HomeController();
-        return $homeController->handleRoute($request, $response, $args, 14);
-    });
-
-    /*$app->get('/{categorie}', function ($request, $response, $args) {
-        $genericController = new GenericController();
-        return $genericController->handleRoute($request, $response, $args, 4);
-    });*/
-    
-    $app->get('/world', function ($request, $response, $args) {
-        $genericController = new GenericController();
-        return $genericController->handleRoute($request, $response, $args, 4);
+    $app->get('/{page}', function ($request, $response, $args) {
+        $route = new RouteCategorie($args['page']);
+        $id = $route->getRouteCategories();
+        if($args['page']=== 'home'){
+            $homeController = new HomeController();
+            return $homeController->handleRoute($request, $response, $args, $id);
+        }else{
+            $genericController = new GenericController();
+            return $genericController->handleRoute($request, $response, $args, $id);
+        }
     });
     
-    $app->get('/technology', function ($request, $response, $args) {
-        $genericController = new GenericController();
-        return $genericController->handleRoute($request, $response, $args, 5);
-    });
-
-    $app->get('/design', function ($request, $response, $args) {
-        $genericController = new GenericController();
-        return $genericController->handleRoute($request, $response, $args, 6);
-    });
-
-    $app->get('/culture', function ($request, $response, $args) {
-        $genericController = new GenericController();
-        return $genericController->handleRoute($request, $response, $args, 7);
-    });
-
-    $app->get('/business', function ($request, $response, $args) {
-        $genericController = new GenericController();
-        return $genericController->handleRoute($request, $response, $args, 8);
-    });
-
-    $app->get('/politics', function ($request, $response, $args) {
-        $genericController = new GenericController();
-        return $genericController->handleRoute($request, $response, $args, 9);
-    });
-
-    $app->get('/science', function ($request, $response, $args) {
-        $genericController = new GenericController();
-        return $genericController->handleRoute($request, $response, $args, 10);
-    });
-
-    $app->get('/health', function ($request, $response, $args) {
-        $genericController = new GenericController();
-        return $genericController->handleRoute($request, $response, $args, 11);
-    });
-
-    $app->get('/style', function ($request, $response, $args) {
-        $genericController = new GenericController();
-        return $genericController->handleRoute($request, $response, $args, 12);
-    });
-
-    $app->get('/travel', function ($request, $response, $args) {
-        $genericController = new GenericController();
-        return $genericController->handleRoute($request, $response, $args, 13);
-    });
-
     // Route dynamique pour afficher un article
 
     $app->get('/{categorie}/{titre_article}', function ($request, $response, $args) {
