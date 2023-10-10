@@ -56,7 +56,7 @@ return function (App $app) {
             return $response->withHeader('Location', "/$nomCategorie/$titreArticle")->withStatus(301);;
         }else{
             $articleController = new ArticleController();
-            return $articleController->render($request, $response, $args, $id);
+            return $articleController->render($request, $response, $args, $titreArticle, $id);
         }
     });
 };

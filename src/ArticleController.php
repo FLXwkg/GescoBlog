@@ -18,9 +18,9 @@ class ArticleController
 
     }
 
-    public function render($request, $response, $args, $id)
+    public function render($request, $response, $args, $title, $id)
     {
-        $this->id = $id;
+        $this->title = $title;
         $section = new Section();
         $args['sections'] = $section->getSections();
 
@@ -29,9 +29,10 @@ class ArticleController
         $args['categories'] = $categorie->getCategories();
         //var_dump($args);die();
         $article = new Article($this->id);
-        $contentArticle = $article->getArticles();
+        $article->setNomArticle($this->title);
+        $contentArticle = $article->getNomArticle();
         $args['articles'] = $contentArticle;
-        
+        //var_dump($args);die();
 
         if ($contentArticle) {
             $commentairesPage = [];

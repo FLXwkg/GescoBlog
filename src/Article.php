@@ -9,7 +9,9 @@ class Article extends Categorie
     protected $articles = [];
 
     protected $idArticle = [];
-    
+
+    protected $nomArticle = [];
+
     public function __construct(int $AskId)
     {
         $this->setArticles($AskId);
@@ -37,6 +39,18 @@ class Article extends Categorie
         return $this;
     }
 
+    public function setNomArticle(string $nomArticle): Article
+    {
+        $this->nomArticle = $nomArticle;
+        $config = new PDOConfiguration(require __DIR__.'/../config/application.config.php');
+        $pdo = $config->getPDO();
+        $sql = "SELECT * FROM article WHERE titre_article = '" . $this->nomArticle ."';";
+        $requete = $pdo->query($sql);
+        $this->articles = $requete->fetchAll(PDO::FETCH_ASSOC);
+
+        return $this;
+    }
+
     public function getArticles(): array
     {
         return $this->articles;
@@ -45,6 +59,11 @@ class Article extends Categorie
     public function getIdArticle()
     {
         return $this->idArticle;
+    }
+
+    public function getNomArticle()
+    {
+        return $this->articles;
     }
 
 

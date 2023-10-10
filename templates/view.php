@@ -48,35 +48,51 @@
                 ?>
             </h1>
             <?php foreach ($articles as $article): ?>
-                <div class="blog-section m-2 px-2 border border-dark-subtle bg-body-tertiary rounded">
-                    <div class="row blog-post d-flex align-items-center">
-                        <h2 class="col-3 blog-post-title">
-                            <a href=
-                                "/<?php $articleCategory = $categories[0] ?? [];
-                                echo strtolower(rtrim($articleCategory['nom_categorie'])) ?? 'non_defini';?>/<?php $titleArticle = $article ?? [];
-                                echo strtolower($titleArticle['titre_article']) ?? 'Titre'; ?>">
-                                <?php echo $titleArticle['titre_article'] ?? 'Titre';?>
-                            </a>
-                        </h2>
-                        <p class="col-6 blog-post-text">
+                <div class="blog-section m-2 px-3 border border-dark-subtle bg-body-tertiary rounded">
+                    <div class="row blog-post d-flex align-items-top">
+                        <div class="col-3 py-3 blog-post-title">
+                            <h2 class="row">
+                                <a href=
+                                    "/<?php $articleCategory = $categories[0] ?? [];
+                                    echo strtolower(rtrim($articleCategory['nom_categorie'])) ?? 'non_defini';?>/<?php $titleArticle = $article ?? [];
+                                    echo strtolower($titleArticle['titre_article']) ?? 'Titre'; ?>">
+                                    <?php echo $titleArticle['titre_article'] ?? 'Titre';?>
+                                </a>
+                            </h2>
+                            <div class="row">
+                                <small class="col-1 ms-3 px-0">by :</small>
+                                <a class="col-10 px-0" href="#">
+                                    <?php $authorArticle = $article ?? [];
+                                        echo $authorArticle['auteur_article'] ?? 'Auteur';
+                                    ?>
+                                </a>  
+                            </div>
+                        </div>
+                        <p class="col-7 my-3 pe-0 blog-post-text text-break border-start border-end">
                             <?php
                             $textArticle = $article ?? [];
                             echo $textArticle['texte_article'] ?? 'Texte';
                             ?>
                         </p>
-                        <p class="col-3 blog-post-date">
-                            <?php
-                            $dateArticle = $article ?? [];
-                            echo $dateArticle['date_article'] ?? 'Date';
-                            ?>
-                            by
-                            <a href="#">
-                                <?php
-                                $authorArticle = $article ?? [];
-                                echo $authorArticle['auteur_article'] ?? 'Auteur';
-                                ?>
-                            </a>
-                        </p>           
+                        <div class="col-2 pt-3 py-0 blog-post-date">
+                            <div class="row">
+                                <small class="ps-1">Published on :</small>
+                                <div class="ps-2">
+                                    <?php
+                                        $dateArticle = $article ?? [];
+                                        echo $dateArticle['date_article'] ?? 'Date';
+                                    ?>
+                                </div>
+                            </div>
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                              
+                        </div>           
                     </div>
                     
                     <div class="blog-commentaries ">
@@ -89,19 +105,19 @@
                                         echo $authorCommentary['auteur_commentaire'] ?? 'Auteur';
                                         ?>
                                     </h5>
-                                    <p class="col-6 blog-commentaries-text">
+                                    <p class="col-6 blog-commentaries-text border-start mt-2">
                                         <?php
                                         $textCommentary = $commentaire ?? [];
                                         echo $textCommentary['texte_commentaire'] ?? 'Texte';
                                         ?>
                                     </p>
-                                    <p class="col-3 blog-commentaries-date">
+                                    <small class="col-3 blog-commentaries-date d-flex justify-content-end">
                                         Published on
                                         <?php
                                         $dateCommentary = $commentaire ?? [];
                                         echo $dateCommentary['date_modification_commentaire'] ?? 'Date';
                                         ?>
-                                    </p>
+                                    </small>
                                     
                                 </div>
                             <?php endif?>
