@@ -4,10 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/css/cssArticle.css" rel="stylesheet">
     <title>Blog</title>
 </head>
 <body>
-    <div class="position-sticky border-bottom start-0 top-0 end-0 bg-body-secondary">
+    <div class="blog-top position-sticky border-bottom start-0 top-0 end-0 bg-body-secondary">
         <div class="container w-100">
             <header class="blog-header border-bottom py-3 ">
                 <div class="row flex-nowrap justify-content-between align-items-center">
@@ -137,7 +138,7 @@
         </nav>
     </main>
 
-    <footer class="container-fluid py-5 mt-2 position-static bottom-0 start-0 border-top border-dark-subtle text-center text-body-secondary bg-body-tertiary blog-footer">
+    <footer class="blog-footer container-fluid py-5 mt-2 position-static bottom-0 start-0 border-top border-dark-subtle text-center text-body-secondary">
         <p>Blog built by <a href="#">FLX</a>.</p>
         <p class="mb-0">
             <a href="#">Back to top</a>
