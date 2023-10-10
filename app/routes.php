@@ -8,11 +8,11 @@ use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\App;
 use Slim\Interfaces\RouteCollectorProxyInterface as Group;
-use Slim\Views\PhpRenderer;
 
 use App\RouteCategorie;
 use App\GenericController;
 use App\HomeController;
+use App\ArticleController;
 
 return function (App $app) {
     $app->options('/{routes:.*}', function (Request $request, Response $response) {
@@ -47,8 +47,16 @@ return function (App $app) {
     
     // Route dynamique pour afficher un article
 
-    $app->get('/{categorie}/{titre_article}', function ($request, $response, $args) {
-        $renderer = new PhpRenderer('../templates');
-        return $renderer->render($response, 'viewArticle.php',$args);
+    $app->get('/{page}/{titre_article}', function ($request, $response, $args) {
+        $route = new RouteCategorie($args['page']);
+        $titreArticle = $args['titre_article'];
+        $id = $route->getCategorieViaTitreArticle($titreArticle);
+        if($args['page']=== 'home'){
+            $nomCategorie = $route->getCategorieViaId($id);
+            return $response->withHeader('Location', "/$nomCategorie/$titreArticle")->withStatus(301);;
+        }else{
+            $articleController = new ArticleController();
+            return $articleController->render($request, $response, $args, $id);
+        }
     });
 };
