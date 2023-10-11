@@ -8,17 +8,17 @@
     <title>Blog</title>
 </head>
 <body>
-    <div class="blog-top position-sticky border-bottom start-0 top-0 end-0 bg-body-secondary">
+    <div class="blog-top position-sticky start-0 top-0 end-0">
         <div class="container w-100">
-            <header class="blog-header border-bottom py-3 ">
+            <header class="blog-header py-3 ">
                 <div class="row flex-nowrap justify-content-between align-items-center">
                     <div class="col-4"></div>
-                    <div class="col-4 text-center"><a class="blog-header-title text-dark" style="font-size: xx-large;"
+                    <div class="col-4 text-center"><a class="blog-header-title" style="font-size: xx-large;"
                                                     href="/home">Blog</a></div>
                     <div class="col-4 d-flex justify-content-end align-items-center">
                     <form class="d-flex" role="search">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-outline-success" type="submit">Search</button>
+                        <input class="search-input rounded me-2" type="search" placeholder="  Search" aria-label="Search">
+                        <button class="btn btn-outline-secondary" type="submit">Search</button>
                     </form>
                     </div>
                 </div>
@@ -26,7 +26,7 @@
             <div class="nav-scroller py-1">
                 <nav class="nav d-flex justify-content-between my-2">
                     <?php foreach ($sections as $section):?>
-                        <a class="p-2 text-muted" href="/<?php echo 
+                        <a class="p-2" href="/<?php echo 
                             isset($section['nom_categorie']) ? 
                             strtolower($section['nom_categorie']) : 'non_defini';
                             ?>">
@@ -42,14 +42,14 @@
     </div>
     <main role="main">
         <div>
-            <h1 class="bg-light py-2 mb-2 ps-5 border-bottom w-100">
+            <h1 class="article-category py-2 mb-2 ps-5 w-100">
                 <?php
                 $firstCategory = $categories[0] ?? [];
                 echo $firstCategory['nom_categorie'] ?? 'non defini';
                 ?>
             </h1>
             
-            <div class="article-section m-2 px-3 border border-dark-subtle bg-body-tertiary rounded">
+            <div class="article-section m-2 px-3 rounded">
                 <div class="row mx-2 border-bottom border-dark-subtle article-head">
                     <div class="col-2 py-3 article-date d-flex align-items-top "> 
                         <div class="row">
@@ -101,7 +101,7 @@
             <div class="container-fluid article-commentaries">
                 <?php foreach ($commentaires as $commentaire): ?>
                     <?php if ($commentaire['id_article'] == $articles[0]['id_article']): ?>
-                        <div class="row px-2 mx-5 py-2 my-2 border border-dark-subtle rounded bg-body-tertiary article-commentary">
+                        <div class="row px-2 mx-5 py-2 my-2 rounded article-commentary">
                             <h5 class="col-3 d-flex justify-content-center article-commentaries-author">
                                 <?php
                                 $authorCommentary = $commentaire ?? [];
@@ -138,7 +138,7 @@
         </nav>
     </main>
 
-    <footer class="blog-footer container-fluid py-5 mt-2 position-static bottom-0 start-0 border-top border-dark-subtle text-center text-body-secondary">
+    <footer class="blog-footer container-fluid py-5 mt-2 position-static bottom-0 start-0">
         <p>Blog built by <a href="#">FLX</a>.</p>
         <p class="mb-0">
             <a href="#">Back to top</a>

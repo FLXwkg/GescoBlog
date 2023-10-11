@@ -1,41 +1,78 @@
+/*main colors*/
+
+/*
+body bg : #F6EBFF
+text : #585C71
+header bg : #BBD0FF
+header border : #675cff
+category head bg : #b8c0ff
+category head text : #6200f5
+article bg : #e0d6ff
+article text : #675cff
+*/
+
+
+
 body {
     margin: 0;
     min-height: 100vh;
     display: grid;
     grid-template-rows: auto 1fr auto;
-    background-color: #EFF7F6;
+    background-color: #F6EBFF;
 }
 
 .blog-top{
-    background-color: #B2F7EF;
-    border-bottom: #7BDFF2;
+    background-color: #BBD0FF;
+    border-bottom: 1px solid #585C71;
+    
+}
+.blog-top a {
+    color: #585C71;
+}
+
+.search-input{
+    background-color: #e0d6ff;
+    border: 1px solid #585C71;
 }
 
 .blog-header{
     
-    border-bottom: #7BDFF2;
+    border-bottom: 1px solid #585C71;
 }
 
 .blog-category{
-    background-color: #B2F7EF;
-    border-bottom: #7BDFF2;
+    background-color: #FFD6FF;
+    border-bottom: 1px solid #585C71;
+}
+.article-category{
+    background-color: #b8c0ff;
+    color: #585C71;
+    border-bottom: 1px solid #585C71;
 }
 
 a {
-    color: #2c514c;
+    color: #675cff;
 }
 
 a:hover {
-    color: #122932;
+    color: #8D85FF;
+}
+
+.article-section{
+    background-color: #e0d6ff;
+    color: #585C71;
 }
 
 .article-commentary{
-    background-color: #FCEEF2;
-    border: #F6CBE0;
+    background-color: #e0d6ff;
+    
+    color: #585C71;
 }
 
 .blog-footer{
-    background-color: #B2F7EF;
-    border-top: #7BDFF2;
+    background-color: #BBD0FF;
+    border-top: 1px solid #C8B6FF;
+    text-align: center;
+    color: #585C71;
 }
 
