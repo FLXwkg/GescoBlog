@@ -1,140 +1,94 @@
 # Blog
 
+Premier blog de FLX
 
+# Sommaire
+    [[_TOC_]]
 
-## Getting started
+# Fonctionnement
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+## Organisation du projet
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+Ce projet repose sur Slim Framework v4.8.1, sa documentation : https://www.slimframework.com/docs/v4/
 
-## Add your files
+Slim n'impose rien, mais une documentation est associée aux skeleton officiel, on la respecte donc :
+https://odan.github.io/slim4-skeleton/directory-structure.html
 
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
+Ce skeleton suit d'ailleurs un standard tentant d'harmoniser les structures des projets web :
+https://github.com/php-pds/skeleton
 
-```
-cd existing_repo
-git remote add origin https://gitlab.com/FLXwkg/blog.git
-git branch -M main
-git push -uf origin main
-```
+# Installation, update et développement
 
-## Integrate with your tools
+## Installation du projet
 
-- [ ] [Set up project integrations](https://gitlab.com/FLXwkg/blog/-/settings/integrations)
+Quelques étapes simples pour installer ce projet en local ou en production : 
 
-## Collaborate with your team
+1. cloner le projet : `git clone git@gitlab.com:FLXwkg/blog.git`
+2. entrer dans le répertoire du projet : `cd blog`
+3. installer les dépendances depuis le composer.lock : `composer install`
+4. copier la configuration d'exemple : `cp config/application.config.php.dist config/application.config.php`
+5. customiser la configuration en fonction de l'environement (urls des backend, token google, debug)
+6. créer un host sur le serveur web pointant sur le répertoire `public`, documentation : https://www.slimframework.com/docs/v4/start/web-servers.html  
 
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Set auto-merge](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
+En cas de problème liés au serveur ou aux dépendances de l'application, lancer la commande : 
+`composer check-platform-reqs` pour vérifier que tout est compatible.
 
-## Test and Deploy
-
-Use the built-in continuous integration in GitLab.
-
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing(SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
-
-***
-
-# Editing this README
-
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thank you to [makeareadme.com](https://www.makeareadme.com/) for this template.
-
-## Suggestions for a good README
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
-
-## Name
-Choose a self-explaining name for your project.
-
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
-
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
-
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
-
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
-
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
-
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
-
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
-
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
-
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
-
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
-
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
-
-## License
-For open source projects, say how it is licensed.
-
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
-
-
-
-
-
-
-# Slim Framework 4 Skeleton Application
-
-[![Coverage Status](https://coveralls.io/repos/github/slimphp/Slim-Skeleton/badge.svg?branch=master)](https://coveralls.io/github/slimphp/Slim-Skeleton?branch=master)
-
-Use this skeleton application to quickly setup and start working on a new Slim Framework 4 application. This application uses the latest Slim 4 with Slim PSR-7 implementation and PHP-DI container implementation. It also uses the Monolog logger.
-
-This skeleton application was built for Composer. This makes setting up a new Slim Framework application quick and easy.
-
-## Install the Application
-
-Run this command from the directory in which you want to install your new Slim Framework application. You will require PHP 7.4 or newer.
+Exemple de retour quand tout est OK :
 
 ```bash
-composer create-project slim/slim-skeleton [my-app-name]
+➜  nousassurons-site git:(master) ✗ composer check-platform-reqs
+ext-curl      7.3.23    success
+ext-json      1.7.0     success
+ext-mbstring  7.3.23    success
+php           8.2.1    success
 ```
 
-Replace `[my-app-name]` with the desired directory name for your new application. You'll want to:
+**Attention** : En production, la configuration `debug` doit être sur `false` **impérativement** car les pages d'erreur contiennent un `var_dump` de l'exception déclenchée quand le debug est activé !
 
-* Point your virtual host document root to your new application's `public/` directory.
-* Ensure `logs/` is web writable.
+## Update du projet
 
-To run the application in development, you can run these commands 
+Avant d'update, vérifier si de nouveaux éléments sont apparus dans la configuration de démo
+(`config/application.config.php.dist`) et si oui, ajouter les clés dans la configuration du projet
 
-```bash
-cd [my-app-name]
-composer start
-```
+Ensuite, il suffit de : 
 
-Or you can use `docker-compose` to run the app with `docker`, so you can run these commands:
-```bash
-cd [my-app-name]
-docker-compose up -d
-```
-After that, open `http://localhost:8080` in your browser.
+1. rapatrier les changements `git pull origin master`
+2. installation/update des dépendances figées dans le composer.lock : `composer install`
 
-Run this command in the application directory to run the test suite
 
-```bash
-composer test
-```
 
-That's it! Now go build something cool.
+
+## Développement local
+
+### Environnement local
+
+Personnellement, j'utilise **Vagrant**, **Virtualbox** et la box **Laravel-Homestead** pour mon setup
+de développement local, il permet de créer un Virtual Host en quelques lignes de configuration.
+
+Plus d'infos sur Homestead : https://laravel.com/docs/8.x/homestead
+
+### Les commits
+
+Tous les changements sont versionnés via git. Pour mieux identifier les commits, 
+j'utilise **Gitmoji** qui permet, via une nomenclature d'emoji, de voir rapidement pour quelles raisons le commit a été fait.
+Les emojis étant affichés dans les gestionnaires github et gitlab, on peut facilement visualiser les changements juste en parcourant la liste des commits.
+Ca permet aussi de mieux commiter, en faisant des commits plus courts et d'éviter les commits à rallonge devenant illisibles.
+
+Plus d'infos sur Gitmoji : https://gitmoji.dev/
+
+### Editorconfig
+
+Pour que les développeurs utilisent tous la même norme d'indentation, charset et autres éléments de configuration propre à l'IDE, 
+j'utilise la norme basée sur les fichiers `.editorconfig`. Ces fichiers sont compris par la plupart des IDE soit en natif, soit via un plugin et 
+permettent d'éviter qu'un développeur ré-indente tout les fichiers qu'il a ouvert (et donc pollue les commits et l'homogénéité du code).
+Le fichier `.editorconfig` est versionné dans le projet.
+
+Plus d'infos sur editorconfig : https://editorconfig.org/
+
+### Composer
+
+Pour éviter qu'un développeur ait une version d'une dépendance et un autre développeur, une autre version, le fichier `composer.lock` est **versionné**.
+Les développeurs font des `composer install` pour tous installer des versions identiques des dépendances.
+
+Quand la commande `composer update` est executée, un commit doit suivre pour versionner la mise à jour du fichier `composer.lock`.
+Sur les serveurs de préproduction et de production, c'est uniquement la commande `composer install` qui doit être éxecutée.
