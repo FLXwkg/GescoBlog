@@ -4,20 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/css/cssMenu.css" rel="stylesheet">
     <title>Blog</title>
 </head>
 <body>
-    <div class="position-sticky  border-bottom start-0 top-0 end-0 bg-body-secondary">
+    <div class="blog-top position-sticky start-0 top-0 end-0">
         <div class="container w-100">
-            <header class="blog-header border-bottom py-3 ">
+            <header class="blog-header py-3 ">
                 <div class="row flex-nowrap justify-content-between align-items-center">
                     <div class="col-4"></div>
-                    <div class="col-4 text-center"><a class="blog-header-title text-dark" style="font-size: xx-large;"
+                    <div class="col-4 text-center"><a class="blog-header-title" style="font-size: xx-large;"
                                                     href="/home">Blog</a></div>
                     <div class="col-4 d-flex justify-content-end align-items-center">
                     <form class="d-flex" role="search">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-outline-success" type="submit">Search</button>
+                        <input class="search-input me-2 rounded" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-secondary" type="submit">Search</button>
                     </form>
                     </div>
                 </div>
@@ -25,7 +26,7 @@
             <div class="nav-scroller py-1">
                 <nav class="nav d-flex justify-content-between my-2">
                     <?php foreach ($sections as $section):?>
-                        <a class="p-2 text-muted" href="/<?php echo 
+                        <a class="p-2" href="/<?php echo 
                             isset($section['nom_categorie']) ? 
                             strtolower($section['nom_categorie']) : 'non_defini';
                             ?>">
@@ -41,16 +42,16 @@
     </div>
     <main role="main">
         <div>
-            <h1 class="bg-light py-2 mb-2 ps-5 border-bottom w-100">
+            <h1 class="article-category py-2 mb-2 ps-5 w-100">
                 <?php
                 $firstCategory = $categories[0] ?? [];
                 echo $firstCategory['nom_categorie'] ?? 'non defini';
                 ?>
             </h1>
             <?php foreach ($articles as $article): ?>
-                <div class="blog-section m-2 px-3 border border-dark-subtle bg-body-tertiary rounded">
-                    <div class="row blog-post d-flex align-items-top">
-                        <div class="col-3 py-3 blog-post-title">
+                <div class="article-section m-2 px-3 rounded">
+                    <div class="article-head row d-flex align-items-top">
+                        <div class="article-head-title col-3 py-3">
                             <h2 class="row">
                                 <a href=
                                     "/<?php $articleCategory = $categories[0] ?? [];
@@ -68,13 +69,13 @@
                                 </a>  
                             </div>
                         </div>
-                        <p class="col-7 my-3 pe-0 blog-post-text text-break border-start border-end">
+                        <p class="article-head-text col-7 my-3 pe-0 text-break">
                             <?php
                             $textArticle = $article ?? [];
                             echo $textArticle['texte_article'] ?? 'Texte';
                             ?>
                         </p>
-                        <div class="col-2 pt-3 py-0 blog-post-date">
+                        <div class="article-head-date col-2 pt-3 py-0">
                             <div class="row">
                                 <small class="ps-1">Published on :</small>
                                 <div class="ps-2">
@@ -84,34 +85,26 @@
                                     ?>
                                 </div>
                             </div>
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                              
                         </div>           
                     </div>
                     
-                    <div class="blog-commentaries ">
+                    <div class="article-commentaries">
                         <?php foreach ($commentaires as $commentaire): ?>
                             <?php if ($commentaire['id_article'] == $article['id_article']): ?>
-                                <div class="row blog-commentary border-top bg-body-tertiary px-2 mx-5 py-2 my-2 ">
-                                    <h5 class="col-3 blog-commentaries-author">
+                                <div class="row article-commentary px-2 mx-5 py-2 my-2 ">
+                                    <h5 class="article-commentary-author col-3 ">
                                         <?php
                                         $authorCommentary = $commentaire ?? [];
                                         echo $authorCommentary['auteur_commentaire'] ?? 'Auteur';
                                         ?>
                                     </h5>
-                                    <p class="col-6 blog-commentaries-text border-start mt-2">
+                                    <p class="article-commentary-text col-6 mt-2">
                                         <?php
                                         $textCommentary = $commentaire ?? [];
                                         echo $textCommentary['texte_commentaire'] ?? 'Texte';
                                         ?>
                                     </p>
-                                    <small class="col-3 blog-commentaries-date d-flex justify-content-end">
+                                    <small class="article-commentary-date col-3 d-flex justify-content-end">
                                         Published on
                                         <?php
                                         $dateCommentary = $commentaire ?? [];
@@ -127,16 +120,20 @@
             <?php endforeach; ?>
         </div><!-- /.row -->
 
-        <nav class="blog-pagination mx-2">
-            <a class="btn btn-outline-primary" href="#">Top</a>
-            <a class="btn btn-outline-secondary disabled" href="#">More</a>
+        <nav class="d-flex justify-content-between mx-5 blog-pagination">
+            <a class="btn btn-outline-secondary" href="/home">Home</a>
+            <a class="btn btn-outline-secondary" href="/<?php echo strtolower($firstCategory['nom_categorie']) ?? 'non defini';?>">Back to 
+                <?php
+                    echo $firstCategory['nom_categorie'] ?? 'non defini';
+                ?>
+            </a>
         </nav>
 
 
         
 
     </main>
-    <footer class="py-5 mt-2 border-top border-dark-subtle text-center text-body-secondary bg-body-tertiary">
+    <footer class="blog-footer py-5 mt-2">
         <p>Blog built by <a href="#">FLX</a>.</p>
         <p class="mb-0">
             <a href="#">Back to top</a>

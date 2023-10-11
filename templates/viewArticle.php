@@ -89,7 +89,7 @@
                     </div>           
                 </div>
                 <div class="row article-text">
-                    <p class="col mx-5 my-3 pb-3 border-bottom border-dark-subtle blog-post-text text-break">
+                    <p class="col mx-5 my-3 pb-3 text-break">
                         <?php
                         $textArticle = $articles[0] ?? [];
                         echo $textArticle['texte_article'] ?? 'Texte';
@@ -103,12 +103,14 @@
                     <?php if ($commentaire['id_article'] == $articles[0]['id_article']): ?>
                         <div class="row px-2 mx-5 py-2 my-2 rounded article-commentary">
                             <h5 class="col-3 d-flex justify-content-center article-commentaries-author">
-                                <?php
-                                $authorCommentary = $commentaire ?? [];
-                                echo $authorCommentary['auteur_commentaire'] ?? 'Auteur';
-                                ?>
+                                <a href="#">
+                                    <?php
+                                    $authorCommentary = $commentaire ?? [];
+                                    echo $authorCommentary['auteur_commentaire'] ?? 'Auteur';
+                                    ?>
+                                </a>
                             </h5>
-                            <p class="col-6 article-commentaries-text border-start mt-2">
+                            <p class="col-6 article-commentaries-text mt-2">
                                 <?php
                                 $textCommentary = $commentaire ?? [];
                                 echo $textCommentary['texte_commentaire'] ?? 'Texte';
