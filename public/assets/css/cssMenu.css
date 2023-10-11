@@ -36,8 +36,12 @@ body {
 }
 
 .blog-header{
-    
     border-bottom: 1px solid #585C71;
+}
+
+.blog-header-logo{
+    width: 15%;
+    height: 15%;
 }
 
 .blog-category{

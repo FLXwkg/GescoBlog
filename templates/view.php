@@ -5,39 +5,49 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
     <link href="/assets/css/cssMenu.css" rel="stylesheet">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
     <title>Blog</title>
 </head>
 <body>
     <div class="blog-top position-sticky start-0 top-0 end-0">
-        <div class="container w-100">
-            <header class="blog-header py-3 ">
-                <div class="row flex-nowrap justify-content-between align-items-center">
-                    <div class="col-4"></div>
-                    <div class="col-4 text-center"><a class="blog-header-title" style="font-size: xx-large;"
-                                                    href="/home">Blog</a></div>
-                    <div class="col-4 d-flex justify-content-end align-items-center">
-                    <form class="d-flex" role="search">
-                        <input class="search-input me-2 rounded" type="search" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-outline-secondary" type="submit">Search</button>
-                    </form>
+        <div class="container-fluid d-flex align-items-center">
+            <img src="/images/logo.png" alt="FLX Logo" class="blog-header-logo p-4">
+            <div class="container w-100 mx-0">
+                <header class="blog-header py-3">
+                    <div class="row flex-nowrap justify-content-between align-items-center">
+                        <div class="col-4"></div>
+                        <div class="col-4 text-center">
+                            <a class="blog-header-title" href="/home">
+                                <img src="/images/favicon.ico" alt="FLX Blog" class="blog-header-title">
+                            </a>
+                        </div>
+                        <div class="col-4 d-flex justify-content-end align-items-center">
+                        <form class="d-flex" role="search">
+                            <input class="search-input me-2 rounded" type="search" placeholder="Search" aria-label="Search">
+                            <button class="btn btn-outline-secondary" type="submit">Search</button>
+                        </form>
+                        </div>
                     </div>
+                </header>
+                <div class="nav-scroller py-1">
+                    <nav class="nav d-flex justify-content-between my-2">
+                        <?php foreach ($sections as $section):?>
+                            <a class="p-2" href="/<?php echo 
+                                isset($section['nom_categorie']) ? 
+                                strtolower($section['nom_categorie']) : 'non_defini';
+                                ?>">
+                                <?php echo
+                                isset($section['nom_categorie']) ? 
+                                htmlspecialchars($section['nom_categorie']) : 'non_defini'; 
+                                ?>
+                            </a>
+                        <?php endforeach ?>
+                    </nav>
                 </div>
-            </header>
-            <div class="nav-scroller py-1">
-                <nav class="nav d-flex justify-content-between my-2">
-                    <?php foreach ($sections as $section):?>
-                        <a class="p-2" href="/<?php echo 
-                            isset($section['nom_categorie']) ? 
-                            strtolower($section['nom_categorie']) : 'non_defini';
-                            ?>">
-                            <?php echo
-                            isset($section['nom_categorie']) ? 
-                            htmlspecialchars($section['nom_categorie']) : 'non_defini'; 
-                            ?>
-                        </a>
-                    <?php endforeach ?>
-                </nav>
-            </div>
+            </div>   
         </div>
     </div>
     <main role="main">
