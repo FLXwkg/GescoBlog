@@ -4,5 +4,5 @@
         'name'=>'homestead',
         'login'=>'homestead',
         'password'=>'secret',
+        'production' => 'false',
     ];
-?>
