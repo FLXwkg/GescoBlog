@@ -3,13 +3,14 @@
 Premier blog de FLX
 
 # Sommaire
-    [[_TOC_]]
+
+[[_TOC_]]
 
 # Fonctionnement
 
 ## Organisation du projet
 
-Ce projet repose sur Slim Framework v4.8.1, sa documentation : https://www.slimframework.com/docs/v4/
+Ce projet repose sur **Slim Framework v4.8.1**, sa documentation : https://www.slimframework.com/docs/v4/
 
 Slim n'impose rien, mais une documentation est associée aux skeleton officiel, on la respecte donc :
 https://odan.github.io/slim4-skeleton/directory-structure.html
@@ -23,12 +24,11 @@ https://github.com/php-pds/skeleton
 
 Quelques étapes simples pour installer ce projet en local ou en production : 
 
-1. cloner le projet : `git clone git@gitlab.com:FLXwkg/blog.git`
-2. entrer dans le répertoire du projet : `cd blog`
-3. installer les dépendances depuis le composer.lock : `composer install`
-4. copier la configuration d'exemple : `cp config/application.config.php.dist config/application.config.php`
-5. customiser la configuration en fonction de l'environement (urls des backend, token google, debug)
-6. créer un host sur le serveur web pointant sur le répertoire `public`, documentation : https://www.slimframework.com/docs/v4/start/web-servers.html  
+1. Cloner le projet : `git clone git@gitlab.com:FLXwkg/blog.git`
+2. Entrer dans le répertoire du projet : `cd blog`
+3. Installer les dépendances depuis le composer.lock : `composer install`
+4. Copier la configuration d'exemple : `cp config/application.config.php.dist config/application.config.php`
+5. Créer un host sur le serveur web pointant sur le répertoire `public`, documentation : https://www.slimframework.com/docs/v4/start/web-servers.html  
 
 En cas de problème liés au serveur ou aux dépendances de l'application, lancer la commande : 
 `composer check-platform-reqs` pour vérifier que tout est compatible.
@@ -40,7 +40,7 @@ Exemple de retour quand tout est OK :
 ext-curl      7.3.23    success
 ext-json      1.7.0     success
 ext-mbstring  7.3.23    success
-php           8.2.1    success
+php           8.2.1     success
 ```
 
 **Attention** : En production, la configuration `debug` doit être sur `false` **impérativement** car les pages d'erreur contiennent un `var_dump` de l'exception déclenchée quand le debug est activé !
@@ -71,8 +71,8 @@ Plus d'infos sur Homestead : https://laravel.com/docs/8.x/homestead
 
 Tous les changements sont versionnés via git. Pour mieux identifier les commits, 
 j'utilise **Gitmoji** qui permet, via une nomenclature d'emoji, de voir rapidement pour quelles raisons le commit a été fait.
-Les emojis étant affichés dans les gestionnaires github et gitlab, on peut facilement visualiser les changements juste en parcourant la liste des commits.
-Ca permet aussi de mieux commiter, en faisant des commits plus courts et d'éviter les commits à rallonge devenant illisibles.
+Les emojis étant affichés dans les gestionnaires Github et Gitlab, on peut facilement visualiser les changements juste en parcourant la liste des commits.
+Ca permet aussi  d'éviter les commits à rallonge devenant illisibles en faisant des commits plus courts.
 
 Plus d'infos sur Gitmoji : https://gitmoji.dev/
 
@@ -92,3 +92,14 @@ Les développeurs font des `composer install` pour tous installer des versions i
 
 Quand la commande `composer update` est executée, un commit doit suivre pour versionner la mise à jour du fichier `composer.lock`.
 Sur les serveurs de préproduction et de production, c'est uniquement la commande `composer install` qui doit être éxecutée.
+
+# Evolutions possibles ou à prévoir
+
+## Ajouts
+
+- [ ] Icônes diverses
+- [ ] Fonts
+
+## Optimisations possibles ou à prévoir
+
+- [ ] Création d'une méthode slugify à affecter sur toutes les urls
