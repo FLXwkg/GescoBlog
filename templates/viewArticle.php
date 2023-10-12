@@ -54,8 +54,8 @@
         <div>
             <h1 class="article-category py-2 mb-2 ps-5 w-100">
                 <?php
-                $firstCategory = $categories[0] ?? [];
-                echo $firstCategory['nom_categorie'] ?? 'non defini';
+                    $category = $categories[0];
+                    echo $category->getNom();
                 ?>
             </h1>
             
@@ -66,15 +66,14 @@
                             <small class="ps-2">Published on :</small>
                             <div class="ps-3">
                                 <?php
-                                    $dateArticle = $articles[0] ?? [];
-                                    echo $dateArticle['date_article'] ?? 'Date';
+                                    $article = $articles[0];
+                                    echo $article->getDate() ?? 'Date';
                                 ?>
                             </div>
                             <small class="ps-2">Modified on :</small>
                             <div class="ps-3">
                                 <?php
-                                    $dateArticle = $articles[0] ?? [];
-                                    echo $dateArticle['date_modification_article'] ?? 'Date';
+                                    echo $article->getDateModif() ?? 'Date';
                                 ?>
                             </div>
                         </div>
@@ -82,7 +81,7 @@
 
                     <div class="col-8 my-0 d-flex justify-content-center align-items-center article-title">
                         <h2 class="">
-                            <?php echo $articles[0]['titre_article'] ?? 'Titre';?>
+                            <?php echo $article->getTitre() ?? 'Titre';?>
                         </h2>
                     </div>
 
@@ -90,8 +89,8 @@
                         <div class="row">
                             <small class="col-2 ps-1 pe-0 pt-1 ">by :</small>
                             <a class="col-10 px-0" href="#">
-                                <?php $authorArticle = $articles[0] ?? [];
-                                    echo $authorArticle['auteur_article'] ?? 'Auteur';
+                                <?php
+                                    echo $article->getAuteur() ?? 'Auteur';
                                 ?>
                             </a>  
                         </div>
@@ -101,8 +100,7 @@
                 <div class="row article-text">
                     <p class="col mx-5 my-3 pb-3 text-break">
                         <?php
-                        $textArticle = $articles[0] ?? [];
-                        echo $textArticle['texte_article'] ?? 'Texte';
+                        echo $article->getTexte() ?? 'Texte';
                         ?>
                     </p>
                 </div>
@@ -110,27 +108,24 @@
 
             <div class="container-fluid article-commentaries">
                 <?php foreach ($commentaires as $commentaire): ?>
-                    <?php if ($commentaire['id_article'] == $articles[0]['id_article']): ?>
+                    <?php if ($commentaire->getIdArticle() == $article->getId()): ?>
                         <div class="row px-2 mx-5 py-2 my-2 rounded article-commentary">
                             <h5 class="col-3 d-flex justify-content-center article-commentaries-author">
                                 <a href="#">
                                     <?php
-                                    $authorCommentary = $commentaire ?? [];
-                                    echo $authorCommentary['auteur_commentaire'] ?? 'Auteur';
+                                    echo $commentaire->getAuteur() ?? 'Auteur';
                                     ?>
                                 </a>
                             </h5>
                             <p class="col-6 article-commentaries-text mt-2">
                                 <?php
-                                $textCommentary = $commentaire ?? [];
-                                echo $textCommentary['texte_commentaire'] ?? 'Texte';
+                                echo $commentaire->getTexte() ?? 'Texte';
                                 ?>
                             </p>
                             <small class="col-3 article-commentaries-date d-flex justify-content-end">
                                 Published on
                                 <?php
-                                $dateCommentary = $commentaire ?? [];
-                                echo $dateCommentary['date_modification_commentaire'] ?? 'Date';
+                                echo $commentaire->getDateModif() ?? 'Date';
                                 ?>
                             </small>
                             
@@ -142,9 +137,9 @@
 
         <nav class="d-flex justify-content-between mx-5 blog-pagination">
             <a class="btn btn-outline-secondary" href="/home">Home</a>
-            <a class="btn btn-outline-secondary" href="/<?php echo strtolower($firstCategory['nom_categorie']) ?? 'non defini';?>">Back to 
+            <a class="btn btn-outline-secondary" href="/<?php echo strtolower($category->getNom()) ?? 'non defini';?>">Back to 
                 <?php
-                    echo $firstCategory['nom_categorie'] ?? 'non defini';
+                    echo $category->getNom() ?? 'non defini';
                 ?>
             </a>
         </nav>
