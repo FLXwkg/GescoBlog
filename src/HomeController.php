@@ -18,31 +18,30 @@ class HomeController extends GenericController
 
     public function handleRoute($request, $response, $args, $id)
     {
-        $this->id = $id;
         $section = new Section();
         $args['sections'] = $section->getSections();
 
-        $categorie = new Categorie($this->id);
-        $args['categories'] = $categorie->getCategories();
-        
-        $article = new Article($this->id);
-        $article->setHomeArticles();
-        $contentArticle = $article->getArticles();
+        $categories = new CategoriesRepository();
+        $args['categories'] = $categories->GetNameById($id);
+        //var_dump($args['categories']);die();
+        $articles = new ArticlesRepository();
+        $contentArticle = $articles->getAll();
         $args['articles'] = $contentArticle;
+        //var_dump($args['articles']);die();
         
-
-        if ($contentArticle) {
-            $commentairesPage = [];
-            if(count($contentArticle)> 0){
-                for($i=0;$i<count($contentArticle);$i++){
-                    $commentaire = new Commentaire($article,$i);
-                    $commentairesArticle = $commentaire->getCommentaires();
-                    $commentairesPage = array_merge($commentairesPage,$commentairesArticle);
-                }
-            }
-            $args['commentaires'] = $commentairesPage;
+        $commentairesPage = [];
+        
+        foreach ($args['articles'] as $article){
+            //var_dump($article);die();
+            $commentaire = new CommentairesRepository();
+            $commentairesArticle = $commentaire->getByArticle($article);
+            $commentairesPage = array_merge($commentairesPage,$commentairesArticle);
         }
-
+        
+        
+        $args['commentaires'] = $commentairesPage;
+        
+        
         $renderer = new PhpRenderer('../templates');
         return $renderer->render($response, "view.php", $args);
     }

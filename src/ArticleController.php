@@ -20,31 +20,28 @@ class ArticleController
 
     public function render($request, $response, $args, $title, $id)
     {
-        $this->title = $title;
         $section = new Section();
         $args['sections'] = $section->getSections();
 
-        $this->id = $id;
-        $categorie = new Categorie($this->id);
-        $args['categories'] = $categorie->getCategories();
+        $categories = new CategoriesRepository();
+        $args['categories'] = $categories->GetNameById($id);
         //var_dump($args);die();
-        $article = new Article($this->id);
-        $article->setNomArticle($this->title);
-        $contentArticle = $article->getNomArticle();
+        $articles = new ArticlesRepository();
+        $contentArticle = $articles->getByName($title);
         $args['articles'] = $contentArticle;
-        //var_dump($args);die();
+        //var_dump($args['articles']);die();
 
-        if ($contentArticle) {
-            $commentairesPage = [];
-            if(count($contentArticle)> 0){
-                for($i=0;$i<count($contentArticle);$i++){
-                    $commentaire = new Commentaire($article,$i);
-                    $commentairesArticle = $commentaire->getCommentaires();
-                    $commentairesPage = array_merge($commentairesPage,$commentairesArticle);
-                }
-            }
-            $args['commentaires'] = $commentairesPage;
+        $commentairesPage = [];
+        
+        foreach ($args['articles'] as $article){
+            //var_dump($article);die();
+            $commentaire = new CommentairesRepository();
+            $commentairesArticle = $commentaire->getByArticle($article);
+            $commentairesPage = array_merge($commentairesPage,$commentairesArticle);
         }
+        
+        
+        $args['commentaires'] = $commentairesPage;
 
         $renderer = new PhpRenderer('../templates');
         return $renderer->render($response, "viewArticle.php", $args);
