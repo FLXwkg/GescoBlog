@@ -36,7 +36,7 @@ En cas de problème liés au serveur ou aux dépendances de l'application, lance
 Exemple de retour quand tout est OK :
 
 ```bash
-➜  nousassurons-site git:(master) ✗ composer check-platform-reqs
+➜  blog git:(master) ✗ composer check-platform-reqs
 ext-curl      7.3.23    success
 ext-json      1.7.0     success
 ext-mbstring  7.3.23    success
