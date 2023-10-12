@@ -1,70 +1,50 @@
 <?php
 namespace App;
 
-use PDO;
-use App\PDOConfiguration;
-
-class Article extends Categorie
+class Article
 {
-    protected $articles = [];
+    
+    protected $id_article;
+    protected $titre_article;
+    protected $texte_article;
+    protected $date_article;
+    protected $date_modification_article;
+    protected $auteur_article;
+    protected $id_categorie;
+    
 
-    protected $idArticle = [];
-
-    protected $nomArticle = [];
-
-    public function __construct(int $AskId)
+    public function getId()
     {
-        $this->setArticles($AskId);
+        return $this->id_article;
     }
 
-    public function setArticles(int $AskId): Article
+    public function getTitre()
     {
-        $this->id = $AskId;
-        $config = new PDOConfiguration(require __DIR__.'/../config/application.config.php');
-        $pdo = $config->getPDO();
-        $sql = 'SELECT * FROM article WHERE id_categorie = ' . $this->id . ';';
-        $requete = $pdo->query($sql);
-        $this->articles = $requete->fetchAll(PDO::FETCH_ASSOC);
-
-        return $this;
+        return $this->titre_article;
     }
-    public function setHomeArticles(): Article
+    public function getTexte()
     {
-        $config = new PDOConfiguration(require __DIR__.'/../config/application.config.php');
-        $pdo = $config->getPDO();
-        $sql = 'SELECT * FROM article;';
-        $requete = $pdo->query($sql);
-        $this->articles = $requete->fetchAll(PDO::FETCH_ASSOC);
-
-        return $this;
+        return $this->texte_article;
     }
 
-    public function setNomArticle(string $nomArticle): Article
+    public function getDate()
     {
-        $this->nomArticle = $nomArticle;
-        $config = new PDOConfiguration(require __DIR__.'/../config/application.config.php');
-        $pdo = $config->getPDO();
-        $sql = "SELECT * FROM article WHERE titre_article = '" . $this->nomArticle ."';";
-        $requete = $pdo->query($sql);
-        $this->articles = $requete->fetchAll(PDO::FETCH_ASSOC);
-
-        return $this;
+        return $this->date_article;
     }
 
-    public function getArticles(): array
+    public function getDateModif()
     {
-        return $this->articles;
+        return $this->date_modification_article;
     }
 
-    public function getIdArticle()
+    public function getAuteur()
     {
-        return $this->idArticle;
+        return $this->auteur_article;
     }
 
-    public function getNomArticle()
+    public function getIdCategorie()
     {
-        return $this->articles;
+        return $this->id_categorie;
     }
-
 
 }

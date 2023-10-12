@@ -4,36 +4,44 @@ namespace App;
 use PDO;
 use App\PDOConfiguration;
 
-class Commentaire extends Article
+class Commentaire
 {
-    protected $commentaires = [];
     
-    public function __construct(Article $article, int $i)
-    {
-        $this->setCommentaires($article,$i);
-    }
-
-    public function setCommentaires(Article $article,int $i): Commentaire
-    {
-        $this->articles = $article->getArticles();
-        //for($i=0;$i<count($this->articles);$i++){
-            $config = new PDOConfiguration(require __DIR__.'/../config/application.config.php');
-            $pdo = $config->getPDO();
-            $sql = 'SELECT * FROM commentaire WHERE id_article = ' . $this->articles[$i]['id_article'] . ';';
-            $requete = $pdo->query($sql);
-            $this->commentaires = $requete->fetchAll(PDO::FETCH_ASSOC);
-        //}
-
-        return $this;
-    }
-
-    public function getCommentaires(): array
-    {
-        return $this->commentaires;
-    }
+    protected $id_commentaire;
+    protected $auteur_commentaire;
+    protected $texte_commentaire;
+    protected $date_commentaire;
+    protected $date_modification_commentaire;
+    protected $id_article;
+    
 
     public function getId()
     {
-        return $this->id;
+        return $this->id_commentaire;
+    }
+
+    public function getAuteur()
+    {
+        return $this->auteur_commentaire;
+    }
+
+    public function getTexte()
+    {
+        return $this->texte_commentaire;
+    }
+
+    public function getDate()
+    {
+        return $this->date_commentaire;
+    }
+
+    public function getDateModif()
+    {
+        return $this->date_modification_commentaire;
+    }
+
+    public function getIdArticle()
+    {
+        return $this->id_article;
     }
 }
