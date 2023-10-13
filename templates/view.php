@@ -25,27 +25,27 @@ include "../scripts/slugifyText.php";
     </title>
 </head>
 <body>
-    <div class="blog-top position-sticky start-0 top-0 end-0">
-        <div class="container-fluid d-flex align-items-center">
-            <img src="/images/logo.png" alt="FLX Logo" class="blog-header-logo p-4">
-            <div class="container w-100 mx-0">
-                <header class="blog-header py-3">
-                    <div class="row flex-nowrap justify-content-between align-items-center">
-                        <div class="col-4"></div>
-                        <div class="col-4 text-center">
-                            <a class="blog-header-title" href="/home">
-                                <img src="/images/favicon.ico" alt="FLX Blog" class="blog-header-title">
-                            </a>
-                        </div>
-                        <div class="col-4 d-flex justify-content-end align-items-center">
-                        <form class="d-flex" role="search" id="search">
-                            <input class="search-input me-2 rounded" type="search" placeholder="Search" aria-label="Search">
-                            <button class="btn btn-outline-secondary" type="submit">Search</button>
+    <div class="blog-top">
+        <div class="row container-fluid">
+            <div class="col-2">
+                <img src="/images/logo.png" alt="FLX Logo" class="blog-header-logo p-4">
+            </div>
+            <div class="col-8 container mx-0">
+                <header class="row blog-header py-3">
+                    <div class="col-lg-0 col-xl-4 space-col"></div>
+                    <div class="col-lg-4 col-xl-4 blog-header-title text-center">
+                        <a href="/home">
+                            <img src="/images/favicon.ico" alt="FLX Blog">
+                        </a>
+                    </div>
+                    <div class="col-lg-8 col-xl-4 search">
+                        <form class="row" role="search" id="search">
+                            <input class="col-9 search-input rounded" type="search" placeholder="Search" aria-label="Search">
+                            <button class="col-3 btn btn-outline-secondary" type="submit">Search</button>
                         </form>
-                        </div>
                     </div>
                 </header>
-                <div class="nav-scroller py-1">
+                <div class="row nav-scroller py-1">
                     <nav class="nav d-flex justify-content-between my-2">
                     <?php foreach ($sections as $section):?>
                             <a class="p-2" href="/<?php echo strtolower($section->getNom()) ?? 'Non défini';?>">
@@ -54,7 +54,8 @@ include "../scripts/slugifyText.php";
                         <?php endforeach ?>
                     </nav>
                 </div>
-            </div>   
+            </div>
+            <div class="col-2"></div>   
         </div>
     </div>
     <main role="main">
