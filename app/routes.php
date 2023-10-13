@@ -2,14 +2,11 @@
 
 declare(strict_types=1);
 
-use App\Application\Actions\User\ListUsersAction;
-use App\Application\Actions\User\ViewUserAction;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\App;
-use Slim\Interfaces\RouteCollectorProxyInterface as Group;
 
-use App\RouteCategorie;
+use App\CategoriesRepository;
 use App\GenericController;
 use App\HomeController;
 use App\ArticleController;
@@ -22,41 +19,36 @@ return function (App $app) {
 
     $app->get('/', function (Request $request, Response $response) {
         $response->getBody()->write('Hello Blog!');
-        return $response;
+        return $response->withHeader('Location', "/home")->withStatus(301);
     });
-
-    $app->group('/users', function (Group $group) {
-        $group->get('', ListUsersAction::class);
-        $group->get('/{id}', ViewUserAction::class);
-    });
-
 
     //Routes des différentes catégories
 
     $app->get('/{page}', function ($request, $response, $args) {
-        $route = new RouteCategorie($args['page']);
-        $id = $route->getRouteCategories();
+        $route = new CategoriesRepository();
+        $id = $route->getIdByName($args['page']);
         if($args['page']=== 'home'){
             $homeController = new HomeController();
-            return $homeController->handleRoute($request, $response, $args, $id);
+            return $homeController->handleRoute($request, $response, $args, $id[0]->getId());
         }else{
             $genericController = new GenericController();
-            return $genericController->handleRoute($request, $response, $args, $id);
+            return $genericController->handleRoute($request, $response, $args, $id[0]->getId());
         }
     });
     
     // Route dynamique pour afficher un article
 
     $app->get('/{page}/{titre_article}', function ($request, $response, $args) {
-        $route = new RouteCategorie($args['page']);
+        $route = new CategoriesRepository();
         $titreArticle = $args['titre_article'];
-        $id = $route->getCategorieViaTitreArticle($titreArticle);
+        $id = $route->getIdByArticle($titreArticle);
+        //var_dump($id);die();
         if($args['page']=== 'home'){
-            $nomCategorie = $route->getCategorieViaId($id);
-            return $response->withHeader('Location', "/$nomCategorie/$titreArticle")->withStatus(301);;
+            $nomCategorie = $route->getNameById($id[0]->getId());
+            return $response->withHeader('Location', "/$nomCategorie[0]/$titreArticle")->withStatus(301);
         }else{
             $articleController = new ArticleController();
-            return $articleController->render($request, $response, $args, $titreArticle, $id);
+            return $articleController->render($request, $response, $args, $titreArticle, $id[0]->getId());
         }
     });
 };
