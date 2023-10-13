@@ -9,7 +9,17 @@
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="manifest" href="/site.webmanifest">
-    <title>FLX Blog</title>
+    <title>
+        Blog
+        <?php echo " - ";
+            $category = $categories[0];
+            echo $category->getNom();
+        ?>
+        <?php echo " - ";
+            $article = $articles[0];
+            echo $article->getTitre();
+        ?>
+    </title>
 </head>
 <body>
     <div class="blog-top position-sticky start-0 top-0 end-0">
@@ -35,14 +45,8 @@
                 <div class="nav-scroller py-1">
                     <nav class="nav d-flex justify-content-between my-2">
                         <?php foreach ($sections as $section):?>
-                            <a class="p-2" href="/<?php echo 
-                                isset($section['nom_categorie']) ? 
-                                strtolower($section['nom_categorie']) : 'non_defini';
-                                ?>">
-                                <?php echo
-                                isset($section['nom_categorie']) ? 
-                                htmlspecialchars($section['nom_categorie']) : 'non_defini'; 
-                                ?>
+                            <a class="p-2" href="/<?php echo strtolower($section->getNom()) ?? 'Non défini';?>">
+                                <?php echo $section->getNom() ?? 'Non Défini'; ?>
                             </a>
                         <?php endforeach ?>
                     </nav>
@@ -53,10 +57,7 @@
     <main role="main">
         <div>
             <h1 class="article-category py-2 mb-2 ps-5 w-100">
-                <?php
-                    $category = $categories[0];
-                    echo $category->getNom();
-                ?>
+                <?php echo $category->getNom();?>
             </h1>
             
             <div class="article-section m-2 px-3 rounded">
@@ -65,16 +66,11 @@
                         <div class="row">
                             <small class="ps-2">Published on :</small>
                             <div class="ps-3">
-                                <?php
-                                    $article = $articles[0];
-                                    echo $article->getDate() ?? 'Date';
-                                ?>
+                                <?php echo $article->getDate() ?? 'Date';?>
                             </div>
                             <small class="ps-2">Modified on :</small>
                             <div class="ps-3">
-                                <?php
-                                    echo $article->getDateModif() ?? 'Date';
-                                ?>
+                                <?php echo $article->getDateModif() ?? 'Date';?>
                             </div>
                         </div>
                     </div>
@@ -89,19 +85,14 @@
                         <div class="row">
                             <small class="col-2 ps-1 pe-0 pt-1 ">by :</small>
                             <a class="col-10 px-0" href="#">
-                                <?php
-                                    echo $article->getAuteur() ?? 'Auteur';
-                                ?>
+                                <?php echo $article->getAuteur() ?? 'Auteur';?>
                             </a>  
                         </div>
-                            
                     </div>           
                 </div>
                 <div class="row article-text">
                     <p class="col mx-5 my-3 pb-3 text-break">
-                        <?php
-                        echo $article->getTexte() ?? 'Texte';
-                        ?>
+                        <?php echo $article->getTexte() ?? 'Texte';?>
                     </p>
                 </div>
             </div>
@@ -112,23 +103,18 @@
                         <div class="row px-2 mx-5 py-2 my-2 rounded article-commentary">
                             <h5 class="col-3 d-flex justify-content-center article-commentaries-author">
                                 <a href="#">
-                                    <?php
-                                    echo $commentaire->getAuteur() ?? 'Auteur';
-                                    ?>
+                                    <?php echo $commentaire->getAuteur() ?? 'Auteur';?>
                                 </a>
                             </h5>
+
                             <p class="col-6 article-commentaries-text mt-2">
-                                <?php
-                                echo $commentaire->getTexte() ?? 'Texte';
-                                ?>
+                                <?php echo $commentaire->getTexte() ?? 'Texte';?>
                             </p>
+
                             <small class="col-3 article-commentaries-date d-flex justify-content-end">
                                 Published on
-                                <?php
-                                echo $commentaire->getDateModif() ?? 'Date';
-                                ?>
+                                <?php echo $commentaire->getDateModif() ?? 'Date';?>
                             </small>
-                            
                         </div>
                     <?php endif?>
                 <?php endforeach; ?>
@@ -138,9 +124,7 @@
         <nav class="d-flex justify-content-between mx-5 blog-pagination">
             <a class="btn btn-outline-secondary" href="/home">Home</a>
             <a class="btn btn-outline-secondary" href="/<?php echo strtolower($category->getNom()) ?? 'non defini';?>">Back to 
-                <?php
-                    echo $category->getNom() ?? 'non defini';
-                ?>
+                <?php echo $category->getNom() ?? 'non defini';?>
             </a>
         </nav>
     </main>

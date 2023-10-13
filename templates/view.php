@@ -9,7 +9,13 @@
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="manifest" href="/site.webmanifest">
-    <title>FLX Blog</title>
+    <title>
+        FLX Blog
+        <?php echo " - ";
+            $category = $categories[0];
+            echo $category->getNom();
+        ?>
+    </title>
 </head>
 <body>
     <div class="blog-top position-sticky start-0 top-0 end-0">
@@ -34,15 +40,9 @@
                 </header>
                 <div class="nav-scroller py-1">
                     <nav class="nav d-flex justify-content-between my-2">
-                        <?php foreach ($sections as $section):?>
-                            <a class="p-2" href="/<?php echo 
-                                isset($section['nom_categorie']) ? 
-                                strtolower($section['nom_categorie']) : 'non_defini';
-                                ?>">
-                                <?php echo
-                                isset($section['nom_categorie']) ? 
-                                htmlspecialchars($section['nom_categorie']) : 'non_defini'; 
-                                ?>
+                    <?php foreach ($sections as $section):?>
+                            <a class="p-2" href="/<?php echo strtolower($section->getNom()) ?? 'Non défini';?>">
+                                <?php echo $section->getNom() ?? 'Non Défini'; ?>
                             </a>
                         <?php endforeach ?>
                     </nav>
@@ -53,10 +53,7 @@
     <main role="main">
         <div>
             <h1 class="article-category py-2 mb-2 ps-5 w-100">
-                <?php
-                $category = $categories[0];
-                echo $category->getNom();
-                ?>
+                <?php echo $category->getNom();?>
             </h1>
             <?php foreach ($articles as $article): ?>
                 <div class="article-section m-2 px-3 rounded">
@@ -65,7 +62,7 @@
                             <h2 class="row">
                                 <a href=
                                     "/<?php
-                                    echo strtolower(rtrim($category->getNom())) ?? 'non_defini';?>/<?php $titleArticle = $article;
+                                    echo strtolower(rtrim($category->getNom())) ?? 'non_defini';?>/<?php 
                                     echo strtolower($article->getTitre()) ?? 'Titre'; ?>">
                                     <?php echo $article->getTitre() ?? 'Titre';?>
                                 </a>
@@ -73,25 +70,18 @@
                             <div class="row">
                                 <small class="col-1 ms-3 px-0">by :</small>
                                 <a class="col-10 px-0" href="#">
-                                    <?php
-                                        echo $article->getAuteur() ?? 'Auteur';
-                                    ?>
+                                    <?php echo $article->getAuteur() ?? 'Auteur';?>
                                 </a>  
                             </div>
                         </div>
                         <p class="article-head-text col-7 my-3 pe-0 text-break">
-                            <?php
-        
-                            echo $article->getTexte() ?? 'Texte';
-                            ?>
+                            <?php echo $article->getTexte() ?? 'Texte';?>
                         </p>
                         <div class="article-head-date col-2 pt-3 py-0">
                             <div class="row">
                                 <small class="ps-1">Published on :</small>
                                 <div class="ps-2">
-                                    <?php
-                                        echo $article->getDate() ?? 'Date';
-                                    ?>
+                                    <?php echo $article->getDate() ?? 'Date';?>
                                 </div>
                             </div>
                         </div>           
@@ -102,20 +92,16 @@
                             <?php if ($commentaire->getIdArticle() == $article->getId()): ?>
                                 <div class="row article-commentary px-2 mx-5 py-2 my-2 ">
                                     <h5 class="article-commentary-author col-3 ">
-                                        <?php
-                                        echo $commentaire->getAuteur() ?? 'Auteur';
-                                        ?>
+                                        <?php echo $commentaire->getAuteur() ?? 'Auteur'; ?>
                                     </h5>
+
                                     <p class="article-commentary-text col-6 mt-2">
-                                        <?php
-                                        echo $commentaire->getTexte() ?? 'Texte';
-                                        ?>
+                                        <?php  echo $commentaire->getTexte() ?? 'Texte';?>
                                     </p>
+
                                     <small class="article-commentary-date col-3 d-flex justify-content-end">
                                         Published on
-                                        <?php
-                                        echo $commentaire->getDateModif() ?? 'Date';
-                                        ?>
+                                        <?php echo $commentaire->getDateModif() ?? 'Date';?>
                                     </small>
                                     
                                 </div>
@@ -129,9 +115,7 @@
         <nav class="d-flex justify-content-between mx-5 blog-pagination">
             <a class="btn btn-outline-secondary" href="/home">Home</a>
             <a class="btn btn-outline-secondary" href="/<?php echo strtolower($category->getNom()) ?? 'non defini';?>">Back to 
-                <?php
-                    echo $category->getNom() ?? 'non defini';
-                ?>
+                <?php echo $category->getNom() ?? 'non defini';?>
             </a>
         </nav>
     </main>
