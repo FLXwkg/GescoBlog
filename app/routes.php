@@ -11,6 +11,8 @@ use App\GenericController;
 use App\HomeController;
 use App\ArticleController;
 
+require __DIR__."/../scripts/unslugifyText.php";
+
 return function (App $app) {
     $app->options('/{routes:.*}', function (Request $request, Response $response) {
         // CORS Pre-Flight OPTIONS Request Handler
@@ -40,12 +42,14 @@ return function (App $app) {
 
     $app->get('/{page}/{titre_article}', function ($request, $response, $args) {
         $route = new CategoriesRepository();
-        $titreArticle = $args['titre_article'];
+        $titreArticleSlug = $args['titre_article'];
+        $titreArticle = unslugifyText($args['titre_article']);
         $id = $route->getIdByArticle($titreArticle);
-        //var_dump($id);die();
-        if($args['page']=== 'home'){
-            $nomCategorie = $route->getNameById($id[0]->getId());
-            return $response->withHeader('Location', "/$nomCategorie[0]/$titreArticle")->withStatus(301);
+        $Categorie = $route->getNameById($id[0]->getId());
+        $nomCategorie = strtolower($Categorie[0]->getNom());
+        //var_dump("/$nomCategorie/$titreArticleSlug");die();
+        if($args['page'] === 'home'){
+            return $response->withHeader('Location', "/$nomCategorie/$titreArticleSlug")->withStatus(301);
         }else{
             $articleController = new ArticleController();
             return $articleController->render($request, $response, $args, $titreArticle, $id[0]->getId());
