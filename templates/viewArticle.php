@@ -1,3 +1,8 @@
+
+<?php 
+include "../scripts/slugifyText.php";
+?>
+
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="light">
 <head>
@@ -9,6 +14,7 @@
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="manifest" href="/site.webmanifest">
+    <script src="/assets/js/bootstrap.min.js"></script>
     <title>
         Blog
         <?php echo " - ";
@@ -35,7 +41,7 @@
                             </a>
                         </div>
                         <div class="col-4 d-flex justify-content-end align-items-center">
-                        <form class="d-flex" role="search">
+                        <form class="d-flex" role="search" id="search">
                             <input class="search-input me-2 rounded" type="search" placeholder="Search" aria-label="Search">
                             <button class="btn btn-outline-secondary" type="submit">Search</button>
                         </form>
@@ -97,7 +103,16 @@
                 </div>
             </div>
 
-            <div class="container-fluid article-commentaries">
+            <div class="row">
+                <div class="col-5"></div>
+                <button class="col-2 m-2 btn btn-outline-secondary" type="button" data-bs-toggle="collapse" 
+                        data-bs-target="#collapseCommentary" aria-expanded="false" aria-controls="collapseCommentary">
+                    Afficher les commentaires
+                </button>
+                <div class="col-5"></div>
+            </div>
+                    
+            <div class=" row container-fluid article-commentaries collapse" id="collapseCommentary">
                 <?php foreach ($commentaires as $commentaire): ?>
                     <?php if ($commentaire->getIdArticle() == $article->getId()): ?>
                         <div class="row px-2 mx-5 py-2 my-2 rounded article-commentary">
@@ -123,7 +138,7 @@
 
         <nav class="d-flex justify-content-between mx-5 blog-pagination">
             <a class="btn btn-outline-secondary" href="/home">Home</a>
-            <a class="btn btn-outline-secondary" href="/<?php echo strtolower($category->getNom()) ?? 'non defini';?>">Back to 
+            <a class="btn btn-outline-secondary" href="/<?php echo slugifyText($category->getNom()) ?? 'non defini';?>">Back to 
                 <?php echo $category->getNom() ?? 'non defini';?>
             </a>
         </nav>

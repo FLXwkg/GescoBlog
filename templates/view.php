@@ -1,3 +1,8 @@
+<?php 
+include "../scripts/getArticleHtmlSection.php";
+include "../scripts/slugifyText.php";
+?>
+
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="light">
 <head>
@@ -9,8 +14,10 @@
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="manifest" href="/site.webmanifest">
+    <script src="/assets/js/bootstrap.min.js"></script>
+
     <title>
-        FLX Blog
+        Blog
         <?php echo " - ";
             $category = $categories[0];
             echo $category->getNom();
@@ -31,7 +38,7 @@
                             </a>
                         </div>
                         <div class="col-4 d-flex justify-content-end align-items-center">
-                        <form class="d-flex" role="search">
+                        <form class="d-flex" role="search" id="search">
                             <input class="search-input me-2 rounded" type="search" placeholder="Search" aria-label="Search">
                             <button class="btn btn-outline-secondary" type="submit">Search</button>
                         </form>
@@ -62,8 +69,8 @@
                             <h2 class="row">
                                 <a href=
                                     "/<?php
-                                    echo strtolower(rtrim($category->getNom())) ?? 'non_defini';?>/<?php 
-                                    echo strtolower($article->getTitre()) ?? 'Titre'; ?>">
+                                    echo strtolower(($category->getNom())) ?? 'non_defini';?>/<?php 
+                                    echo slugifyText($article->getTitre()) ?? 'Titre'; ?>">
                                     <?php echo $article->getTitre() ?? 'Titre';?>
                                 </a>
                             </h2>
@@ -74,8 +81,9 @@
                                 </a>  
                             </div>
                         </div>
-                        <p class="article-head-text col-7 my-3 pe-0 text-break">
-                            <?php echo $article->getTexte() ?? 'Texte';?>
+                        <p class="article-head-text col-7 my-3 pe-2 text-break">
+                            <?php 
+                            echo getArticleHtmlSection(140, $category, $article);?>
                         </p>
                         <div class="article-head-date col-2 pt-3 py-0">
                             <div class="row">
@@ -86,11 +94,11 @@
                             </div>
                         </div>           
                     </div>
-                    
-                    <div class="article-commentaries">
+
+                    <div class="row article-commentaries collapse"  id="collapseCommentary<?php echo $article->getId(); ?>">
                         <?php foreach ($commentaires as $commentaire): ?>
                             <?php if ($commentaire->getIdArticle() == $article->getId()): ?>
-                                <div class="row article-commentary px-2 mx-5 py-2 my-2 ">
+                                <div class="row article-commentary px-2 mx-5 py-2 my-2" >
                                     <h5 class="article-commentary-author col-3 ">
                                         <?php echo $commentaire->getAuteur() ?? 'Auteur'; ?>
                                     </h5>
@@ -107,6 +115,16 @@
                                 </div>
                             <?php endif?>
                         <?php endforeach; ?>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-5"></div>
+                        <button class="col-2 m-2 btn btn-outline-secondary" type="button" data-bs-toggle="collapse" 
+                                data-bs-target="#collapseCommentary<?php echo $article->getId(); ?>
+                                " aria-expanded="false" aria-controls="collapseCommentary<?php echo $article->getId(); ?>">
+                            Afficher les commentaires
+                        </button>
+                        <div class="col-5"></div>
                     </div>
                 </div>
             <?php endforeach; ?>
@@ -126,6 +144,5 @@
             <a href="#">Back to top</a>
         </p>
     </footer>
-
 </body>
 </html>
