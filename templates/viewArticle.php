@@ -73,7 +73,7 @@ include "../scripts/slugifyText.php";
     <main role="main">
         <div>
             <h1 class="article-category py-2 mb-2 ps-5 w-100">
-                <?php echo $category->getNom();?>
+                <?php echo $category->getNom() . " - " . $article->getTitre();?>
             </h1>
             
             <div class="article-section m-2 px-3 rounded">
