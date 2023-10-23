@@ -42,8 +42,12 @@ body {
     border-bottom: 1px solid #585C71;
 }
 
-.blog-header-logo{
-    width: 80%;
+.blog-header-logo {
+    object-fit: contain;
+}
+
+.logo{
+    width: 100%;
     height: 100%;
 }
 
@@ -96,17 +100,19 @@ a:hover {
     color: #585C71;
 }
 
-@media (max-width: 1198px){
-    .blog-header-logo{
-        display: none;
-    }
-
-}
-
 @media (max-width: 992px) { 
     .blog-header-title{
         margin-bottom: 10px;
     }
+    
+    .blog-header-logo{
+        margin: 0%;
+    }
+    
+    .logo{
+        display: none;
+    }
+
 }
 
 @media(max-width: 768px){
@@ -126,11 +132,5 @@ a:hover {
         border-right: none;
         margin-left: 10%;
     }
-}
-
-@media (max-width: 576px) { 
-    
-
-    
 }
 

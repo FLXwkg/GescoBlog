@@ -27,8 +27,8 @@ include "../scripts/slugifyText.php";
 <body>
     <div class="blog-top">
         <div class="row container-fluid mx-0 px-0">
-            <div class="col-2">
-                <img src="/images/logo.png" alt="FLX Logo" class="blog-header-logo p-4">
+        <div class="blog-header-logo col-2 pt-4 px-4 pb-2">
+                <img src="/images/logo.png" alt="FLX Logo" class="logo">
             </div>
             <div class="col-8 container mx-0">
                 <header class="row blog-header py-3">
@@ -147,7 +147,7 @@ include "../scripts/slugifyText.php";
     </main>
     
     <footer class="blog-footer py-5 mt-2">
-        <p>Blog built by <a href="#">FLX</a>.</p>
+        <p>Blog built by <a href="https://github.com/FLXwkg" target="_blank">FLX</a>.</p>
         <p class="mb-0">
             <a href="#">Back to top</a>
         </p>

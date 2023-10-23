@@ -28,36 +28,37 @@ include "../scripts/slugifyText.php";
     </title>
 </head>
 <body>
-    <div class="blog-top position-sticky start-0 top-0 end-0">
-    <div class="container-fluid d-flex align-items-center">
-            <img src="/images/logo.png" alt="FLX Logo" class="blog-header-logo p-4">
-            <div class="container w-100 mx-0">
-                <header class="blog-header py-3">
-                    <div class="row flex-nowrap justify-content-between align-items-center">
-                        <div class="col-4"></div>
-                        <div class="col-4 text-center">
-                            <a class="blog-header-title" href="/home">
-                                <img src="/images/favicon.ico" alt="FLX Blog" class="blog-header-title">
-                            </a>
-                        </div>
-                        <div class="col-4 d-flex justify-content-end align-items-center">
-                        <form class="d-flex" role="search" id="search">
-                            <input class="search-input me-2 rounded" type="search" placeholder="Search" aria-label="Search">
-                            <button class="btn btn-outline-secondary" type="submit">Search</button>
+<div class="blog-top">
+        <div class="row container-fluid mx-0 px-0">
+            <div class="blog-header-logo col-2 pt-4 px-4 pb-2">
+                <img src="/images/logo.png" alt="FLX Logo" class="logo">
+            </div>
+            <div class="col-8 container mx-0">
+                <header class="row blog-header py-3">
+                    <div class="col-lg-0 col-xl-4 space-col"></div>
+                    <div class="col-lg-4 col-xl-4 blog-header-title text-center">
+                        <a href="/home">
+                            <img src="/images/favicon.ico" alt="FLX Blog">
+                        </a>
+                    </div>
+                    <div class="col-lg-8 col-xl-4 search">
+                        <form class="row" role="search" id="search">
+                            <input class="col-9 search-input rounded" type="search" placeholder="Search" aria-label="Search">
+                            <button class="col-3 btn btn-outline-secondary" type="submit">Search</button>
                         </form>
-                        </div>
                     </div>
                 </header>
-                <div class="nav-scroller py-1">
+                <div class="row nav-scroller py-1">
                     <nav class="nav d-flex justify-content-between my-2">
-                        <?php foreach ($sections as $section):?>
+                    <?php foreach ($sections as $section):?>
                             <a class="p-2" href="/<?php echo strtolower($section->getNom()) ?? 'Non défini';?>">
                                 <?php echo $section->getNom() ?? 'Non Défini'; ?>
                             </a>
                         <?php endforeach ?>
                     </nav>
                 </div>
-            </div>   
+            </div>
+            <div class="col-2"></div>   
         </div>
     </div>
     <main role="main">
@@ -68,29 +69,33 @@ include "../scripts/slugifyText.php";
             
             <div class="article-section m-2 px-3 rounded">
                 <div class="row mx-2 border-bottom border-dark-subtle article-head">
-                    <div class="col-2 py-3 article-date d-flex align-items-top "> 
+                    <div class="article-date col-12 col-sm-8 col-lg-2 order-3 order-sm-2 order-lg-1 py-3 align-items-top "> 
                         <div class="row">
-                            <small class="ps-2">Published on :</small>
-                            <div class="ps-3">
-                                <?php echo $article->getDate() ?? 'Date';?>
+                            <div class="col-6 col-sm-6 col-lg-12">
+                                <small class="ps-2">Published on :</small>
+                                <div class="ps-3">
+                                    <?php echo $article->getDate() ?? 'Date';?>
+                                </div>
                             </div>
-                            <small class="ps-2">Modified on :</small>
-                            <div class="ps-3">
-                                <?php echo $article->getDateModif() ?? 'Date';?>
+                            <div class="col-6 col-sm-6 col-lg-12">
+                                <small class="ps-2">Modified on :</small>
+                                <div class="ps-3">
+                                    <?php echo $article->getDateModif() ?? 'Date';?>
+                                </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="col-8 my-0 d-flex justify-content-center align-items-center article-title">
+                    <div class="article-title col-8 col-sm-12 col-lg-8 order-1 order-sm-1 order-lg-2 my-0 px-0">
                         <h2 class="">
                             <?php echo $article->getTitre() ?? 'Titre';?>
                         </h2>
                     </div>
 
-                    <div class="col-2 pt-3 py-0 article-author">
-                        <div class="row">
-                            <small class="col-2 ps-1 pe-0 pt-1 ">by :</small>
-                            <a class="col-10 px-0" href="#">
+                    <div class="article-author col-4 col-sm-4 col-lg-2 order-2 order-sm-3 order-lg-3 pt-3 pb-0 px-0">
+                        <div class="row container-fluid mx-0">
+                            <small class="col-12 col-lg-2 px-0">by :</small>
+                            <a class="col-12 col-lg-10 px-0" href="#">
                                 <?php echo $article->getAuteur() ?? 'Auteur';?>
                             </a>  
                         </div>
@@ -103,30 +108,30 @@ include "../scripts/slugifyText.php";
                 </div>
             </div>
 
-            <div class="row">
-                <div class="col-5"></div>
-                <button class="col-2 m-2 btn btn-outline-secondary" type="button" data-bs-toggle="collapse" 
+            <div class="row container-fluid">
+                <div class="col-xs-0 col-sm-2 col-lg-4"></div>
+                <button class="col-xs-12 col-sm-8 col-lg-4 mb-2 btn btn-outline-secondary" type="button" data-bs-toggle="collapse" 
                         data-bs-target="#collapseCommentary" aria-expanded="false" aria-controls="collapseCommentary">
                     Afficher les commentaires
                 </button>
-                <div class="col-5"></div>
+                <div class="col-xs-0 col-sm-2 col-lg-4"></div>
             </div>
                     
             <div class=" row container-fluid article-commentaries collapse" id="collapseCommentary">
                 <?php foreach ($commentaires as $commentaire): ?>
                     <?php if ($commentaire->getIdArticle() == $article->getId()): ?>
-                        <div class="row px-2 mx-5 py-2 my-2 rounded article-commentary">
-                            <h5 class="col-3 d-flex justify-content-center article-commentaries-author">
+                        <div class="row px-0 ms-2 py-2 my-2 rounded article-commentary">
+                            <h5 class="article-commentaries-author col-3 justify-content-center">
                                 <a href="#">
                                     <?php echo $commentaire->getAuteur() ?? 'Auteur';?>
                                 </a>
                             </h5>
 
-                            <p class="col-6 article-commentaries-text mt-2">
+                            <p class="article-commentaries-text col-7 mt-2">
                                 <?php echo $commentaire->getTexte() ?? 'Texte';?>
                             </p>
 
-                            <small class="col-3 article-commentaries-date d-flex justify-content-end">
+                            <small class="article-commentaries-date col-2 d-flex justify-content-end">
                                 Published on
                                 <?php echo $commentaire->getDateModif() ?? 'Date';?>
                             </small>
@@ -136,16 +141,16 @@ include "../scripts/slugifyText.php";
             </div>
         </div>
 
-        <nav class="d-flex justify-content-between mx-5 blog-pagination">
-            <a class="btn btn-outline-secondary" href="/home">Home</a>
-            <a class="btn btn-outline-secondary" href="/<?php echo slugifyText($category->getNom()) ?? 'non defini';?>">Back to 
+        <nav class="blog-pagination d-flex justify-content-between mx-5 ">
+            <a class="btn btn-outline-secondary w-25" href="/home">Home</a>
+            <a class="btn btn-outline-secondary w-25" href="/<?php echo slugifyText($category->getNom()) ?? 'non defini';?>">Back to 
                 <?php echo $category->getNom() ?? 'non defini';?>
             </a>
         </nav>
     </main>
 
     <footer class="blog-footer container-fluid py-5 mt-2 position-static bottom-0 start-0">
-        <p>Blog built by <a href="#">FLX</a>.</p>
+        <p>Blog built by <a href="https://github.com/FLXwkg" target="_blank">FLX</a>.</p>
         <p class="mb-0">
             <a href="#">Back to top</a>
         </p>
