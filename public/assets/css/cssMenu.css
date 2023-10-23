@@ -75,6 +75,10 @@ a:hover {
     border-right: 1px solid #585C71;
 }
 
+.article-commentary-author{
+    padding-left: 5%;
+}
+
 .article-commentary-text{
     border-left: 1px solid #585C71;
 }
@@ -92,21 +96,41 @@ a:hover {
     color: #585C71;
 }
 
-@media (max-width: 992px) { 
+@media (max-width: 1198px){
     .blog-header-logo{
         display: none;
     }
 
+}
+
+@media (max-width: 992px) { 
     .blog-header-title{
         margin-bottom: 10px;
     }
 }
 
-@media (max-width: 576px) { 
+@media(max-width: 768px){
     .blog-top{
         position: static ;
         top: 0px;
         left: 0px;
     }
+    
+    .article-head-title{
+        text-align: center;
+        display: grid;
+        padding-left: 0%;
+    }
+
+    .article-head-text{
+        border-right: none;
+        margin-left: 10%;
+    }
+}
+
+@media (max-width: 576px) { 
+    
+
+    
 }
 

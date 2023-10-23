@@ -26,7 +26,7 @@ include "../scripts/slugifyText.php";
 </head>
 <body>
     <div class="blog-top">
-        <div class="row container-fluid">
+        <div class="row container-fluid mx-0 px-0">
             <div class="col-2">
                 <img src="/images/logo.png" alt="FLX Logo" class="blog-header-logo p-4">
             </div>
@@ -65,28 +65,30 @@ include "../scripts/slugifyText.php";
             </h1>
             <?php foreach ($articles as $article): ?>
                 <div class="article-section m-2 px-3 rounded">
-                    <div class="article-head row d-flex align-items-top">
-                        <div class="article-head-title col-3 py-3">
-                            <h2 class="row">
-                                <a href=
-                                    "/<?php
-                                    echo strtolower(($category->getNom())) ?? 'non_defini';?>/<?php 
-                                    echo slugifyText($article->getTitre()) ?? 'Titre'; ?>">
-                                    <?php echo $article->getTitre() ?? 'Titre';?>
-                                </a>
-                            </h2>
+                    <div class="article-head row align-items-top">
+                        <div class="article-head-title col-8 col-sm-8 col-md-3 order-2 order-sm-2 py-3">
                             <div class="row">
-                                <small class="col-1 ms-3 px-0">by :</small>
-                                <a class="col-10 px-0" href="#">
-                                    <?php echo $article->getAuteur() ?? 'Auteur';?>
-                                </a>  
+                                <h2 class="col-7 col-sm-7 col-md-12">
+                                    <a href=
+                                        "/<?php
+                                        echo strtolower(($category->getNom())) ?? 'non_defini';?>/<?php 
+                                        echo slugifyText($article->getTitre()) ?? 'Titre'; ?>">
+                                        <?php echo $article->getTitre() ?? 'Titre';?>
+                                    </a>
+                                </h2>
+                                <div class="article-head-author col-5 col-sm-5 col-md-12">
+                                    <small class="col-1 ms-3 px-0">by :</small>
+                                    <a class="col-10 px-0" href="#">
+                                        <?php echo $article->getAuteur() ?? 'Auteur';?>
+                                    </a>  
+                                </div>
                             </div>
                         </div>
-                        <p class="article-head-text col-7 my-3 pe-2 text-break">
+                        <p class="article-head-text col-11 col-sm-11 col-md-7 order-3 order-sm-3 order-md-2 my-3 pe-2 text-break">
                             <?php 
                             echo getArticleHtmlSection(140, $category, $article);?>
                         </p>
-                        <div class="article-head-date col-2 pt-3 py-0">
+                        <div class="article-head-date col-4 col-sm-4 col-md-2 order-1 order-sm-1 order-md-3 pt-3 py-0">
                             <div class="row">
                                 <small class="ps-1">Published on :</small>
                                 <div class="ps-2">
@@ -97,35 +99,40 @@ include "../scripts/slugifyText.php";
                     </div>
 
                     <div class="row article-commentaries collapse"  id="collapseCommentary<?php echo $article->getId(); ?>">
-                        <?php foreach ($commentaires as $commentaire): ?>
-                            <?php if ($commentaire->getIdArticle() == $article->getId()): ?>
-                                <div class="row article-commentary px-2 mx-5 py-2 my-2" >
+                        <?php 
+                        $comment_count = 0;
+                        foreach ($commentaires as $commentaire):
+                            if ($commentaire->getIdArticle() == $article->getId() && $comment_count < 3):
+                                ?>
+                                <div class="row article-commentary px-0 mx-0 py-2">
                                     <h5 class="article-commentary-author col-3 ">
                                         <?php echo $commentaire->getAuteur() ?? 'Auteur'; ?>
                                     </h5>
 
-                                    <p class="article-commentary-text col-6 mt-2">
+                                    <p class="article-commentary-text col-7 mt-2">
                                         <?php  echo $commentaire->getTexte() ?? 'Texte';?>
                                     </p>
 
-                                    <small class="article-commentary-date col-3 d-flex justify-content-end">
+                                    <small class="article-commentary-date col-2 d-flex justify-content-end">
                                         Published on
                                         <?php echo $commentaire->getDateModif() ?? 'Date';?>
                                     </small>
-                                    
                                 </div>
-                            <?php endif?>
-                        <?php endforeach; ?>
+                                <?php
+                                $comment_count++;
+                            endif;
+                        endforeach;
+                        ?>
                     </div>
 
                     <div class="row">
-                        <div class="col-5"></div>
-                        <button class="col-2 m-2 btn btn-outline-secondary" type="button" data-bs-toggle="collapse" 
+                        <div class="col-xs-0 col-sm-2 col-lg-4"></div>
+                        <button class="col-xs-12 col-sm-8 col-lg-4 mb-2 btn btn-outline-secondary" type="button" data-bs-toggle="collapse" 
                                 data-bs-target="#collapseCommentary<?php echo $article->getId(); ?>
                                 " aria-expanded="false" aria-controls="collapseCommentary<?php echo $article->getId(); ?>">
                             Afficher les commentaires
                         </button>
-                        <div class="col-5"></div>
+                        <div class="col-xs-0 col-sm-2 col-lg-4"></div>
                     </div>
                 </div>
             <?php endforeach; ?>
