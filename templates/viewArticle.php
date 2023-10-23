@@ -43,19 +43,27 @@ include "../scripts/slugifyText.php";
                         </a>
                     </div>
                     <div class="col-lg-8 col-xl-4 search">
-                        <form class="row" role="search" id="search">
-                            <input class="col-9 search-input rounded" type="search" placeholder="Search" aria-label="Search">
+                        <form class="row" role="search">
+                            <input class="col-9 search-input rounded" type="search" placeholder="Search" id="Search" aria-label="Search">
                             <button class="col-3 btn btn-outline-secondary" type="submit">Search</button>
                         </form>
                     </div>
                 </header>
                 <div class="row nav-scroller py-1">
                     <nav class="nav d-flex justify-content-between my-2">
-                    <?php foreach ($sections as $section):?>
-                            <a class="p-2" href="/<?php echo strtolower($section->getNom()) ?? 'Non défini';?>">
-                                <?php echo $section->getNom() ?? 'Non Défini'; ?>
-                            </a>
-                        <?php endforeach ?>
+                        <?php 
+                        foreach ($sections as $section):
+                            if ($section->getNom() === $category->getNom()):?>
+                                <a class="actual-page-link p-2" href="/<?php echo strtolower($section->getNom()) ?? 'Non défini';?>">
+                                    <?php echo $section->getNom() ?? 'Non Défini'; ?>
+                                </a>
+                            <?php else : ?>
+                                <a class="p-2" href="/<?php echo strtolower($section->getNom()) ?? 'Non défini';?>">
+                                    <?php echo $section->getNom() ?? 'Non Défini'; ?>
+                                </a>
+                            <?php
+                            endif;
+                        endforeach ?>
                     </nav>
                 </div>
             </div>
