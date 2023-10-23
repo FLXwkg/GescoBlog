@@ -15,6 +15,7 @@ include "../scripts/slugifyText.php";
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="manifest" href="/site.webmanifest">
     <script src="/assets/js/bootstrap.min.js"></script>
+    <script src="/assets/js/toggleCommentaryButton.js"></script>
 
     <title>
         Blog
@@ -98,42 +99,57 @@ include "../scripts/slugifyText.php";
                         </div>           
                     </div>
 
-                    <div class="row article-commentaries collapse"  id="collapseCommentary<?php echo $article->getId(); ?>">
-                        <?php 
+                    <div class="row article-commentaries collapse" id="collapseCommentary<?php echo $article->getId(); ?>">
+                        <?php
                         $comment_count = 0;
+                        $hasComments = false; // Une variable pour suivre si l'article a des commentaires
+
                         foreach ($commentaires as $commentaire):
                             if ($commentaire->getIdArticle() == $article->getId() && $comment_count < 3):
                                 ?>
                                 <div class="row article-commentary px-0 mx-0 py-2">
-                                    <h5 class="article-commentary-author col-3 ">
+                                    <h5 class="article-commentary-author col-3">
                                         <?php echo $commentaire->getAuteur() ?? 'Auteur'; ?>
                                     </h5>
 
                                     <p class="article-commentary-text col-7 mt-2">
-                                        <?php  echo $commentaire->getTexte() ?? 'Texte';?>
+                                        <?php echo $commentaire->getTexte() ?? 'Texte'; ?>
                                     </p>
 
                                     <small class="article-commentary-date col-2 d-flex justify-content-end">
                                         Published on
-                                        <?php echo $commentaire->getDateModif() ?? 'Date';?>
+                                        <?php echo $commentaire->getDateModif() ?? 'Date'; ?>
                                     </small>
                                 </div>
                                 <?php
                                 $comment_count++;
+                                $hasComments = true; // Mettez la variable à true s'il y a des commentaires.
                             endif;
                         endforeach;
                         ?>
                     </div>
 
-                    <div class="row">
-                        <div class="col-xs-0 col-sm-2 col-lg-4"></div>
-                        <button class="col-xs-12 col-sm-8 col-lg-4 mb-2 btn btn-outline-secondary" type="button" data-bs-toggle="collapse" 
-                                data-bs-target="#collapseCommentary<?php echo $article->getId(); ?>
-                                " aria-expanded="false" aria-controls="collapseCommentary<?php echo $article->getId(); ?>">
-                            Afficher les commentaires
-                        </button>
-                        <div class="col-xs-0 col-sm-2 col-lg-4"></div>
-                    </div>
+                    <?php if ($hasComments): // Vérifiez si l'article a des commentaires avant d'afficher le bouton ?>
+                        <div class="row">
+                            <div class="col-xs-0 col-sm-2 col-lg-4"></div>
+                            <button class="toggle-button col-xs-12 col-sm-8 col-lg-4 mb-2 btn btn-outline-secondary" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseCommentary<?php echo $article->getId(); ?>"
+                                    data-article-id="<?php echo $article->getId(); ?>"
+                                    aria-expanded="false" aria-controls="collapseCommentary<?php echo $article->getId(); ?>">
+                                Afficher les commentaires
+                            </button>
+                            <div class="col-xs-0 col-sm-2 col-lg-4"></div>
+                        </div>
+                    <?php else :?>
+                        <div class="row">   
+                            <div class="col-xs-0 col-sm-2 col-lg-4"></div>
+                            <button class="col-xs-12 col-sm-8 col-lg-4 mb-2 btn btn-outline-secondary" type="button">
+                                Ajouter un commentaire
+                            </button>
+                            <div class="col-xs-0 col-sm-2 col-lg-4"></div>
+                        </div> 
+                    <?php endif; ?>
+
                 </div>
             <?php endforeach; ?>
         </div><!-- /.row -->

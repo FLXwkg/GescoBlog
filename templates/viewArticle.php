@@ -15,6 +15,7 @@ include "../scripts/slugifyText.php";
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="manifest" href="/site.webmanifest">
     <script src="/assets/js/bootstrap.min.js"></script>
+    <script src="/assets/js/toggleCommentaryButton.js"></script>
     <title>
         Blog
         <?php echo " - ";
@@ -108,17 +109,10 @@ include "../scripts/slugifyText.php";
                 </div>
             </div>
 
-            <div class="row container-fluid">
-                <div class="col-xs-0 col-sm-2 col-lg-4"></div>
-                <button class="col-xs-12 col-sm-8 col-lg-4 mb-2 btn btn-outline-secondary" type="button" data-bs-toggle="collapse" 
-                        data-bs-target="#collapseCommentary" aria-expanded="false" aria-controls="collapseCommentary">
-                    Afficher les commentaires
-                </button>
-                <div class="col-xs-0 col-sm-2 col-lg-4"></div>
-            </div>
-                    
             <div class=" row container-fluid article-commentaries collapse" id="collapseCommentary">
-                <?php foreach ($commentaires as $commentaire): ?>
+                <?php 
+                $hasComments = false;
+                foreach ($commentaires as $commentaire): ?>
                     <?php if ($commentaire->getIdArticle() == $article->getId()): ?>
                         <div class="row px-0 ms-2 py-2 my-2 rounded article-commentary">
                             <h5 class="article-commentaries-author col-3 justify-content-center">
@@ -136,10 +130,34 @@ include "../scripts/slugifyText.php";
                                 <?php echo $commentaire->getDateModif() ?? 'Date';?>
                             </small>
                         </div>
-                    <?php endif?>
-                <?php endforeach; ?>
+                        <?php
+                        $hasComments = true;
+                    endif;
+                endforeach; 
+                ?>
             </div>
         </div>
+
+        <?php if ($hasComments): // Vérifie si l'article a des commentaires avant d'afficher le bouton ?>
+            <div class="row container-fluid">
+                <div class="col-xs-0 col-sm-2 col-lg-4"></div>
+                <button class="toggle-button col-xs-12 col-sm-8 col-lg-4 mb-2 btn btn-outline-secondary" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapseCommentary"
+                        data-article-id="<?php echo $article->getId(); ?>"
+                        aria-expanded="false" aria-controls="collapseCommentary">
+                    Afficher les commentaires
+                </button>
+                <div class="col-xs-0 col-sm-2 col-lg-4"></div>
+            </div>
+        <?php else :?>
+            <div class="row">   
+                <div class="col-xs-0 col-sm-2 col-lg-4"></div>
+                <button class="col-xs-12 col-sm-8 col-lg-4 mb-2 btn btn-outline-secondary" type="button">
+                    Ajouter un commentaire
+                </button>
+                <div class="col-xs-0 col-sm-2 col-lg-4"></div>
+            </div> 
+        <?php endif; ?>
 
         <nav class="blog-pagination d-flex justify-content-between mx-5 ">
             <a class="btn btn-outline-secondary w-25" href="/home">Home</a>
