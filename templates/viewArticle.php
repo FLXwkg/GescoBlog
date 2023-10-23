@@ -71,11 +71,10 @@ include "../scripts/slugifyText.php";
         </div>
     </div>
     <main role="main">
-        <div>
-            <h1 class="article-category py-2 mb-2 ps-5 w-100">
-                <?php echo $category->getNom() . " - " . $article->getTitre();?>
-            </h1>
-            
+        <h1 class="article-category py-2 mb-2 ps-5 w-100">
+            <?php echo $category->getNom() . " - " . $article->getTitre();?>
+        </h1>
+        <div class="container">    
             <div class="article-section m-2 px-3 rounded">
                 <div class="row mx-2 border-bottom border-dark-subtle article-head">
                     <div class="article-date col-12 col-sm-8 col-lg-2 order-3 order-sm-2 order-lg-1 py-3 align-items-top "> 
@@ -167,12 +166,14 @@ include "../scripts/slugifyText.php";
             </div> 
         <?php endif; ?>
 
-        <nav class="blog-pagination d-flex justify-content-between mx-5 ">
-            <a class="btn btn-outline-secondary w-25" href="/home">Home</a>
-            <a class="btn btn-outline-secondary w-25" href="/<?php echo slugifyText($category->getNom()) ?? 'non defini';?>">Back to 
-                <?php echo $category->getNom() ?? 'non defini';?>
-            </a>
-        </nav>
+        <div class="container px-4">
+            <nav class="blog-pagination d-flex justify-content-between">
+                <a class="btn btn-outline-secondary w-25" href="/home">Home</a>
+                <a class="btn btn-outline-secondary w-25" href="/<?php echo slugifyText($category->getNom()) ?? 'non defini';?>">Back to 
+                    <?php echo $category->getNom() ?? 'non defini';?>
+                </a>
+            </nav>
+        </div>
     </main>
 
     <footer class="blog-footer container-fluid py-5 mt-2 position-static bottom-0 start-0">

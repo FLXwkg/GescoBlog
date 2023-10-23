@@ -68,10 +68,10 @@ include "../scripts/slugifyText.php";
         </div>
     </div>
     <main role="main">
-        <div>
-            <h1 class="article-category py-2 mb-2 ps-5 w-100">
-                <?php echo $category->getNom();?>
-            </h1>
+        <h1 class="article-category py-2 mb-2 ps-5 w-100">
+            <?php echo $category->getNom();?>
+        </h1>
+        <div class="container">
             <?php foreach ($articles as $article): ?>
                 <div class="article-section m-2 px-3 rounded">
                     <div class="article-head row align-items-top">
@@ -162,12 +162,14 @@ include "../scripts/slugifyText.php";
             <?php endforeach; ?>
         </div><!-- /.row -->
 
-        <nav class="d-flex justify-content-between mx-5 blog-pagination">
-            <a class="btn btn-outline-secondary" href="/home">Home</a>
-            <a class="btn btn-outline-secondary" href="/<?php echo strtolower($category->getNom()) ?? 'non defini';?>">Back to 
-                <?php echo $category->getNom() ?? 'non defini';?>
-            </a>
-        </nav>
+        <div class="container px-4">
+            <nav class="blog-pagination d-flex justify-content-between">
+                <a class="btn btn-outline-secondary" href="/home">Home</a>
+                <a class="btn btn-outline-secondary" href="/<?php echo strtolower($category->getNom()) ?? 'non defini';?>">Back to 
+                    <?php echo $category->getNom() ?? 'non defini';?>
+                </a>
+            </nav>
+        </div>
     </main>
     
     <footer class="blog-footer py-5 mt-2">
