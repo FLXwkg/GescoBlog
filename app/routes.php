@@ -23,7 +23,7 @@ return function (App $app) {
      */
     $app->get('/', function (Request $request, Response $response) use ($homeCategory) {
         $homeController = new HomeController();
-        return $homeController->handleRoute($request, $response, ['page' => 'home'], $homeCategory);
+        return $homeController->handleRoute($request, $response, [], $homeCategory);
     });
 
 
@@ -31,8 +31,8 @@ return function (App $app) {
      * Les catégories principales
      */
     $app->get('/{page}', function ($request, $response, $args) {
-        $route = new CategoriesRepository();
-        $id = $route->getIdByName($args['page']);
+        $categoriesRepository = new CategoriesRepository();
+        $id = $categoriesRepository->getIdByName($args['page']);
         if ($args['page'] === 'home') {
             return $response->withHeader('Location', "/")->withStatus(301);
         }
@@ -40,8 +40,10 @@ return function (App $app) {
         return $genericController->handleRoute($request, $response, $args, $id[0]->getId());
     });
 
-    // Route dynamique pour afficher un article
 
+    /**
+     * Les pages
+     */
     $app->get('/{page}/{titre_article}', function ($request, $response, $args) {
         $route = new CategoriesRepository();
         $titreArticleSlug = $args['titre_article'];

@@ -20,8 +20,15 @@ include "../scripts/slugifyText.php";
     <title>
         Blog
         <?php echo " - ";
-            $category = $categories[0];
-            echo $category->getNom();
+            $title = 'Home';
+            if(isset($categories) && array_key_exists(0, $categories)){
+                $category = $categories[0] ?? null;
+                if($category instanceof \App\Categorie){
+                    $title = $category->getNom();
+                }
+            }
+            echo $title;
+            $isHome = $title === 'Home';
         ?>
     </title>
 </head>
@@ -35,7 +42,7 @@ include "../scripts/slugifyText.php";
                 <header class="row blog-header py-3">
                     <div class="col-lg-0 col-xl-4 space-col"></div>
                     <div class="col-lg-4 col-xl-4 blog-header-title text-center">
-                        <a href="/home">
+                        <a href="/">
                             <img src="/images/favicon.ico" alt="FLX Blog">
                         </a>
                     </div>
@@ -48,9 +55,10 @@ include "../scripts/slugifyText.php";
                 </header>
                 <div class="row nav-scroller py-1">
                     <nav class="nav d-flex justify-content-between my-2">
-                        <?php 
+                        <?php
+
                         foreach ($sections as $section):
-                            if ($section->getNom() === $category->getNom()):?>
+                            if (!$isHome && $section->getNom() === $category->getNom()):?>
                                 <a class="actual-page-link p-2" href="/<?php echo strtolower($section->getNom()) ?? 'Non défini';?>">
                                     <?php echo $section->getNom() ?? 'Non Défini'; ?>
                                 </a>
@@ -69,19 +77,24 @@ include "../scripts/slugifyText.php";
     </div>
     <main role="main">
         <h1 class="article-category py-2 mb-2 ps-5 w-100">
-            <?php echo $category->getNom();?>
+            <?= $isHome ? 'Accueil' : $category->getNom();?>
         </h1>
         <div class="container">
             <?php foreach ($articles as $article): ?>
+                <?php
+                    $href = '/';
+                    if(!$isHome){
+                        $href.=strtolower(($category->getNom())) ?? 'non_defini';
+                        $href.='/';
+                        $href.=slugifyText($article->getTitre()) ?? 'Titre';
+                    }
+                ?>
                 <div class="article-section m-2 px-3 rounded">
                     <div class="article-head row align-items-top">
                         <div class="article-head-title col-8 col-sm-8 col-md-3 order-2 order-sm-2 py-3">
                             <div class="row">
                                 <h2 class="col-7 col-sm-7 col-md-12">
-                                    <a href=
-                                        "/<?php
-                                        echo strtolower(($category->getNom())) ?? 'non_defini';?>/<?php 
-                                        echo slugifyText($article->getTitre()) ?? 'Titre'; ?>">
+                                    <a href="<?=$href; ?>">
                                         <?php echo $article->getTitre() ?? 'Titre';?>
                                     </a>
                                 </h2>
@@ -99,8 +112,7 @@ include "../scripts/slugifyText.php";
                             </div>
                         </div>
                         <p class="article-head-text col-11 col-sm-11 col-md-7 order-3 order-sm-3 order-md-2 my-3 pe-2 text-break">
-                            <?php 
-                            echo getArticleHtmlSection(140, $category, $article);?>
+                            <?= getArticleHtmlSection($article, 140); ?>
                         </p>
                         <div class="article-head-date col-4 col-sm-4 col-md-2 order-1 order-sm-1 order-md-3 pt-3 py-0">
                             <div class="row">
@@ -173,9 +185,13 @@ include "../scripts/slugifyText.php";
         <div class="container px-4">
             <nav class="blog-pagination d-flex justify-content-between">
                 <a class="btn btn-outline-secondary" href="/home">Home</a>
-                <a class="btn btn-outline-secondary" href="/<?php echo strtolower($category->getNom()) ?? 'non defini';?>">Back to 
-                    <?php echo $category->getNom() ?? 'non defini';?>
-                </a>
+                <?php if($isHome):?>
+                    <a href="/">Accueil</a>
+                <?php else: ?>
+                    <a class="btn btn-outline-secondary" href="/<?php echo strtolower($category->getNom()) ?? 'non defini';?>">Back to
+                        <?php echo $category->getNom() ?? 'non defini';?>
+                    </a>
+                <?php endif; ?>
             </nav>
         </div>
     </main>
