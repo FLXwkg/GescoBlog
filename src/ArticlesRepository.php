@@ -1,20 +1,19 @@
-<?php 
+<?php
+
 namespace App;
 
 use App\Article;
 use PDO;
 
 
-class ArticlesRepository extends CategoriesRepository{
+class ArticlesRepository extends CategoriesRepository
+{
 
-    public function __construct(){
-        
-    }
-    
     public function getByCategory(int $categoryId)
     {
         $pdo = $this->getPDO();
-        $sql = "SELECT * FROM article WHERE id_categorie = :categoryId;";
+        $base = $this->getBaseQuery();
+        $sql = $base . " WHERE t1.id_categorie = :categoryId;";
         $stmt = $pdo->prepare($sql);
         $stmt->bindParam(':categoryId', $categoryId, PDO::PARAM_INT);
         $stmt->execute();
@@ -22,10 +21,25 @@ class ArticlesRepository extends CategoriesRepository{
         return $stmt->fetchAll(PDO::FETCH_CLASS, Article::class);
     }
 
+    protected function getBaseQuery($alias = 't1'): string
+    {
+        $selector = empty($alias) ? '*' : $alias . '.*';
+        return <<<SQL
+SELECT 
+CONCAT_WS("/", t2.slug, $alias.slug) as url_article, 
+t2.nom_categorie,
+$selector
+FROM article $alias
+left join categorie t2
+on $alias.id_categorie = t2.id_categorie
+SQL;
+
+    }
+
     public function getAll()
     {
         $pdo = $this->getPDO();
-        $sql = "SELECT * FROM article;";
+        $sql = $this->getBaseQuery();
         $stmt = $pdo->prepare($sql);
         $stmt->execute();
 
@@ -35,7 +49,8 @@ class ArticlesRepository extends CategoriesRepository{
     public function getByName(string $nomArticle)
     {
         $pdo = $this->getPDO();
-        $sql = "SELECT * FROM article WHERE titre_article = :nomArticle;";
+        $base = $this->getBaseQuery();
+        $sql = $base . " WHERE t1.titre_article = :nomArticle;";
         $stmt = $pdo->prepare($sql);
         $stmt->bindParam(':nomArticle', $nomArticle, PDO::PARAM_STR);
         $stmt->execute();

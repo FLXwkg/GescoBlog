@@ -80,21 +80,15 @@ include "../scripts/slugifyText.php";
             <?= $isHome ? 'Accueil' : $category->getNom();?>
         </h1>
         <div class="container">
-            <?php foreach ($articles as $article): ?>
-                <?php
-                    $href = '/';
-                    if(!$isHome){
-                        $href.=strtolower(($category->getNom())) ?? 'non_defini';
-                        $href.='/';
-                        $href.=slugifyText($article->getTitre()) ?? 'Titre';
-                    }
-                ?>
+            <?php
+            /** @var \App\Article[] $articles */
+            foreach ($articles as $article): ?>
                 <div class="article-section m-2 px-3 rounded">
                     <div class="article-head row align-items-top">
                         <div class="article-head-title col-8 col-sm-8 col-md-3 order-2 order-sm-2 py-3">
                             <div class="row">
                                 <h2 class="col-7 col-sm-7 col-md-12">
-                                    <a href="<?=$href; ?>">
+                                    <a href="<?=$article->getUrlArticle(); ?>">
                                         <?php echo $article->getTitre() ?? 'Titre';?>
                                     </a>
                                 </h2>
