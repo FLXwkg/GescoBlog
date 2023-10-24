@@ -78,6 +78,16 @@ a:hover {
     color: #585C71;
 }
 
+.author-article-picture{
+    width: 32px;
+    height: 32px;
+}
+
+.author-commentary-picture{
+    width: 32px;
+    height: 32px;
+}
+
 .article-head-text{
     border-left: 1px solid #585C71;
     border-right: 1px solid #585C71;
@@ -117,6 +127,10 @@ a:hover {
         display: none;
     }
 
+    .small-by-article{
+        display: none;
+        margin-left: 0%;
+    }
 }
 
 @media(max-width: 768px){

@@ -85,6 +85,16 @@ a:hover {
     justify-content: center;
 }
 
+.author-article-picture{
+    width: 32px;
+    height: 32px;
+}
+
+.author-commentary-picture{
+    width: 32px;
+    height: 32px;
+}
+
 .article-commentary-text{
     border-left: 1px solid #585C71;
 }

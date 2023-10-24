@@ -101,18 +101,22 @@ include "../scripts/slugifyText.php";
                     </div>
 
                     <div class="article-author col-4 col-sm-4 col-lg-2 order-2 order-sm-3 order-lg-3 pt-3 pb-0 px-0">
-                        <div class="row container-fluid mx-0">
+                        <div class="row container-fluid mx-0 px-0">
                             <small class="col-12 col-lg-2 px-0">by :</small>
                             <a class="col-12 col-lg-10 px-0" href="#">
+                                <img class="author-article-picture px-0" src="https://picsum.photos/id/<?php echo rand(1,1084)?>/1000" alt="Profile picture">
                                 <?php echo $article->getAuteur() ?? 'Auteur';?>
                             </a>  
                         </div>
                     </div>           
                 </div>
                 <div class="row article-text">
-                    <p class="col mx-5 my-3 pb-3 text-break">
-                        <?php echo $article->getTexte() ?? 'Texte';?>
-                    </p>
+                    <div class="col mx-5 my-3 pb-3 text-break">
+                        <div class="row">
+                            <img class="article-picture col-4 px-0" src="https://picsum.photos/id/<?php echo rand(1,1084). "/" . rand(500, 2000)?>" alt="Profile picture">
+                            <p class="col-7"><?php echo $article->getTexte() ?? 'Texte';?></p>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -123,8 +127,9 @@ include "../scripts/slugifyText.php";
                     <?php if ($commentaire->getIdArticle() == $article->getId()): ?>
                         <div class="row px-0 ms-2 py-2 my-2 rounded article-commentary">
                             <h5 class="article-commentaries-author col-3 justify-content-center">
-                                <a href="#">
-                                    <?php echo $commentaire->getAuteur() ?? 'Auteur';?>
+                                <a class="row" href="#">
+                                    <img class="author-commentary-picture col-3 ms-2 px-0" src="https://picsum.photos/id/<?php echo rand(1,300)?>/1000" alt="Profile picture">
+                                    <p class="col-9"><?php echo $commentaire->getAuteur() ?? 'Auteur';?></p>
                                 </a>
                             </h5>
 

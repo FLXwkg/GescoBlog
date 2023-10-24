@@ -86,10 +86,15 @@ include "../scripts/slugifyText.php";
                                     </a>
                                 </h2>
                                 <div class="article-head-author col-5 col-sm-5 col-md-12">
-                                    <small class="col-1 ms-3 px-0">by :</small>
-                                    <a class="col-10 px-0" href="#">
-                                        <?php echo $article->getAuteur() ?? 'Auteur';?>
-                                    </a>  
+                                    <div class="row container-fluid px-0">
+                                        <small class="small-by-article col-sm-12 col-md-2 ps-0 pe-1">by :</small>
+                                        <div class="col-sm-12 col-md-10 px-0">
+                                            <a class="row container pe-0" href="#">
+                                                <img class="author-article-picture col-3 px-0" src="https://picsum.photos/id/<?php echo rand(1,1084)?>/1000" alt="Profile picture">
+                                                <p class="col-9 pe-0"><?php echo $article->getAuteur() ?? 'Auteur';?></p>
+                                            </a>
+                                        </div>
+                                    </div> 
                                 </div>
                             </div>
                         </div>
@@ -117,7 +122,10 @@ include "../scripts/slugifyText.php";
                                 ?>
                                 <div class="row article-commentary px-0 mx-0 py-2">
                                     <h5 class="article-commentary-author col-3">
-                                        <?php echo $commentaire->getAuteur() ?? 'Auteur'; ?>
+                                        <a class="row" href="#">
+                                            <img class="author-commentary-picture col-3 ms-2 px-0" src="https://picsum.photos/id/<?php echo rand(1,1084)?>/1000" alt="Profile picture">
+                                            <p class="col-9"><?php echo $commentaire->getAuteur() ?? 'Auteur';?></p>
+                                        </a>
                                     </h5>
 
                                     <p class="article-commentary-text col-7 mt-2">
