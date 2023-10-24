@@ -15,15 +15,12 @@ require __DIR__ . "/../scripts/unslugifyText.php";
 
 return function (App $app) {
 
-    $homeCategory = 14;
-
 
     /**
      * Page d'accueil
      */
-    $app->get('/', function (Request $request, Response $response) use ($homeCategory) {
-        $homeController = new HomeController();
-        return $homeController->handleRoute($request, $response, [], $homeCategory);
+    $app->get('/', function (Request $request, Response $response) {
+        return (new HomeController())->handle($response);
     });
 
 

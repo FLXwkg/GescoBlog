@@ -20,4 +20,18 @@ class CommentairesRepository extends ArticlesRepository{
 
         return $stmt->fetchAll(PDO::FETCH_CLASS, Commentaire::class);
     }
+
+    public function getByManyArticlesIds(array $ids)
+    {
+        if(empty($ids)){
+            return [];
+        }
+        $pdo = $this->getPDO();
+        $idsSql = implode(',', array_values($ids));
+        $sql = "SELECT * FROM commentaire WHERE id_article IN(".$idsSql.");";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_CLASS, Commentaire::class);
+
+    }
 }
