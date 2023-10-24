@@ -6,7 +6,7 @@ require __DIR__ . '/../vendor/autoload.php';
 require __DIR__ . '/../config/application.config.php';
 
 try {
-    $config = new PDOConfiguration(require __DIR__ . '/../resources/config/application.config.php');
+    $config = new PDOConfiguration(require __DIR__ . '/../config/application.config.php');
     $pdo = $config->getPDO();
 
     // Appel de Faker pour générer des données
