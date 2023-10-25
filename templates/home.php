@@ -53,7 +53,7 @@ include "../scripts/slugifyText.php";
                     </div>
                 </header>
                 <div class="row nav-scroller py-1">
-                    <nav class="nav d-flex justify-content-between my-2">
+                    <nav class="nav d-flex justify-content-evenly my-2">
                         <?php
 
                         foreach ($sections as $section):
@@ -80,54 +80,43 @@ include "../scripts/slugifyText.php";
         </h1>
         <div class="container-fluid">
             <div class="row">
-                <div class="col-lg-2"></div>
-                    <div class="col-lg-8">
-                        <div class="row">
-                            <?php
-                            /** @var \App\Article[] $articles */
-                            foreach ($articles as $article): ?>
-                                <div class="col-lg-4">
-                                    <div class="article-section rounded my-2">
-                                        <a href="<?= $article->getUrlArticle(); ?>">
-                                            <div class="article-head container-fluid row me-0 mb-2">
-                                                <div class="article-head-date col-6">
-                                                    <?php echo $article->getDate() ?? 'Date';?>
-                                                </div>
-                                                <div class="article-head-category col-6">
+                <div class="col-1 col-lg-2"></div>
+                <div class="col-10 col-lg-8">
+                    <div class="row align-items-center">
+                        <?php
+                        /** @var \App\Article[] $articles */
+                        foreach ($articles as $article): ?>
+                            <div class="article-bloc col-sm-6 col-md-6 col-lg-4">
+                                <div class="article-section rounded my-2">
+                                    <a class="article-link d-block" href="<?= $article->getUrlArticle(); ?>">
+                                        <div class="d-flex flex-column align-items-center">
+                                            <div class="article-head container row py-3">
+                                                <div class="article-head-category col-5">
                                                     <?= $article->getNomCategorie(); ?>
                                                 </div>
+                                                <div class="article-head-date col-7 pe-0">
+                                                    <?php echo $article->getDate() ?? 'Date';?>
+                                                </div>
                                             </div>
-                                            <div class="article-body container-fluid row me-0 mb-2">
+                                            <div class="article-body container row py-3">
                                                 <div class="article-title col-8">
                                                     <?= $article->getTitre() ?? 'Titre';?>
                                                 </div>
-                                                <div class="article-picture rounded col-4">
-                                                    <img class="picture px-0" src="https://picsum.photos/id/<?php echo rand(1,1084)?>/1920/1080" alt="Article picture">
+                                                <div class="article-picture col-4">
+                                                    <img class="picture px-0 rounded" src="https://picsum.photos/id/<?php echo rand(1,1084)?>/1920/1080" alt="Article picture">
                                                 </div>
                                             </div>
-                                        </a>
-                                    </div>
+                                        </div>
+                                    </a>
                                 </div>
-                            <?php endforeach; ?>
-                        </div>
+                            </div>
+                        <?php endforeach; ?>
                     </div>
-                    <div class="col-lg-2"></div>
                 </div>
+                <div class="col-1 col-lg-2"></div>
             </div>
         </div>
 
-        <div class="container px-4">
-            <nav class="blog-pagination d-flex justify-content-between">
-                <a class="btn btn-outline-secondary" href="/home">Home</a>
-                <?php if($isHome):?>
-                    <a href="/">Accueil</a>
-                <?php else: ?>
-                    <a class="btn btn-outline-secondary" href="/<?php echo $category->getSlug() ?? 'non defini';?>">Back to
-                        <?php echo $category->getNom() ?? 'non defini';?>
-                    </a>
-                <?php endif; ?>
-            </nav>
-        </div>
     </main>
     
     <footer class="blog-footer py-5 mt-2">
