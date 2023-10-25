@@ -9,7 +9,7 @@ include "../scripts/slugifyText.php";
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/assets/css/cssMenu.css" rel="stylesheet">
+    <link href="/assets/css/cssCategorie.css" rel="stylesheet">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -182,7 +182,7 @@ include "../scripts/slugifyText.php";
                 <?php if($isHome):?>
                     <a href="/">Accueil</a>
                 <?php else: ?>
-                    <a class="btn btn-outline-secondary" href="/<?php echo strtolower($category->getNom()) ?? 'non defini';?>">Back to
+                    <a class="btn btn-outline-secondary" href="/<?php echo $category->getSlug() ?? 'non defini';?>">Back to
                         <?php echo $category->getNom() ?? 'non defini';?>
                     </a>
                 <?php endif; ?>

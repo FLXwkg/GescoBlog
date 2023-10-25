@@ -13,7 +13,7 @@ class ArticlesRepository extends CategoriesRepository
     {
         $pdo = $this->getPDO();
         $base = $this->getBaseQuery();
-        $sql = $base . " WHERE t1.id_categorie = :categoryId;";
+        $sql = $base . " WHERE t1.id_categorie = :categoryId ORDER BY t1.date_article DESC;";
         $stmt = $pdo->prepare($sql);
         $stmt->bindParam(':categoryId', $categoryId, PDO::PARAM_INT);
         $stmt->execute();
@@ -39,7 +39,8 @@ class ArticlesRepository extends CategoriesRepository
     public function getAll()
     {
         $pdo = $this->getPDO();
-        $sql = $this->getBaseQuery();
+        $base = $this->getBaseQuery();
+        $sql = $base . " ORDER BY t1.date_article DESC;";
         $stmt = $pdo->prepare($sql);
         $stmt->execute();
 
