@@ -8,7 +8,6 @@ class HomeController
     {
         $categories = new CategoriesRepository();
         $args = [];
-        $args['categories'] = $categories->GetNameByCatId($id);
         $args['sections'] = $categories->GetAll();
 
         $articles = new ArticlesRepository();
