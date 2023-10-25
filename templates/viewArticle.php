@@ -50,7 +50,7 @@ include "../scripts/slugifyText.php";
                     </div>
                 </header>
                 <div class="row nav-scroller py-1">
-                    <nav class="nav d-flex justify-content-between my-2">
+                    <nav class="nav d-flex justify-content-evenly my-2">
                         <?php 
                         foreach ($sections as $section):
                             if ($section->getNom() === $category->getNom()):?>
@@ -181,7 +181,7 @@ include "../scripts/slugifyText.php";
         </div>
     </main>
 
-    <footer class="blog-footer container-fluid py-5 mt-2 position-static bottom-0 start-0">
+    <footer class="blog-footer py-5 mt-2">
         <p>Blog built by <a href="https://github.com/FLXwkg" target="_blank">FLX</a>.</p>
         <p class="mb-0">
             <a href="#">Back to top</a>
