@@ -14,7 +14,18 @@ class CategoriesRepository{
         return $pdo;
     }
 
-    public function GetNameById(int $idCategory)
+    public function getCatSlugByCatId(int $idCategory)
+    {
+        $pdo = $this->getPDO();
+        $sql = "SELECT slug FROM categorie WHERE id_categorie = :idCategory;";
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindParam(':idCategory', $idCategory, PDO::PARAM_INT);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_CLASS, Categorie::class);
+    }
+
+    public function getNameByCatId(int $idCategory)
     {
         $pdo = $this->getPDO();
         $sql = "SELECT nom_categorie FROM categorie WHERE id_categorie = :idCategory;";
@@ -36,12 +47,12 @@ class CategoriesRepository{
         return $stmt->fetchAll(PDO::FETCH_CLASS, Categorie::class);
     }
 
-    public function getIdByArticle(string $titreArticle)
+    public function getCatIdBySlugArticle(string $slugArticle)
     {
         $pdo = $this->getPDO();
-        $sql = "SELECT id_categorie FROM article WHERE titre_article = :titreArticle;";
+        $sql = "SELECT id_categorie FROM article WHERE slug = :slugArticle;";
         $stmt = $pdo->prepare($sql);
-        $stmt->bindParam(':titreArticle', $titreArticle, PDO::PARAM_STR);
+        $stmt->bindParam(':slugArticle', $slugArticle, PDO::PARAM_STR);
         $stmt->execute();
 
         return $stmt->fetchAll(PDO::FETCH_CLASS, Categorie::class);

@@ -34,26 +34,25 @@ return function (App $app) {
             return $response->withHeader('Location', "/")->withStatus(301);
         }
         $genericController = new GenericController();
-        return $genericController->handleRoute($request, $response, $args, $id[0]->getId());
+        return $genericController->handle($response, $id[0]->getId());
     });
 
 
     /**
      * Les pages
      */
-    $app->get('/{page}/{titre_article}', function ($request, $response, $args) {
+    $app->get('/{categorie}/{slug_article}', function ($request, $response, $args) {
         $route = new CategoriesRepository();
-        $titreArticleSlug = $args['titre_article'];
-        $titreArticle = unslugifyText($args['titre_article']);
-        $id = $route->getIdByArticle($titreArticle);
-        $Categorie = $route->getNameById($id[0]->getId());
-        $nomCategorie = strtolower($Categorie[0]->getNom());
-        //var_dump("/$nomCategorie/$titreArticleSlug");die();
-        if ($args['page'] === 'home') {
-            return $response->withHeader('Location', "/$nomCategorie/$titreArticleSlug")->withStatus(301);
+        $slugArticle = $args['slug_article'];
+        $id = $route->getCatIdBySlugArticle($slugArticle);
+        $Categorie = $route->getCatSlugByCatId($id[0]->getId());
+        
+        
+        if ($args['categorie'] === 'home') {
+            return $response->withHeader('Location', "/$Categorie/$slugArticle")->withStatus(301);
         } else {
             $articleController = new ArticleController();
-            return $articleController->render($request, $response, $args, $titreArticle, $id[0]->getId());
+            return $articleController->handle($response, $slugArticle, $id[0]->getId());
         }
     });
 };

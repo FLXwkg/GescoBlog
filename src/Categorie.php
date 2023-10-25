@@ -8,6 +8,7 @@ class Categorie
 {
     protected $id_categorie;
     protected $nom_categorie;
+    protected $slug;
 
     public function getId()
     {
@@ -17,5 +18,10 @@ class Categorie
     public function getNom()
     {
         return $this->nom_categorie;
+    }
+
+    public function getSlug()
+    {
+        return $this->slug;
     }
 }

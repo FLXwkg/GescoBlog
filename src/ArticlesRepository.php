@@ -25,14 +25,14 @@ class ArticlesRepository extends CategoriesRepository
     {
         $selector = empty($alias) ? '*' : $alias . '.*';
         return <<<SQL
-SELECT 
-CONCAT_WS("/", t2.slug, $alias.slug) as url_article, 
-t2.nom_categorie,
-$selector
-FROM article $alias
-left join categorie t2
-on $alias.id_categorie = t2.id_categorie
-SQL;
+                    SELECT 
+                    CONCAT_WS("/", t2.slug, $alias.slug) as url_article, 
+                    t2.nom_categorie,
+                    $selector
+                    FROM article $alias
+                    left join categorie t2
+                    on $alias.id_categorie = t2.id_categorie
+                SQL;
 
     }
 
@@ -46,13 +46,13 @@ SQL;
         return $stmt->fetchAll(PDO::FETCH_CLASS, Article::class);
     }
 
-    public function getByName(string $nomArticle)
+    public function getBySlug(string $slugArticle)
     {
         $pdo = $this->getPDO();
         $base = $this->getBaseQuery();
-        $sql = $base . " WHERE t1.titre_article = :nomArticle;";
+        $sql = $base . " WHERE t1.slug = :slugArticle;";
         $stmt = $pdo->prepare($sql);
-        $stmt->bindParam(':nomArticle', $nomArticle, PDO::PARAM_STR);
+        $stmt->bindParam(':slugArticle', $slugArticle, PDO::PARAM_STR);
         $stmt->execute();
 
         return $stmt->fetchAll(PDO::FETCH_CLASS, Article::class);

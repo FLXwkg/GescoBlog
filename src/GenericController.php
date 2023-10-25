@@ -4,10 +4,11 @@ namespace App;
 use Slim\Views\PhpRenderer;
 class GenericController
 {
-    public function handleRoute($request, $response, $args, $id)
+    public function handle($response, $id)
     {
         $categories = new CategoriesRepository();
-        $args['categories'] = $categories->GetNameById($id);
+        $args = [];
+        $args['categories'] = $categories->GetNameByCatId($id);
         $args['sections'] = $categories->GetAll(); 
 
         $articles = new ArticlesRepository();
