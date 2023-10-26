@@ -76,24 +76,22 @@ a:hover {
 .article-section{
     background-color: #e0d6ff;
     color: #585C71;
+    min-height: 224px;
 }
 .article-link{
-    text-decoration: none;
-    min-height: 154px;
+    color: #585C71;
 }
 
 .article-head-category{
     font-weight: bold;
-
 }
 
-.article-picture img {
+.picture {
     object-fit: contain;
-}
-
-.article-picture .picture {
     width: 100%;
     height: 100%;
+    border: 1px solid #585C71;
+    border-radius: 5%;
 }
 
 .author-article-picture{

@@ -88,29 +88,33 @@ include "../scripts/slugifyText.php";
                         foreach ($articles as $article): ?>
                             <div class="article-bloc col-6">
                                 <div class="article-section rounded my-2">
-                                    <a class="article-link" href="<?= $article->getUrlArticle(); ?>">
-                                        <div class="d-flex flex-column">
-                                            <div class="article-title container row pt-3">
+                                    <div class="d-flex flex-column">
+                                        <div class="article-title container row pt-3">
+                                                <a class="article-link" href="<?= $article->getUrlArticle(); ?>">
                                                     <?= $article->getTitre() ?? 'Titre';?>
+                                                </a>
+                                        </div>
+                                        <div class="article-head-date container-fluid row">
+                                            <small><?php echo $article->getDate() ?? 'Date';?></small>
+                                        </div>
+                                        
+                                        <div class="article-body container-fluid row py-3">
+                                            <div class="article-text col-8">
+                                                <?= getArticleHtmlSection($article);?>
                                             </div>
-                                            <div class="article-head-date container-fluid row">
-                                                <small><?php echo $article->getDate() ?? 'Date';?></small>
-                                            </div>
-                                            
-                                            <div class="article-body container-fluid row py-3">
-                                                <div class="article-text col-8">
-                                                    <?= getArticleHtmlSection($article);?>
-                                                </div>
-                                                <div class="article-picture col-4">
-                                                    <img class="picture px-0 rounded" src="https://picsum.photos/id/<?php echo rand(1,1084)?>/1920/1080" alt="Article picture">
+                                            <div class="col-4 align-items-center">
+                                                <div class="article-picture row">
+                                                    <a class="article-link" href="<?= $article->getUrlArticle(); ?>">
+                                                        <img class="picture px-0" src="https://picsum.photos/id/<?php echo rand(1,1084)?>/1920/1080" alt="Article picture">
+                                                    </a>
                                                 </div>
                                             </div>
                                         </div>
-                                    </a>
+                                    </div>
                                     <div class="container article-commentaries collapse" id="collapseCommentary<?php echo $article->getId(); ?>">
                                         <?php
                                         $comment_count = 0;
-                                        $hasComments = false; // Une variable pour suivre si l'article a des commentaires
+                                        $hasComments = false;
 
                                         foreach ($commentaires as $commentaire):
                                             if ($commentaire->getIdArticle() == $article->getId() && $comment_count < 3):
@@ -132,13 +136,13 @@ include "../scripts/slugifyText.php";
                                                 </div>
                                                 <?php
                                                 $comment_count++;
-                                                $hasComments = true; // Mettez la variable à true s'il y a des commentaires.
+                                                $hasComments = true;
                                             endif;
                                         endforeach;
                                         ?>
                                     </div>
                                 
-                                    <?php if ($hasComments): // Vérifiez si l'article a des commentaires avant d'afficher le bouton ?>
+                                    <?php if ($hasComments):?>
                                         <div class="row">
                                             <div class="col-2"></div>
                                             <button class="toggle-button col-8 mb-2 btn btn-outline-secondary" type="button" data-bs-toggle="collapse"
@@ -158,25 +162,25 @@ include "../scripts/slugifyText.php";
                                             <div class="col-2"></div>
                                         </div> 
                                     <?php endif; ?>
-                                    
                                 </div>
                             </div>
                         <?php endforeach; ?>
+                    </div>
+                    <div class="container px-4">
+                        <nav class="blog-pagination d-flex justify-content-between">
+                            <a class="btn btn-outline-secondary" href="/">Home</a>
+                            <a class="btn btn-outline-secondary" href="/<?php echo $category->getSlug() ?? 'non defini';?>">Back to
+                                <?php echo $category->getNom() ?? 'non defini';?>
+                            </a>
+                            
+                        </nav>
                     </div>
                 </div>
                 <div class="col-1 col-lg-2"></div>
             </div>
         </div>
 
-        <div class="container px-4">
-            <nav class="blog-pagination d-flex justify-content-between">
-                <a class="btn btn-outline-secondary" href="/">Home</a>
-                <a class="btn btn-outline-secondary" href="/<?php echo $category->getSlug() ?? 'non defini';?>">Back to
-                    <?php echo $category->getNom() ?? 'non defini';?>
-                </a>
-                
-            </nav>
-        </div>
+        
     </main>
     
     <footer class="blog-footer py-5 mt-2">
