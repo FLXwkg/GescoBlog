@@ -7,6 +7,7 @@ class ArticleController
     public function handle($response, $slugArticle, $id)
     {
         $categories = new CategoriesRepository();
+        $args = [];
         $args['categories'] = $categories->GetNameByCatId($id);
         $args['sections'] = $categories->GetAll();
 
@@ -15,8 +16,9 @@ class ArticleController
         $args['articles'] = $contentArticle;
 
         
-        $args['commentaires'] = $this->getCommentaires($id);
-
+        $idArticle = $contentArticle[0]->getId();
+        $args['commentaires'] = $this->getCommentaires($idArticle);
+        
         $renderer = new PhpRenderer('../templates');
         return $renderer->render($response, "viewArticle.php", $args);
     }
@@ -24,7 +26,6 @@ class ArticleController
     protected function getCommentaires(int $idArticle): array
     {
         $commentaire = new CommentairesRepository();
-        //equivalent SQL : select * from commentaire where id_article IN(1,2,3,4,5,6);
         return $commentaire->getByArticleId($idArticle);
     }
 }

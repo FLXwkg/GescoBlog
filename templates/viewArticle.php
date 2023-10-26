@@ -94,18 +94,19 @@ include "../scripts/slugifyText.php";
                         </div>
                     </div>
 
-                    <div class="article-title col-8 col-sm-12 col-lg-8 order-1 order-sm-1 order-lg-2 my-0 px-0">
+                    <div class="article-title col-12 col-lg-8 order-1 order-sm-1 order-lg-2 my-0 px-0">
                         <h2 class="">
                             <?php echo $article->getTitre() ?? 'Titre';?>
                         </h2>
                     </div>
 
-                    <div class="article-author col-4 col-sm-4 col-lg-2 order-2 order-sm-3 order-lg-3 pt-3 pb-0 px-0">
+                    <div class="article-author col-12 col-sm-4 col-lg-2 order-3 order-sm-3 order-lg-3 pt-3 pb-2 px-0">
                         <div class="row container-fluid mx-0 px-0">
-                            <small class="col-12 col-lg-2 px-0">by :</small>
-                            <a class="col-12 col-lg-10 px-0" href="#">
-                                <img class="author-article-picture px-0" src="https://picsum.photos/id/<?php echo rand(1,1084)?>/1000" alt="Profile picture">
-                                <?php echo $article->getAuteur() ?? 'Auteur';?>
+                            <a class="col-12 px-0" href="#">
+                                <div class="row d-flex justify-content-center">
+                                    <img class="author-article-picture col-4 col-md-12 px-0" src="https://picsum.photos/id/<?php echo rand(1,1084)?>/1000" alt="Profile picture">
+                                    <p class="col-7 col-md-12 d-flex justify-content-center"><?php echo $article->getAuteur() ?? 'Auteur';?></p>
+                                </div>
                             </a>  
                         </div>
                     </div>           
@@ -113,72 +114,72 @@ include "../scripts/slugifyText.php";
                 <div class="row article-text">
                     <div class="col mx-5 my-3 pb-3 text-break">
                         <div class="row">
-                            <img class="article-picture col-4 px-0" src="https://picsum.photos/id/<?php echo rand(1,1084). "/" . rand(500, 2000)?>" alt="Profile picture">
-                            <p class="col-7"><?php echo $article->getTexte() ?? 'Texte';?></p>
+                            <img class="article-picture col-12 col-md-4 px-0" src="https://picsum.photos/id/<?php echo rand(1,1084). "/" . rand(500, 2000)?>" alt="Profile picture">
+                            <p class="col-12 col-md-8"><?php echo $article->getTexte() ?? 'Texte';?></p>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div class=" row container-fluid article-commentaries collapse" id="collapseCommentary">
-                <?php 
-                $hasComments = false;
-                foreach ($commentaires as $commentaire): ?>
-                    <?php if ($commentaire->getIdArticle() == $article->getId()): ?>
-                        <div class="row px-0 ms-2 py-2 my-2 rounded article-commentary">
-                            <h5 class="article-commentaries-author col-3 justify-content-center">
-                                <a class="row" href="#">
-                                    <img class="author-commentary-picture col-3 ms-2 px-0" src="https://picsum.photos/id/<?php echo rand(1,300)?>/1000" alt="Profile picture">
-                                    <p class="col-9"><?php echo $commentaire->getAuteur() ?? 'Auteur';?></p>
-                                </a>
-                            </h5>
 
-                            <p class="article-commentaries-text col-7 mt-2">
-                                <?php echo $commentaire->getTexte() ?? 'Texte';?>
-                            </p>
+                <div class="article-commentaries row container collapse" id="collapseCommentary">
+                    <?php 
+                    $hasComments = false;
+                    foreach ($commentaires as $commentaire): ?>
+                        <?php if ($commentaire->getIdArticle() == $article->getId()): ?>
+                            <div class="article-commentary row px-0 ms-2 pt-3 mt-2">
+                                <div class="article-commentaries-author col-4 d-flex flex-column">
+                                    <a class="row container align-items-center" href="#">
+                                        <img class="author-commentary-picture col-2 px-0" src="https://picsum.photos/id/<?php echo rand(1,300)?>/1000" alt="Profile picture">
+                                        <h5 class="col-9"><?php echo $commentaire->getAuteur() ?? 'Auteur';?></h5>
+                                    </a>
+                                    <div class="article-commentary-date row container ms-4 pt-2">
+                                        <small>Published on <?php echo $commentaire->getDateModif() ?? 'Date';?></small>
+                                    </div>
+                                </div>
 
-                            <small class="article-commentaries-date col-2 d-flex justify-content-end">
-                                Published on
-                                <?php echo $commentaire->getDateModif() ?? 'Date';?>
-                            </small>
-                        </div>
-                        <?php
-                        $hasComments = true;
-                    endif;
-                endforeach; 
-                ?>
+                                <p class="article-commentary-text col-8 mt-2">
+                                    <?php echo $commentaire->getTexte() ?? 'Texte';?>
+                                </p>
+                            </div>
+                            <?php
+                            $hasComments = true;
+                        endif;
+                    endforeach; 
+                    ?>
+                </div>
+
+                <?php if ($hasComments):?>
+                    <div class="row container-fluid">
+                        <div class="col-xs-0 col-sm-2 col-lg-4"></div>
+                        <button class="toggle-button col-xs-12 col-sm-8 col-lg-4 mb-2 btn btn-outline-secondary" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapseCommentary"
+                                data-article-id="<?php echo $article->getId(); ?>"
+                                aria-expanded="false" aria-controls="collapseCommentary">
+                            Afficher les commentaires
+                        </button>
+                        <div class="col-xs-0 col-sm-2 col-lg-4"></div>
+                    </div>
+                <?php else :?>
+                    <div class="row">   
+                        <div class="col-xs-0 col-sm-2 col-lg-4"></div>
+                        <button class="col-xs-12 col-sm-8 col-lg-4 mb-2 btn btn-outline-secondary" type="button">
+                            Ajouter un commentaire
+                        </button>
+                        <div class="col-xs-0 col-sm-2 col-lg-4"></div>
+                    </div> 
+                <?php endif; ?>    
             </div>
         </div>
-
-        <?php if ($hasComments): // Vérifie si l'article a des commentaires avant d'afficher le bouton ?>
-            <div class="row container-fluid">
-                <div class="col-xs-0 col-sm-2 col-lg-4"></div>
-                <button class="toggle-button col-xs-12 col-sm-8 col-lg-4 mb-2 btn btn-outline-secondary" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#collapseCommentary"
-                        data-article-id="<?php echo $article->getId(); ?>"
-                        aria-expanded="false" aria-controls="collapseCommentary">
-                    Afficher les commentaires
-                </button>
-                <div class="col-xs-0 col-sm-2 col-lg-4"></div>
-            </div>
-        <?php else :?>
-            <div class="row">   
-                <div class="col-xs-0 col-sm-2 col-lg-4"></div>
-                <button class="col-xs-12 col-sm-8 col-lg-4 mb-2 btn btn-outline-secondary" type="button">
-                    Ajouter un commentaire
-                </button>
-                <div class="col-xs-0 col-sm-2 col-lg-4"></div>
-            </div> 
-        <?php endif; ?>
-
         <div class="container px-4">
             <nav class="blog-pagination d-flex justify-content-between">
-                <a class="btn btn-outline-secondary w-25" href="/home">Home</a>
-                <a class="btn btn-outline-secondary w-25" href="/<?php echo slugifyText($category->getNom()) ?? 'non defini';?>">Back to 
-                    <?php echo $category->getNom() ?? 'non defini';?>
+                <a class="btn btn-outline-secondary d-flex align-items-center justify-content-center w-25" href="/home">Home</a>
+                <a class="btn btn-outline-secondary w-25" href="/<?= $category->getSlug() ?? 'non defini';?>">
+                    Back to <?= $category->getNom() ?? 'non defini';?>
                 </a>
             </nav>
         </div>
+        
+        
     </main>
 
     <footer class="blog-footer py-5 mt-2">

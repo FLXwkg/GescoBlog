@@ -66,7 +66,7 @@ body {
 }
 
 a {
-    color: #675cff;
+    color: #585C71;
 }
 
 a:hover {
@@ -86,8 +86,21 @@ a:hover {
 }
 
 .author-article-picture{
-    width: 32px;
-    height: 32px;
+    width: 64px;
+    height: 64px;
+}
+
+.article-commentary{
+    border-top: 1px solid #585C71;
+}
+
+.author-commentary-picture{
+    width: 48px;
+    height: 48px;
+}
+
+.article-commentary-text{
+    border-left: 1px solid #C8B6FF;
 }
 
 .blog-footer{
@@ -120,4 +133,12 @@ a:hover {
         left: 0px;
     }
 }
+
+@media(max-width: 576px){
+    .author-article-picture{
+        width: 32px;
+        height: 32px;
+    }
+}
+
 
