@@ -1,16 +1,17 @@
 <?php 
 
 use App\Article;
+use App\Commentaire;
 
-function getArticleHtmlSection(Article $article, $maxLength = 140)
+function getCommentaryHtmlSection(Article $article, Commentaire $commentaire, $maxLength = 140)
 {
-    $text = $article->getTexte();
+    $text = $commentaire->getTexte();
     $href=$article->getUrlArticle();
-    $content =  '<span class="truncated-text">' . substr($text, 0, $maxLength) . '<a class="article-link" href="$href" >Voir plus...</a></span>';
+    $content =  '<span class="truncated-text">' . substr($text, 0, $maxLength) . '...</span>';
     if (strlen($text) > $maxLength){ 
         return <<<HTML
             $content
-            
+            <a class="article-link" href="$href" >Voir plus</a>
             HTML;
     }else{
         return <<<HTML

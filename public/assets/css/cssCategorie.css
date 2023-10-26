@@ -104,11 +104,6 @@ a:hover {
     height: 32px;
 }
 
-.article-head-text{
-    border-left: 1px solid #585C71;
-    border-right: 1px solid #585C71;
-}
-
 .article-commentary-author{
     padding-left: 5%;
 }

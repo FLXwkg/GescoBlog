@@ -1,5 +1,6 @@
 <?php 
 include "../scripts/getArticleHtmlSection.php";
+include "../scripts/getCommentaryHtmlSection.php";
 include "../scripts/slugifyText.php";
 ?>
 
@@ -91,19 +92,19 @@ include "../scripts/slugifyText.php";
                                     <div class="d-flex flex-column">
                                         <div class="article-title container row pt-3">
                                                 <a class="article-link" href="<?= $article->getUrlArticle(); ?>">
-                                                    <?= $article->getTitre() ?? 'Titre';?>
+                                                    <h5><?= $article->getTitre() ?? 'Titre';?></h5>
                                                 </a>
                                         </div>
                                         <div class="article-head-date container-fluid row">
                                             <small><?php echo $article->getDate() ?? 'Date';?></small>
                                         </div>
                                         
-                                        <div class="article-body container-fluid row py-3">
-                                            <div class="article-text col-8">
+                                        <div class="article-body container row py-3">
+                                            <div class="article-text col-8 ps-2">
                                                 <?= getArticleHtmlSection($article);?>
                                             </div>
-                                            <div class="col-4 align-items-center">
-                                                <div class="article-picture row">
+                                            <div class="col-4 px-0">
+                                                <div class="article-picture row px-0">
                                                     <a class="article-link" href="<?= $article->getUrlArticle(); ?>">
                                                         <img class="picture px-0" src="https://picsum.photos/id/<?php echo rand(1,1084)?>/1920/1080" alt="Article picture">
                                                     </a>
@@ -119,20 +120,24 @@ include "../scripts/slugifyText.php";
                                         foreach ($commentaires as $commentaire):
                                             if ($commentaire->getIdArticle() == $article->getId() && $comment_count < 3):
                                                 ?>
-                                                <div class="article-commentary">
-                                                    <h5 class="article-commentary-author">
-                                                        <img class="author-commentary-picture" src="https://picsum.photos/id/<?php echo rand(1,1084)?>/1000" alt="Profile picture">
-                                                        <p class=""><?php echo $commentaire->getAuteur() ?? 'Auteur';?></p>
-                                                    </h5>
+                                                <div class="row">
+                                                    <div class="article-commentary col mx-2 px-0">
+                                                        <h6 class="article-commentary-author row pt-2">
+                                                            <img class="author-commentary-picture col-2 px-0" src="https://picsum.photos/id/<?php echo rand(1,1084)?>/1000" alt="Profile picture">
+                                                            <a class="article-link col-10" href="<?= $article->getUrlArticle(); ?>">
+                                                                <p class="py-1"><?php echo $commentaire->getAuteur() ?? 'Auteur';?></p>
+                                                            </a>
+                                                        </h6>
 
-                                                    <p class="article-commentary-text">
-                                                        <?php echo $commentaire->getTexte() ?? 'Texte'; ?>
-                                                    </p>
+                                                        <p class="article-commentary-text row mx-2">
+                                                            <?= getCommentaryHtmlSection($article, $commentaire) ?>
+                                                        </p>
 
-                                                    <small class="article-commentary-date">
-                                                        Published on
-                                                        <?php echo $commentaire->getDateModif() ?? 'Date'; ?>
-                                                    </small>
+                                                        <small class="article-commentary-date row mx-2 pb-2">
+                                                            Published on
+                                                            <?php echo $commentaire->getDateModif() ?? 'Date'; ?>
+                                                        </small>
+                                                    </div>
                                                 </div>
                                                 <?php
                                                 $comment_count++;
@@ -167,12 +172,8 @@ include "../scripts/slugifyText.php";
                         <?php endforeach; ?>
                     </div>
                     <div class="container px-4">
-                        <nav class="blog-pagination d-flex justify-content-between">
+                        <nav class="blog-pagination d-flex justify-content-evenly">
                             <a class="btn btn-outline-secondary" href="/">Home</a>
-                            <a class="btn btn-outline-secondary" href="/<?php echo $category->getSlug() ?? 'non defini';?>">Back to
-                                <?php echo $category->getNom() ?? 'non defini';?>
-                            </a>
-                            
                         </nav>
                     </div>
                 </div>
