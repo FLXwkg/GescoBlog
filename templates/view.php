@@ -85,91 +85,96 @@ include "../scripts/slugifyText.php";
                 <div class="col-10 col-lg-8">
                     <div class="row align-items-center">
                         <?php
+                        $article_count = 0;
                         /** @var \App\Article[] $articles */
-                        foreach ($articles as $article): ?>
-                            <div class="article-bloc col-6">
-                                <div class="article-section rounded my-2">
-                                    <div class="d-flex flex-column">
-                                        <div class="article-title container row pt-3">
-                                                <a class="article-link" href="<?= $article->getUrlArticle(); ?>">
-                                                    <h5><?= $article->getTitre() ?? 'Titre';?></h5>
-                                                </a>
-                                        </div>
-                                        <div class="article-head-date container-fluid row">
-                                            <small><?php echo $article->getDate() ?? 'Date';?></small>
-                                        </div>
-                                        
-                                        <div class="article-body container row py-3">
-                                            <div class="article-text col-8 ps-2">
-                                                <?= getArticleHtmlSection($article);?>
-                                            </div>
-                                            <div class="col-4 px-0">
-                                                <div class="article-picture row px-0">
+                        foreach ($articles as $article):?> 
+                            <?php if($article_count < 6): ?>
+                                <div class="article-bloc col-12 col-md-6">
+                                    <div class="article-section rounded my-2">
+                                        <div class="d-flex flex-column">
+                                            <div class="article-title container row pt-3">
                                                     <a class="article-link" href="<?= $article->getUrlArticle(); ?>">
-                                                        <img class="picture px-0" src="https://picsum.photos/id/<?php echo rand(1,1084)?>/1920/1080" alt="Article picture">
+                                                        <h5><?= $article->getTitre() ?? 'Titre';?></h5>
                                                     </a>
-                                                </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div class="container article-commentaries collapse" id="collapseCommentary<?php echo $article->getId(); ?>">
-                                        <?php
-                                        $comment_count = 0;
-                                        $hasComments = false;
-
-                                        foreach ($commentaires as $commentaire):
-                                            if ($commentaire->getIdArticle() == $article->getId() && $comment_count < 3):
-                                                ?>
-                                                <div class="row">
-                                                    <div class="article-commentary col mx-2 px-0">
-                                                        <h6 class="article-commentary-author row pt-2">
-                                                            <img class="author-commentary-picture col-2 px-0" src="https://picsum.photos/id/<?php echo rand(1,1084)?>/1000" alt="Profile picture">
-                                                            <a class="article-link col-10" href="<?= $article->getUrlArticle(); ?>">
-                                                                <p class="py-1"><?php echo $commentaire->getAuteur() ?? 'Auteur';?></p>
-                                                            </a>
-                                                        </h6>
-
-                                                        <p class="article-commentary-text row mx-2">
-                                                            <?= getCommentaryHtmlSection($article, $commentaire) ?>
-                                                        </p>
-
-                                                        <small class="article-commentary-date row mx-2 pb-2">
-                                                            Published on
-                                                            <?php echo $commentaire->getDateModif() ?? 'Date'; ?>
-                                                        </small>
+                                            <div class="article-head-date container-fluid row">
+                                                <small><?php echo $article->getDate() ?? 'Date';?></small>
+                                            </div>
+                                            
+                                            <div class="article-body container row py-3">
+                                                <div class="article-text col-8 ps-2">
+                                                    <?= getArticleHtmlSection($article);?>
+                                                </div>
+                                                <div class="col-4 px-0">
+                                                    <div class="article-picture row px-0">
+                                                        <a class="article-link" href="<?= $article->getUrlArticle(); ?>">
+                                                            <img class="picture px-0" src="https://picsum.photos/id/<?php echo rand(1,1084)?>/1920/1080" alt="Article picture">
+                                                        </a>
                                                     </div>
                                                 </div>
-                                                <?php
-                                                $comment_count++;
-                                                $hasComments = true;
-                                            endif;
-                                        endforeach;
-                                        ?>
-                                    </div>
-                                
-                                    <?php if ($hasComments):?>
-                                        <div class="row">
-                                            <div class="col-2"></div>
-                                            <button class="toggle-button col-8 mb-2 btn btn-outline-secondary" type="button" data-bs-toggle="collapse"
-                                                    data-bs-target="#collapseCommentary<?php echo $article->getId(); ?>"
-                                                    data-article-id="<?php echo $article->getId(); ?>"
-                                                    aria-expanded="false" aria-controls="collapseCommentary<?php echo $article->getId(); ?>">
-                                                Afficher les commentaires
-                                            </button>
-                                            <div class="col-2"></div>
+                                            </div>
                                         </div>
-                                    <?php else :?>
-                                        <div class="row">   
-                                            <div class="col-2"></div>
-                                            <button class="col-8 mb-2 btn btn-outline-secondary" type="button">
-                                                Ajouter un commentaire
-                                            </button>
-                                            <div class="col-2"></div>
-                                        </div> 
-                                    <?php endif; ?>
+                                        <div class="container article-commentaries collapse" id="collapseCommentary<?php echo $article->getId(); ?>">
+                                            <?php
+                                            $comment_count = 0;
+                                            $hasComments = false;
+
+                                            foreach ($commentaires as $commentaire):
+                                                if ($commentaire->getIdArticle() == $article->getId() && $comment_count < 3):
+                                                    ?>
+                                                    <div class="row">
+                                                        <div class="article-commentary col mx-2 px-0">
+                                                            <h6 class="article-commentary-author row pt-2">
+                                                                <img class="author-commentary-picture col-2 px-0" src="https://picsum.photos/id/<?php echo rand(1,1084)?>/1000" alt="Profile picture">
+                                                                <a class="article-link col-10" href="<?= $article->getUrlArticle(); ?>">
+                                                                    <p class="py-1"><?php echo $commentaire->getAuteur() ?? 'Auteur';?></p>
+                                                                </a>
+                                                            </h6>
+
+                                                            <p class="article-commentary-text row mx-2">
+                                                                <?= getCommentaryHtmlSection($article, $commentaire) ?>
+                                                            </p>
+
+                                                            <small class="article-commentary-date row mx-2 pb-2">
+                                                                Published on
+                                                                <?php echo $commentaire->getDateModif() ?? 'Date'; ?>
+                                                            </small>
+                                                        </div>
+                                                    </div>
+                                                    <?php
+                                                    $comment_count++;
+                                                    $hasComments = true;
+                                                endif;
+                                            endforeach;
+                                            ?>
+                                        </div>
+                                    
+                                        <?php if ($hasComments):?>
+                                            <div class="row">
+                                                <div class="col-2"></div>
+                                                <button class="toggle-button col-8 mb-2 btn btn-outline-secondary" type="button" data-bs-toggle="collapse"
+                                                        data-bs-target="#collapseCommentary<?php echo $article->getId(); ?>"
+                                                        data-article-id="<?php echo $article->getId(); ?>"
+                                                        aria-expanded="false" aria-controls="collapseCommentary<?php echo $article->getId(); ?>">
+                                                    Afficher les commentaires
+                                                </button>
+                                                <div class="col-2"></div>
+                                            </div>
+                                        <?php else :?>
+                                            <div class="row">   
+                                                <div class="col-2"></div>
+                                                <button class="col-8 mb-2 btn btn-outline-secondary" type="button">
+                                                    Ajouter un commentaire
+                                                </button>
+                                                <div class="col-2"></div>
+                                            </div> 
+                                        <?php endif; ?>
+                                    </div>
                                 </div>
-                            </div>
-                        <?php endforeach; ?>
+                                <?php 
+                                $article_count++;
+                            endif;
+                        endforeach; ?>
                     </div>
                     <div class="container px-4">
                         <nav class="blog-pagination d-flex justify-content-evenly">

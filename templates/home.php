@@ -15,6 +15,7 @@ include "../scripts/slugifyText.php";
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="manifest" href="/site.webmanifest">
     <script src="/assets/js/bootstrap.min.js"></script>
+    <script src="/assets/js/loadMoreArticles.js"></script>
 
     <title>
         Blog
@@ -82,7 +83,7 @@ include "../scripts/slugifyText.php";
             <div class="row">
                 <div class="col-1 col-lg-2"></div>
                 <div class="col-10 col-lg-8">
-                    <div class="row align-items-center">
+                    <div class="article-container row align-items-center">
                         <?php
                         /** @var \App\Article[] $articles */
                         foreach ($articles as $article): ?>
@@ -111,6 +112,7 @@ include "../scripts/slugifyText.php";
                                 </div>
                             </div>
                         <?php endforeach; ?>
+                        <button class="btn btn-outline-secondary" id="load-more">Afficher plus d'Articles</button>
                     </div>
                 </div>
                 <div class="col-1 col-lg-2"></div>
