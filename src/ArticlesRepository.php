@@ -12,8 +12,9 @@ class ArticlesRepository extends CategoriesRepository
     public function getByCategory(int $categoryId)
     {
         $pdo = $this->getPDO();
-        $base = $this->getBaseQuery();
-        $sql = $base . " WHERE t1.id_categorie = :categoryId ORDER BY t1.date_article DESC;";
+        $start = $this->getNumberQueryStart();
+        $end = $this->getNumberQueryEnd();
+        $sql = $start . " WHERE a.id_categorie = :categoryId " . $end;
         $stmt = $pdo->prepare($sql);
         $stmt->bindParam(':categoryId', $categoryId, PDO::PARAM_INT);
         $stmt->execute();
@@ -21,26 +22,47 @@ class ArticlesRepository extends CategoriesRepository
         return $stmt->fetchAll(PDO::FETCH_CLASS, Article::class);
     }
 
-    protected function getBaseQuery($alias = 't1'): string
+    protected function getNumberQueryStart(): string
     {
-        $selector = empty($alias) ? '*' : $alias . '.*';
         return <<<SQL
                     SELECT 
-                    CONCAT_WS("/", t2.slug, $alias.slug) as url_article, 
-                    t2.nom_categorie,
-                    $selector
-                    FROM article $alias
-                    left join categorie t2
-                    on $alias.id_categorie = t2.id_categorie
+                        CONCAT_WS("/", ca.slug, a.slug) as url_article, 
+                        ca.nom_categorie,
+                        a.*,
+                        COALESCE(COUNT(c.id_commentaire), 0) AS nombre_commentaires
+                    FROM article a
+                    LEFT JOIN categorie ca ON a.id_categorie = ca.id_categorie
+                    LEFT JOIN commentaire c ON a.id_article = c.id_article
                 SQL;
+    }
 
+    protected function getNumberQueryEnd(): string
+    {
+        return <<<SQL
+                    GROUP BY a.id_article, ca.nom_categorie, a.slug, ca.slug
+                    ORDER BY a.date_article DESC;
+                SQL;
+    }
+
+    protected function getBaseQuery(): string
+    {  
+        return <<<SQL
+                    SELECT 
+                    CONCAT_WS("/", ca.slug, a.slug) as url_article, 
+                    ca.nom_categorie,
+                    a.*
+                    FROM article a
+                    left join categorie ca
+                    on a.id_categorie = ca.id_categorie
+                SQL;
     }
 
     public function getAll()
     {
         $pdo = $this->getPDO();
-        $base = $this->getBaseQuery();
-        $sql = $base . " ORDER BY t1.date_article DESC;";
+        $start = $this->getNumberQueryStart();
+        $end = $this->getNumberQueryEnd();
+        $sql = $start . $end;
         $stmt = $pdo->prepare($sql);
         $stmt->execute();
 
@@ -51,7 +73,7 @@ class ArticlesRepository extends CategoriesRepository
     {
         $pdo = $this->getPDO();
         $base = $this->getBaseQuery();
-        $sql = $base . " WHERE t1.slug = :slugArticle;";
+        $sql = $base . " WHERE a.slug = :slugArticle;";
         $stmt = $pdo->prepare($sql);
         $stmt->bindParam(':slugArticle', $slugArticle, PDO::PARAM_STR);
         $stmt->execute();

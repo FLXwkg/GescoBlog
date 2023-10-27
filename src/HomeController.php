@@ -13,16 +13,8 @@ class HomeController
         $articles = new ArticlesRepository();
         $contentArticle = $articles->getAll();
         $args['articles'] = $contentArticle;
-
-        $articleIds = [];
-        /** @var Article $article */
-        foreach ($args['articles'] as $article){
-            $articleIds[] = $article->getId();
-        }
-        $args['commentaires'] = [];
-        if(!empty($articleIds)){
-            $args['commentaires'] = $this->getCommentaires($articleIds);
-        }
+        //var_dump($contentArticle);die();
+    
         
         $renderer = new PhpRenderer('../templates');
         return $renderer->render($response, "home.php", $args);

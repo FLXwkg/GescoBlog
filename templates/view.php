@@ -15,6 +15,7 @@ include "../scripts/slugifyText.php";
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="manifest" href="/site.webmanifest">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
     <script src="/assets/js/bootstrap.min.js"></script>
     <script src="/assets/js/toggleCommentaryButton.js"></script>
 
@@ -91,16 +92,22 @@ include "../scripts/slugifyText.php";
                             <?php if($article_count < 6): ?>
                                 <div class="article-bloc col-12 col-md-6">
                                     <div class="article-section rounded my-2">
-                                        <div class="d-flex flex-column">
-                                            <div class="article-title container row pt-3">
-                                                    <a class="article-link" href="<?= $article->getUrlArticle(); ?>">
-                                                        <h5><?= $article->getTitre() ?? 'Titre';?></h5>
-                                                    </a>
+                                        <div class="row container pt-2">
+                                            <div class="article-head-category col-5 pe-0">
+                                                <?= $article->getNomCategorie(); ?>
                                             </div>
-                                            <div class="article-head-date container-fluid row">
-                                                <small><?php echo $article->getDate() ?? 'Date';?></small>
+                                            <div class="article-head-date col-5 px-0">
+                                                <?php echo $article->getDate() ?? 'Date';?>
                                             </div>
-                                            
+                                            <div class="article-head-nb-com col-2 px-1">
+                                                <div class="row px-0">
+                                                    <span class="material-symbols-outlined col-6">
+                                                        comment
+                                                    </span>
+                                                    <p class="col-6"><?php echo $article->getNombreCommentaires() ?? '0';?></p>
+                                                </div>
+                                            </div>
+                                            </div>
                                             <div class="article-body container row py-3">
                                                 <div class="article-text col-8 ps-2">
                                                     <?= getArticleHtmlSection($article);?>
@@ -113,7 +120,7 @@ include "../scripts/slugifyText.php";
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                    
                                         <div class="container article-commentaries collapse" id="collapseCommentary<?php echo $article->getId(); ?>">
                                             <?php
                                             $comment_count = 0;

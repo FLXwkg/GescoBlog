@@ -13,6 +13,7 @@ include "../scripts/slugifyText.php";
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
     <link rel="manifest" href="/site.webmanifest">
     <script src="/assets/js/bootstrap.min.js"></script>
     <script src="/assets/js/loadMoreArticles.js"></script>
@@ -91,15 +92,23 @@ include "../scripts/slugifyText.php";
                                 <div class="article-section rounded my-2">
                                     <a class="article-link d-block" href="<?= $article->getUrlArticle(); ?>">
                                         <div class="d-flex flex-column align-items-center">
-                                            <div class="article-head container row py-3">
-                                                <div class="article-head-category col-5">
+                                            <div class="article-head container row py-3 px-2">
+                                                <div class="article-head-category col-5 px-0">
                                                     <?= $article->getNomCategorie(); ?>
                                                 </div>
-                                                <div class="article-head-date col-7 pe-0">
+                                                <div class="article-head-date col-5 px-0">
                                                     <?php echo $article->getDate() ?? 'Date';?>
                                                 </div>
+                                                <div class="article-head-nb-com col-2 px-1">
+                                                    <div class="row px-0">
+                                                        <span class="material-symbols-outlined col-6">
+                                                            comment
+                                                        </span>
+                                                        <p class="col-6"><?php echo $article->getNombreCommentaires() ?? '0';?></p>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div class="article-body container row py-3">
+                                            <div class="article-body container row pb-3">
                                                 <div class="article-title col-8">
                                                     <?= $article->getTitre() ?? 'Titre';?>
                                                 </div>
