@@ -105,13 +105,15 @@ include "../scripts/slugifyText.php";
                             <div class="col-6 col-sm-6 col-lg-12">
                                 <small class="ps-2">Published on :</small>
                                 <div class="ps-3">
-                                    <?php echo $article->getDate() ?? 'Date';?>
+                                    <?php $date = $article->getDate(); 
+                                        echo ($date instanceof \DateTime) ? $date->format('d/m/Y') : 'Date';?>
                                 </div>
                             </div>
                             <div class="col-6 col-sm-6 col-lg-12">
                                 <small class="ps-2">Modified on :</small>
                                 <div class="ps-3">
-                                    <?php echo $article->getDateModif() ?? 'Date';?>
+                                <?php $date = $article->getDateModif(); 
+                                        echo ($date instanceof \DateTime) ? $date->format('d/m/Y') : 'Date';?>
                                 </div>
                             </div>
                         </div>

@@ -2,6 +2,8 @@
 
 namespace App;
 
+use DateTime;
+
 class Article
 {
 
@@ -35,14 +37,15 @@ class Article
         return $this->texte_article;
     }
 
-    public function getDate()
+    public function getDate() : DateTime
     {
-        return $this->date_article;
+        return DateTime::createFromFormat('Y-m-d H:i:s',$this->date_article);
     }
 
-    public function getDateModif()
+    public function getDateModif() : DateTime
     {
-        return $this->date_modification_article;
+        //var_dump($this->date_modification_article);
+        return DateTime::createFromFormat('Y-m-d H:i:s',$this->date_modification_article);
     }
 
     public function getAuteur()

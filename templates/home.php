@@ -109,7 +109,8 @@ include "../scripts/slugifyText.php";
                                                     <?= $article->getNomCategorie(); ?>
                                                 </div>
                                                 <div class="article-head-date col-5 px-0">
-                                                    <?php echo $article->getDate() ?? 'Date';?>
+                                                    <?php $date = $article->getDate(); 
+                                                        echo ($date instanceof \DateTime) ? $date->format('d/m/Y') : 'Date';?>
                                                 </div>
                                                 <div class="article-head-nb-com col-2 px-1">
                                                     <div class="row px-0">
