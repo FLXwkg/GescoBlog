@@ -25,10 +25,10 @@ class CategoriesRepository{
         return $stmt->fetchAll(PDO::FETCH_CLASS, Categorie::class);
     }
 
-    public function getNameByCatId(int $idCategory)
+    public function getByCatId(int $idCategory)
     {
         $pdo = $this->getPDO();
-        $sql = "SELECT nom_categorie FROM categorie WHERE id_categorie = :idCategory;";
+        $sql = "SELECT * FROM categorie WHERE id_categorie = :idCategory;";
         $stmt = $pdo->prepare($sql);
         $stmt->bindParam(':idCategory', $idCategory, PDO::PARAM_INT);
         $stmt->execute();

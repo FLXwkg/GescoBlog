@@ -87,9 +87,11 @@ include "../scripts/slugifyText.php";
         </div>
     </div>
     <main role="main">
-        <h1 class="article-category py-2 mb-2 ps-5 w-100">
-            <?= $isHome ? 'Accueil' : $category->getNom();?>
-        </h1>
+        <nav class="article-category ps-5 py-2" aria-label="breadcrumb">
+            <ol class="breadcrumb my-0">
+                <li class="breadcrumb-item active" aria-current="page">Accueil</li>
+            </ol>
+        </nav>
         <div class="container-fluid">
             <div class="row">
                 <div class="col-1 col-lg-2"></div>

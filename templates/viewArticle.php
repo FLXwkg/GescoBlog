@@ -82,9 +82,21 @@ include "../scripts/slugifyText.php";
         </div>
     </div>
     <main role="main">
-        <h1 class="article-category py-2 mb-2 ps-5 w-100">
-            <?php echo $category->getNom() . " - " . $article->getTitre();?>
-        </h1>
+        <nav class="article-category ps-5 py-2" aria-label="breadcrumb" style="--bs-breadcrumb-divider: '>';">
+            <ol class="breadcrumb my-0">
+                <li class="breadcrumb-item">
+                    <a href="/">Home</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a href="/<?= $category->getSlug();?>">
+                        <?= $category->getNom();?>
+                    </a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">
+                    <?= $article->getTitre();?>
+                </li>
+            </ol>
+        </nav>
         <div class="container">    
             <div class="article-section m-2 px-3 rounded">
                 <div class="row mx-2 border-bottom border-dark-subtle article-head">
@@ -181,16 +193,6 @@ include "../scripts/slugifyText.php";
                 <?php endif; ?>    
             </div>
         </div>
-        <div class="container px-4">
-            <nav class="blog-pagination d-flex justify-content-between">
-                <a class="btn btn-outline-secondary d-flex align-items-center justify-content-center w-25" href="/home">Home</a>
-                <a class="btn btn-outline-secondary w-25" href="/<?= $category->getSlug() ?? 'non defini';?>">
-                    Back to <?= $category->getNom() ?? 'non defini';?>
-                </a>
-            </nav>
-        </div>
-        
-        
     </main>
 
     <footer class="blog-footer py-5 mt-2">

@@ -8,7 +8,7 @@ class ArticleController
     {
         $categories = new CategoriesRepository();
         $args = [];
-        $args['categories'] = $categories->GetNameByCatId($id);
+        $args['categories'] = $categories->GetByCatId($id);
         $args['sections'] = $categories->GetAll();
 
         $articles = new ArticlesRepository();
