@@ -157,9 +157,9 @@ include "../scripts/slugifyText.php";
                                                                 <?= getCommentaryHtmlSection($article, $commentaire) ?>
                                                             </p>
 
-                                                            <small class="article-commentary-date row mx-2 pb-2">
-                                                                Published on
-                                                                <?php echo $commentaire->getDateModif() ?? 'Date'; ?>
+                                                            <small>Published on 
+                                                                <?php $date = $commentaire->getDate(); 
+                                                                    echo ($date instanceof \DateTime) ? $date->format('d/m/Y') : 'Date';?>
                                                             </small>
                                                         </div>
                                                     </div>

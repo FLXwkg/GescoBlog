@@ -3,6 +3,7 @@ namespace App;
 
 use PDO;
 use App\PDOConfiguration;
+use DateTime;
 
 class Commentaire
 {
@@ -30,14 +31,14 @@ class Commentaire
         return $this->texte_commentaire;
     }
 
-    public function getDate()
+    public function getDate() : DateTime
     {
-        return $this->date_commentaire;
+        return DateTime::createFromFormat('Y-m-d H:i:s',$this->date_commentaire);
     }
 
-    public function getDateModif()
+    public function getDateModif() : DateTime
     {
-        return $this->date_modification_commentaire;
+        return DateTime::createFromFormat('Y-m-d H:i:s',$this->date_modification_commentaire);
     }
 
     public function getIdArticle()

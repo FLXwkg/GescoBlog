@@ -158,7 +158,10 @@ include "../scripts/slugifyText.php";
                                         <h5 class="col-9"><?php echo $commentaire->getAuteur() ?? 'Auteur';?></h5>
                                     </a>
                                     <div class="article-commentary-date row container ms-4 pt-2">
-                                        <small>Published on <?php echo $commentaire->getDateModif() ?? 'Date';?></small>
+                                        <small>Published on 
+                                            <?php $date = $commentaire->getDate(); 
+                                                echo ($date instanceof \DateTime) ? $date->format('d/m/Y') : 'Date';?>
+                                        </small>
                                     </div>
                                 </div>
 
