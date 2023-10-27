@@ -51,21 +51,30 @@ include "../scripts/slugifyText.php";
                         </form>
                     </div>
                 </header>
-                <div class="row nav-scroller py-1">
-                    <nav class="nav d-flex justify-content-evenly my-2">
-                        <?php 
-                        foreach ($sections as $section):
-                            if ($section->getNom() === $category->getNom()):?>
-                                <a class="actual-page-link p-2" href="/<?php echo strtolower($section->getNom()) ?? 'Non défini';?>">
-                                    <?php echo $section->getNom() ?? 'Non Défini'; ?>
-                                </a>
-                            <?php else : ?>
-                                <a class="p-2" href="/<?php echo strtolower($section->getNom()) ?? 'Non défini';?>">
-                                    <?php echo $section->getNom() ?? 'Non Défini'; ?>
-                                </a>
-                            <?php
-                            endif;
-                        endforeach ?>
+                <div class="nav row">
+                    <nav class="navbar navbar-expand-lg py-1">
+                        <div class="container-fluid d-flex justify-content-evenly">
+                            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" 
+                                    aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+                                <span class="navbar-toggler-icon"></span>
+                            </button>
+                            <div class="collapse navbar-collapse justify-content-evenly"  id="navbarTogglerDemo01">
+                                <?php 
+                                foreach ($sections as $section):
+                                    if ($section->getNom() === $category->getNom()):?>
+                                        <a class="actual-page-link nav-link p-2" href="/<?php echo strtolower($section->getNom()) ?? 'Non défini';?>">
+                                            <?php echo $section->getNom() ?? 'Non Défini'; ?>
+                                        </a>
+                                    <?php else : ?>
+                                        <a class="nav-link p-2" href="/<?php echo strtolower($section->getNom()) ?? 'Non défini';?>">
+                                            <?php echo $section->getNom() ?? 'Non Défini'; ?>
+                                        </a>
+                                    <?php
+                                    endif;
+                                endforeach ?>
+                            </div>
+                        </div>
+                        
                     </nav>
                 </div>
             </div>
