@@ -36,8 +36,10 @@ include "../scripts/slugifyText.php";
 <body>
     <div class="blog-top">
         <div class="row container-fluid mx-0 px-0">
-        <div class="blog-header-logo col-2 pt-4 px-4 pb-2">
-                <img src="/images/logo.png" alt="FLX Logo" class="logo">
+            <div class="blog-header-logo col-2 pt-4 px-4 pb-2">
+                <a href="/">
+                    <img src="/images/logo.png" alt="FLX Logo" class="logo">
+                </a>
             </div>
             <div class="col-8 container mx-0">
                 <header class="row blog-header py-3">
