@@ -113,6 +113,7 @@ include "../scripts/slugifyText.php";
                             </div>
                         <?php endforeach; ?>
                         <button class="btn btn-outline-secondary" id="load-more">Afficher plus d'Articles</button>
+                        <button class="btn btn-outline-secondary" id="reduce">Réduire</button>
                     </div>
                 </div>
                 <div class="col-1 col-lg-2"></div>
