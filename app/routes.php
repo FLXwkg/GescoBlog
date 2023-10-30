@@ -46,4 +46,16 @@ return function (App $app) {
         
         return (new ArticleController())->handle($response, $args['slug_article'], $id[0]->getId());
     });
+
+    $app->post('/{categorie}/{slug_article}/addCommentary', function ($request, $response, $args){
+        $auteurCommentaire = $_POST['auteur_commentaire'];
+        $texteCommentaire = $_POST['texte_commentaire'];
+        $url = $args['categorie'] . '/' . $args['slug_article'];
+        $articlesRepository = new ArticlesRepository();
+        $idArticle = $articlesRepository->getIdBySlugArticle($args['slug_article']);
+        $commentairesRepository = new CommentairesRepository();
+        $commentairesRepository->setCommentary($auteurCommentaire, $texteCommentaire, $idArticle);
+
+        return $response->withHeader('Location', "/$url")->withStatus(301);
+    });
 };

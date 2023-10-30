@@ -193,9 +193,9 @@ include "../scripts/slugifyText.php";
                                     <?php else :?>
                                         <div class="row">   
                                             <div class="col-2"></div>
-                                            <button class="col-8 mb-2 btn btn-outline-secondary" type="button">
+                                            <a class="col-8 mb-2 btn btn-outline-secondary" type="button" href="<?= $article->getUrlArticle();?>">
                                                 Ajouter un commentaire
-                                            </button>
+                                            </a>
                                             <div class="col-2"></div>
                                         </div> 
                                     <?php endif; ?>

@@ -81,4 +81,16 @@ class ArticlesRepository extends CategoriesRepository
 
         return $stmt->fetchAll(PDO::FETCH_CLASS, Article::class);
     }
+
+    public function getIdBySlugArticle(string $slugArticle)
+    {
+        $pdo = $this->getPDO();
+        $sql = "SELECT id_article FROM article WHERE slug = :slugArticle;";
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindParam(':slugArticle', $slugArticle, PDO::PARAM_STR);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_CLASS, Categorie::class);
+    }
+
 }
