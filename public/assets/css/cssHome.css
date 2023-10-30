@@ -6,7 +6,7 @@ body {
     background-color: #F6EBFF;
 }
 
-.blog-top{
+.blog-header{
     background-color: #BBD0FF;
     border-bottom: 1px solid #585C71;
     position: sticky;
@@ -28,12 +28,16 @@ body {
     font-weight: bold
 }
 
-.blog-header{
+.blog-top{
     border-bottom: 1px solid #585C71;
 }
 
 .blog-header-logo {
     object-fit: contain;
+}
+
+.nav-link {
+    color: #585C71;
 }
 
 .logo{
@@ -58,8 +62,6 @@ a {
 a:hover {
     color: #8D85FF;
 }
-
-
 
 .article-section{
     background-color: #e0d6ff;
