@@ -20,6 +20,7 @@ class Article
 
     protected $nom_categorie;
     protected $nombre_commentaires;
+    protected $categorie_slug;
 
 
     public function getId()
@@ -118,5 +119,13 @@ class Article
     public function getNombreCommentaires()
     {
         return $this->nombre_commentaires;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSlugCategorie()
+    {
+        return $this->categorie_slug;
     }
 }

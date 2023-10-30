@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const articleContainer = document.querySelector(".article-container");
     const loadMoreButton = document.getElementById("load-more");
     const reduceButton = document.getElementById("reduce");
-    const articlesPerPage = 4;
+    const articlesPerPage = 9;
     let visibleArticles = articlesPerPage;
 
     function loadMoreArticles() {

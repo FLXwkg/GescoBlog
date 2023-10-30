@@ -76,13 +76,15 @@ a:hover {
 .article-section{
     background-color: #e0d6ff;
     color: #585C71;
+    border: 1px solid #585C71;
     min-height: 224px;
 }
 .article-link{
     color: #585C71;
+    text-decoration: none;
 }
 
-.article-head-category{
+.article-head-title{
     font-weight: bold;
 }
 
@@ -116,6 +118,10 @@ a:hover {
     background-color: #e0d6ff;
     border-top: 1px solid #b8c0ff;
     color: #585C71;
+}
+
+#reduce{
+    display: none;
 }
 
 .blog-footer{

@@ -16,7 +16,7 @@ include "../scripts/slugifyText.php";
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
     <link rel="manifest" href="/site.webmanifest">
     <script src="/assets/js/bootstrap.min.js"></script>
-    <script src="/assets/js/loadMoreArticles.js"></script>
+    <script src="/assets/js/loadMoreArticlesHome.js"></script>
 
     <title>
         Blog
@@ -67,11 +67,11 @@ include "../scripts/slugifyText.php";
                                 <?php 
                                 foreach ($sections as $section):
                                     if (!$isHome && $section->getNom() === $category->getNom()):?>
-                                        <a class="actual-page-link nav-link p-2" href="/<?php echo strtolower($section->getNom()) ?? 'Non défini';?>">
+                                        <a class="actual-page-link nav-link p-2" href="/<?php echo $section->getSlug() ?? 'Non défini';?>">
                                             <?php echo $section->getNom() ?? 'Non Défini'; ?>
                                         </a>
                                     <?php else : ?>
-                                        <a class="nav-link p-2" href="/<?php echo strtolower($section->getNom()) ?? 'Non défini';?>">
+                                        <a class="nav-link p-2" href="/<?php echo $section->getSlug() ?? 'Non défini';?>">
                                             <?php echo $section->getNom() ?? 'Non Défini'; ?>
                                         </a>
                                     <?php
@@ -102,35 +102,43 @@ include "../scripts/slugifyText.php";
                         foreach ($articles as $article): ?>
                             <div class="article-bloc col-sm-6 col-md-6 col-lg-4">
                                 <div class="article-section rounded my-2">
-                                    <a class="article-link d-block" href="<?= $article->getUrlArticle(); ?>">
-                                        <div class="d-flex flex-column align-items-center">
-                                            <div class="article-head container row py-3 px-2">
-                                                <div class="article-head-category col-5 px-0">
+                                    <div class="container align-items-center">
+                                        <div class="article-head container row py-3 ps-2">
+                                            <div class="article-head-category col-5 px-0">
+                                                <a class="article-link" href="/<?= $article->getSlugCategorie(); ?>">
                                                     <?= $article->getNomCategorie(); ?>
-                                                </div>
-                                                <div class="article-head-date col-5 px-0">
-                                                    <?php $date = $article->getDate(); 
-                                                        echo ($date instanceof \DateTime) ? $date->format('d/m/Y') : 'Date';?>
-                                                </div>
-                                                <div class="article-head-nb-com col-2 px-1">
-                                                    <div class="row px-0">
-                                                        <span class="material-symbols-outlined col-6">
+                                                </a>
+                                            </div>
+                                            <div class="article-head-date col-5 px-0">
+                                                <?php $date = $article->getDate(); 
+                                                    echo ($date instanceof \DateTime) ? $date->format('d/m/Y') : 'Date';?>
+                                            </div>
+                                            <div class="article-head-nb-com col-2 px-1">
+                                                <div class="row px-0">
+                                                    <a class="article-link col-6" href="<?= $article->getUrlArticle(); ?>">
+                                                        <span class="material-symbols-outlined">
                                                             comment
                                                         </span>
-                                                        <p class="col-6"><?php echo $article->getNombreCommentaires() ?? '0';?></p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="article-body container row pb-3">
-                                                <div class="article-title col-8">
-                                                    <?= $article->getTitre() ?? 'Titre';?>
-                                                </div>
-                                                <div class="article-picture col-4">
-                                                    <img class="picture px-0 rounded" src="https://picsum.photos/id/<?php echo rand(1,1084)?>/1920/1080" alt="Article picture">
+                                                    </a>
+                                                    <p class="col-6"><?php echo $article->getNombreCommentaires() ?? '0';?></p>
                                                 </div>
                                             </div>
                                         </div>
-                                    </a>
+                                        <div class="article-body container row pb-3">
+                                            <div class="article-title col-8">
+                                                <a class="article-link" href="<?= $article->getUrlArticle(); ?>">
+                                                    <?= $article->getTitre() ?? 'Titre';?>
+                                                </a>
+                                            </div>
+                                            <div class="col-4 px-0">
+                                                <div class="article-picture row">
+                                                    <a class="article-link" href="<?= $article->getUrlArticle(); ?>">
+                                                        <img class="picture px-0 rounded" src="https://picsum.photos/id/<?php echo rand(1,1084)?>/1920/1080" alt="Article picture">
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         <?php endforeach; ?>

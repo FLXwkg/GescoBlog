@@ -28,6 +28,7 @@ class ArticlesRepository extends CategoriesRepository
                     SELECT 
                         CONCAT_WS("/", ca.slug, a.slug) as url_article, 
                         ca.nom_categorie,
+                        ca.slug as categorie_slug,
                         a.*,
                         COALESCE(COUNT(c.id_commentaire), 0) AS nombre_commentaires
                     FROM article a
