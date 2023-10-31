@@ -1,7 +1,6 @@
 <?php 
 include "../scripts/getArticleHtmlSection.php";
 include "../scripts/getCommentaryHtmlSection.php";
-include "../scripts/slugifyText.php";
 ?>
 
 <!DOCTYPE html>
@@ -100,10 +99,34 @@ include "../scripts/slugifyText.php";
                 <div class="col-1 col-lg-2"></div>
                 <div class="col-10 col-lg-8">
                     <div class="article-container row align-items-center">
+                        <div class="col-12 my-2">
+                            <button class="btn btn-outline-secondary" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseForm"
+                                    aria-expanded="false" aria-controls="collapseForm">
+                                Ajouter un article
+                            </button>
+                            <form action="/<?= $category->getSlug() ?>" method="POST" class="commentary-form collapse mx-3" id="collapseForm">
+                                <fieldset>
+                                    <legend>Ajouter un article</legend>
+                                    <div class="row mb-2">
+                                        <div class="col-6">
+                                            <input class="form-control" type="text" name="titre_article" placeholder="Titre" required>
+                                        </div>
+                                        <div class="col-6">
+                                            <input class="form-control" type="text" name="auteur_article" placeholder="Votre nom" required>
+                                        </div>
+                                        <div class="col-12 mt-2">
+                                            <textarea class="form-control" name="texte_article" placeholder="Contenu" required></textarea>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-secondary">Publier</button>
+                                </fieldset>
+                            </form>
+                        </div>
                         <?php
                         /** @var \App\Article[] $articles */
                         foreach ($articles as $article):?> 
-                            <div class="article-bloc col-12 col-md-6">
+                            <div class="article-bloc col-12 col-xl-6">
                                 <div class="article-section rounded my-2">
                                     <div class="row container pt-2">
                                         <div class="article-head-title col-7 pe-0">

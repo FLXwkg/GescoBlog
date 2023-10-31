@@ -1,6 +1,5 @@
 <?php 
 include "../scripts/getArticleHtmlSection.php";
-include "../scripts/slugifyText.php";
 ?>
 
 <!DOCTYPE html>

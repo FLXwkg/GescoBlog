@@ -11,8 +11,8 @@ use App\GenericController;
 use App\HomeController;
 use App\ArticleController;
 use App\CommentaireController;
+use App\PostArticleController;
 
-require __DIR__ . "/../scripts/unslugifyText.php";
 
 return function (App $app) {
 
@@ -37,9 +37,20 @@ return function (App $app) {
         return (new GenericController())->handle($response, $id[0]->getId());
     });
 
+    /**
+     * L'ajout d'articles
+     */
+    $app->post('/{categorie}', function ($request, $response, $args) {
+        $categoriesRepository = new CategoriesRepository();
+        $id = $categoriesRepository->getIdByName($args['categorie']);
+        $slugCategorie = $args['categorie'];
+
+        return (new PostArticleController())->handle($request, $response, $slugCategorie, $id[0]->getId());
+    });
+
 
     /**
-     * Les pages
+     * Les articles
      */
     $app->get('/{categorie}/{slug_article}', function ($request, $response, $args) {
         $categoriesRepository = new CategoriesRepository();

@@ -1,8 +1,3 @@
-
-<?php 
-include "../scripts/slugifyText.php";
-?>
-
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="light">
 <head>

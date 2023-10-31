@@ -5,6 +5,7 @@ namespace App;
 use App\Article;
 use PDO;
 
+include "../scripts/slugifyText.php";
 
 class ArticlesRepository extends CategoriesRepository
 {
@@ -80,5 +81,24 @@ class ArticlesRepository extends CategoriesRepository
         $stmt->execute();
 
         return $stmt->fetchAll(PDO::FETCH_CLASS, Article::class);
+    }
+
+    public function setArticle(string $titre, string $auteur, string $contenu, int $idCategorie)
+    {
+        $pdo = $this->getPDO();
+        $date = date('Y-m-d h:i:s', time());
+        $slug = slugifyText($titre);
+        $sql = 'INSERT INTO article (titre_article, slug, texte_article, date_article, date_modification_article, auteur_article, id_categorie)
+                VALUES (:titre_article, :slug, :texte_article, :date_article, :date_modification_article, :auteur_article, :id_categorie);';
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindParam(':titre_article', $titre, PDO::PARAM_STR);
+        $stmt->bindParam(':slug', $slug, PDO::PARAM_STR);
+        $stmt->bindParam(':texte_article', $contenu, PDO::PARAM_STR);
+        $stmt->bindParam(':date_article', $date, PDO::PARAM_STR);
+        $stmt->bindParam(':date_modification_article', $date, PDO::PARAM_STR);
+        $stmt->bindParam(':auteur_article', $auteur, PDO::PARAM_STR);
+        $stmt->bindParam(':id_categorie', $idCategorie, PDO::PARAM_INT);
+        $stmt->execute();
+
     }
 }

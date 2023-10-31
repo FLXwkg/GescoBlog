@@ -1,7 +1,7 @@
 <?php
 function slugifyText($string) {
     // Remove special characters and spaces
-    
+    $string = preg_replace('/[\'"\[\]]/', '-', $string);
     // Convert spaces to hyphens
     $string = preg_replace('/\s+/', '-', $string);
     
