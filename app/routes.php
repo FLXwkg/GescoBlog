@@ -10,8 +10,9 @@ use App\CategoriesRepository;
 use App\GenericController;
 use App\HomeController;
 use App\ArticleController;
+use App\CommentaireController;
+use App\PostArticleController;
 
-require __DIR__ . "/../scripts/unslugifyText.php";
 
 return function (App $app) {
 
@@ -36,9 +37,20 @@ return function (App $app) {
         return (new GenericController())->handle($response, $id[0]->getId());
     });
 
+    /**
+     * L'ajout d'articles
+     */
+    $app->post('/{categorie}', function ($request, $response, $args) {
+        $categoriesRepository = new CategoriesRepository();
+        $id = $categoriesRepository->getIdByName($args['categorie']);
+        $slugCategorie = $args['categorie'];
+
+        return (new PostArticleController())->handle($request, $response, $slugCategorie, $id[0]->getId());
+    });
+
 
     /**
-     * Les pages
+     * Les articles
      */
     $app->get('/{categorie}/{slug_article}', function ($request, $response, $args) {
         $categoriesRepository = new CategoriesRepository();
@@ -47,15 +59,13 @@ return function (App $app) {
         return (new ArticleController())->handle($response, $args['slug_article'], $id[0]->getId());
     });
 
-    $app->post('/{categorie}/{slug_article}/addCommentary', function ($request, $response, $args){
-        $auteurCommentaire = $_POST['auteur_commentaire'];
-        $texteCommentaire = $_POST['texte_commentaire'];
-        $url = $args['categorie'] . '/' . $args['slug_article'];
-        $articlesRepository = new ArticlesRepository();
-        $idArticle = $articlesRepository->getIdBySlugArticle($args['slug_article']);
-        $commentairesRepository = new CommentairesRepository();
-        $commentairesRepository->setCommentary($auteurCommentaire, $texteCommentaire, $idArticle);
-
-        return $response->withHeader('Location', "/$url")->withStatus(301);
+    /**
+     * L'ajout des commentaires
+     */
+    $app->post('/{categorie}/{slug_article}', function ($request, $response, $args) {
+        $categoriesRepository = new CategoriesRepository();
+        $id = $categoriesRepository->getCatIdBySlugArticle($args['slug_article']);
+        
+        return (new CommentaireController())->handle($request, $response, $args['slug_article'], $id[0]->getId());
     });
 };
