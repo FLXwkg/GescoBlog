@@ -15,7 +15,6 @@ class PostArticleController
             $titre = $data['titre_article'];
             $auteur = $data['auteur_article'];
             $contenu = $data['texte_article'];
-            //var_dump($data);die();
         
             $this->setArticle($titre, $auteur, $contenu, $idCategorie);
         }

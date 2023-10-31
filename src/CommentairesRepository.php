@@ -46,7 +46,6 @@ class CommentairesRepository extends ArticlesRepository{
         $stmt->bindParam(':date_commentaire', $date, PDO::PARAM_STR);
         $stmt->bindParam(':date_modification_commentaire', $date, PDO::PARAM_STR);
         $stmt->bindParam(':idArticle', $idArticle, PDO::PARAM_INT);
-        //var_dump($stmt);die();
         $stmt->execute();
 
     }
