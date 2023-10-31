@@ -10,6 +10,7 @@ use App\CategoriesRepository;
 use App\GenericController;
 use App\HomeController;
 use App\ArticleController;
+use App\CommentaireController;
 
 require __DIR__ . "/../scripts/unslugifyText.php";
 
@@ -45,5 +46,15 @@ return function (App $app) {
         $id = $categoriesRepository->getCatIdBySlugArticle($args['slug_article']);
         
         return (new ArticleController())->handle($response, $args['slug_article'], $id[0]->getId());
+    });
+
+    /**
+     * L'ajout des commentaires
+     */
+    $app->post('/{categorie}/{slug_article}', function ($request, $response, $args) {
+        $categoriesRepository = new CategoriesRepository();
+        $id = $categoriesRepository->getCatIdBySlugArticle($args['slug_article']);
+        
+        return (new CommentaireController())->handle($request, $response, $args['slug_article'], $id[0]->getId());
     });
 };

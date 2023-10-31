@@ -33,4 +33,21 @@ class CommentairesRepository extends ArticlesRepository{
         return $stmt->fetchAll(PDO::FETCH_CLASS, Commentaire::class);
 
     }
+
+    public function setCommentaire(string $auteur, string $contenu, int $idArticle)
+    {
+        $pdo = $this->getPDO();
+        $date = date('Y-m-d h:i:s', time());
+        $sql = 'INSERT INTO commentaire (auteur_commentaire, texte_commentaire, date_commentaire, date_modification_commentaire, id_article)
+                VALUES (:auteur_commentaire, :texte_commentaire, :date_commentaire, :date_modification_commentaire, :idArticle);';
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindParam(':auteur_commentaire', $auteur, PDO::PARAM_STR);
+        $stmt->bindParam(':texte_commentaire', $contenu, PDO::PARAM_STR);
+        $stmt->bindParam(':date_commentaire', $date, PDO::PARAM_STR);
+        $stmt->bindParam(':date_modification_commentaire', $date, PDO::PARAM_STR);
+        $stmt->bindParam(':idArticle', $idArticle, PDO::PARAM_INT);
+        //var_dump($stmt);die();
+        $stmt->execute();
+
+    }
 }

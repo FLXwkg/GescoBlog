@@ -158,10 +158,17 @@ include "../scripts/slugifyText.php";
                                         <h5 class="col-9"><?php echo $commentaire->getAuteur() ?? 'Auteur';?></h5>
                                     </a>
                                     <div class="article-commentary-date row container ms-4 pt-2">
-                                        <small>Published on 
-                                            <?php $date = $commentaire->getDate(); 
-                                                echo ($date instanceof \DateTime) ? $date->format('d/m/Y') : 'Date';?>
-                                        </small>
+                                        <?php if($commentaire->getDate() >= $commentaire->getDateModif()):?>
+                                            <small>Published on 
+                                                <?php $date = $commentaire->getDate(); 
+                                                    echo ($date instanceof \DateTime) ? $date->format('d/m/Y') : 'Date';?>
+                                            </small>
+                                        <?php else: ?>
+                                            <small>Modified on 
+                                                <?php $date = $commentaire->getDateModif(); 
+                                                    echo ($date instanceof \DateTime) ? $date->format('d/m/Y') : 'Date';?>
+                                            </small>
+                                        <?php endif ?>
                                     </div>
                                 </div>
 
@@ -179,24 +186,47 @@ include "../scripts/slugifyText.php";
                 <?php if ($hasComments):?>
                     <div class="row container-fluid">
                         <div class="col-xs-0 col-sm-2 col-lg-4"></div>
-                        <button class="toggle-button col-xs-12 col-sm-8 col-lg-4 mb-2 btn btn-outline-secondary" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#collapseCommentary"
-                                data-article-id="<?php echo $article->getId(); ?>"
-                                aria-expanded="false" aria-controls="collapseCommentary">
-                            Afficher les commentaires
-                        </button>
+                        <div class="d-flex flex-column align-items-center col-xs-12 col-sm-8 col-lg-4 mb-2">
+                            <button class="toggle-button btn btn-outline-secondary mb-2" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseCommentary" data-article-id="<?php echo $article->getId(); ?>"
+                                    aria-expanded="false" aria-controls="collapseCommentary">
+                                Afficher les commentaires
+                            </button>
+                            <button class="toggle-button btn btn-outline-secondary" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseForm" data-article-id="<?php echo $article->getId(); ?>"
+                                    aria-expanded="false" aria-controls="collapseForm">
+                                Ajouter un commentaire
+                            </button>
+                        </div>
                         <div class="col-xs-0 col-sm-2 col-lg-4"></div>
                     </div>
                 <?php else :?>
                     <div class="row">   
                         <div class="col-xs-0 col-sm-2 col-lg-4"></div>
-                        <button class="col-xs-12 col-sm-8 col-lg-4 mb-2 btn btn-outline-secondary" type="button">
+                        <button class="toggle-button col-xs-12 col-sm-8 col-lg-4 mb-2 btn btn-outline-secondary" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapseForm"
+                                data-article-id="<?php echo $article->getId(); ?>"
+                                aria-expanded="false" aria-controls="collapseForm">
                             Ajouter un commentaire
                         </button>
                         <div class="col-xs-0 col-sm-2 col-lg-4"></div>
                     </div> 
                 <?php endif; ?>    
             </div>
+            <form action="/<?= $article->getUrlArticle() ?>" method="POST" class="commentary-form collapse mx-3" id="collapseForm">
+                <fieldset>
+                    <legend>Ajouter un commentaire</legend>
+                    <div class="row mb-2">
+                        <div class="col-5">
+                            <input class="form-control" type="text" name="auteur_commentaire" placeholder="Nom" required>
+                        </div>
+                        <div class="col-7">
+                            <textarea class="form-control" name="texte_commentaire" placeholder="Contenu" required></textarea>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-secondary">Publier</button>
+                </fieldset>
+            </form>
         </div>
     </main>
 
