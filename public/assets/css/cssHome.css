@@ -40,6 +40,10 @@ body {
     color: #585C71;
 }
 
+.nav-link:hover {
+    color: #8D85FF;
+}
+
 .logo{
     max-height: 133px;
     max-width: 181px;
@@ -75,7 +79,7 @@ a:hover {
 
 }
 
-.article-head-category{
+.article-title{
     font-weight: bold;
 
 }

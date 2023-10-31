@@ -97,6 +97,15 @@
                 <div class="row mx-2 border-bottom border-dark-subtle article-head">
                     <div class="article-date col-12 col-sm-8 col-lg-2 order-3 order-sm-2 order-lg-1 py-3 align-items-top "> 
                         <div class="row">
+                        <?php if($article->getDate() >= $article->getDateModif()):?>
+                            <div class="col-6 col-sm-6 col-lg-12">
+                                <small class="ps-2">Published on :</small>
+                                <div class="ps-3">
+                                    <?php $date = $article->getDate(); 
+                                        echo ($date instanceof \DateTime) ? $date->format('d/m/Y') : 'Date';?>
+                                </div>
+                            </div>
+                        <?php else: ?>
                             <div class="col-6 col-sm-6 col-lg-12">
                                 <small class="ps-2">Published on :</small>
                                 <div class="ps-3">
@@ -111,11 +120,12 @@
                                         echo ($date instanceof \DateTime) ? $date->format('d/m/Y') : 'Date';?>
                                 </div>
                             </div>
+                        <?php endif;?>
                         </div>
                     </div>
 
                     <div class="article-title col-12 col-lg-8 order-1 order-sm-1 order-lg-2 my-0 px-0">
-                        <h2 class="">
+                        <h2 class="mb-0 pt-2">
                             <?php echo $article->getTitre() ?? 'Titre';?>
                         </h2>
                     </div>
@@ -124,7 +134,7 @@
                         <div class="row container-fluid mx-0 px-0">
                             <a class="col-12 px-0" href="#">
                                 <div class="row d-flex justify-content-center">
-                                    <img class="author-article-picture col-4 col-md-12 px-0" src="https://picsum.photos/id/<?php echo rand(1,1084)?>/1000" alt="Profile picture">
+                                    <img class="author-article-picture col-4 col-md-12 px-0" src="https://picsum.photos/id/<?php echo rand(1,1084)?>/1000" alt="Article picture">
                                     <p class="col-7 col-md-12 d-flex justify-content-center"><?php echo $article->getAuteur() ?? 'Auteur';?></p>
                                 </div>
                             </a>  

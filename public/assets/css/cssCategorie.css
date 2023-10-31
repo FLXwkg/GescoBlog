@@ -55,6 +55,14 @@ body {
     max-width: 181px;
 }
 
+.nav-link {
+    color: #585C71;
+}
+
+.nav-link:hover {
+    color: #8D85FF;
+}
+
 .blog-category{
     background-color: #FFD6FF;
     border-bottom: 1px solid #585C71;

@@ -99,8 +99,8 @@ include "../scripts/getCommentaryHtmlSection.php";
                 <div class="col-1 col-lg-2"></div>
                 <div class="col-10 col-lg-8">
                     <div class="article-container row align-items-center">
-                        <div class="col-12 my-2">
-                            <button class="btn btn-outline-secondary" type="button" data-bs-toggle="collapse"
+                        <div class="align-items-center mt-2">
+                            <button class="btn btn-outline-secondary col-12" type="button" data-bs-toggle="collapse"
                                     data-bs-target="#collapseForm"
                                     aria-expanded="false" aria-controls="collapseForm">
                                 Ajouter un article
@@ -177,21 +177,22 @@ include "../scripts/getCommentaryHtmlSection.php";
                                                 ?>
                                                 <div class="row">
                                                     <div class="article-commentary col mx-2 px-0">
-                                                        <h6 class="article-commentary-author row pt-2">
+                                                        <div class="article-commentary-author row pt-2 pb-2">
                                                             <img class="author-commentary-picture col-2 px-0" src="https://picsum.photos/id/<?php echo rand(1,1084)?>/1000" alt="Profile picture">
-                                                            <a class="article-link col-10" href="<?= $article->getUrlArticle(); ?>">
-                                                                <p class="py-1"><?php echo $commentaire->getAuteur() ?? 'Auteur';?></p>
+                                                            <a class="article-link col-8" href="<?= $article->getUrlArticle(); ?>">
+                                                                <h6 class="py-1"><?php echo $commentaire->getAuteur() ?? 'Auteur';?></h6>
                                                             </a>
-                                                        </h6>
+                                                            <small class="col-2 px-0"> 
+                                                                <?php $date = $commentaire->getDate(); 
+                                                                    echo ($date instanceof \DateTime) ? $date->format('d/m/Y') : 'Date';?>
+                                                            </small>
+                                                        </div>
 
                                                         <p class="article-commentary-text row mx-2">
-                                                            <?= getCommentaryHtmlSection($article, $commentaire) ?>
+                                                            <a class="article-link col-12" href="<?= $article->getUrlArticle(); ?>">
+                                                                <?= getCommentaryHtmlSection($article, $commentaire) ?>
+                                                            </a>
                                                         </p>
-
-                                                        <small>Published on 
-                                                            <?php $date = $commentaire->getDate(); 
-                                                                echo ($date instanceof \DateTime) ? $date->format('d/m/Y') : 'Date';?>
-                                                        </small>
                                                     </div>
                                                 </div>
                                                 <?php
@@ -226,8 +227,10 @@ include "../scripts/getCommentaryHtmlSection.php";
                             </div>
                             <?php 
                         endforeach; ?>
-                        <button class="btn btn-outline-secondary" id="load-more">Afficher plus d'Articles</button>
-                        <button class="btn btn-outline-secondary" id="reduce">Réduire</button>
+                        <div class="">
+                            <button class="col-12 btn btn-outline-secondary" id="load-more">Afficher plus d'Articles</button>
+                            <button class="col-12 btn btn-outline-secondary" id="reduce">Réduire</button>
+                        </div>
                     </div>
                 </div>
                 <div class="col-1 col-lg-2"></div>
