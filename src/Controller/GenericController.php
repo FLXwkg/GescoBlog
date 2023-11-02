@@ -8,12 +8,17 @@ use App\Repository\CommentairesRepository;
 use Slim\Views\PhpRenderer;
 class GenericController extends BaseController
 {
-    public function handle($response, $id)
+    public function handle($response, $arg)
     {
-        $categories = new CategoriesRepository();
+
+        if ($arg['categorie'] === 'home') {
+            return $response->withHeader('Location', "/")->withStatus(301);
+        }
+        $categoriesRepository = new CategoriesRepository();
+        $id = $categoriesRepository->getIdByName($arg['categorie'])[0]->getId();
         $args = [];
-        $args['categories'] = $categories->GetByCatId($id);
-        $args['sections'] = $categories->GetAll(); 
+        $args['categories'] = $categoriesRepository->GetByCatId($id);
+        $args['sections'] = $categoriesRepository->GetAll(); 
 
         $articles = new ArticlesRepository();
         $contentArticle = $articles->getByCategory($id);
@@ -29,8 +34,7 @@ class GenericController extends BaseController
             $args['commentaires'] = $this->getCommentaires($articleIds);
         }
 
-        $renderer = new PhpRenderer('../templates');
-        return $renderer->render($response, "view.php", $args);
+        return $this->getRenderedResponse($args, 'view.php');
     }
 
     protected function getCommentaires($filter): array

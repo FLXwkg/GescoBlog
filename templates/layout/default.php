@@ -1,8 +1,3 @@
-<?php 
-include "../scripts/getArticleHtmlSection.php";
-include_once "../scripts/slugifyText.php";
-?>
-
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="light">
 <head>
@@ -17,6 +12,8 @@ include_once "../scripts/slugifyText.php";
     <link rel="manifest" href="/site.webmanifest">
     <script src="/assets/js/bootstrap.min.js"></script>
     <script src="/assets/js/loadMoreArticlesHome.js"></script>
+    <script src="/assets/js/loadMoreArticles.js"></script>
+    <script src="/assets/js/toggleCommentaryButton.js"></script>
 
     <title>
         Blog - Home

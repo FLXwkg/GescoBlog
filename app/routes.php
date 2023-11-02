@@ -31,12 +31,7 @@ return function (App $app, Configuration $configuration) {
      * Les catégories principales
      */
     $app->get('/{categorie}', function (Request $request, Response $response, $args) use ($configuration) {
-        $categoriesRepository = new CategoriesRepository();
-        $id = $categoriesRepository->getIdByName($args['categorie']);
-        if ($args['categorie'] === 'home') {
-            return $response->withHeader('Location', "/")->withStatus(301);
-        }
-        return (new GenericController($request, $response, $configuration))->handle($response, $id[0]->getId());
+        return (new GenericController($request, $response, $configuration))->handle($response, $args);
     });
 
     /**
