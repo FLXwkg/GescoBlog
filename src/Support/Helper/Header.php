@@ -2,14 +2,20 @@
 
 namespace App\Support\Helper;
 
+use App\Categorie;
+
 class Header extends AbstractHelper
 {
+
+    protected array $sections = [];
 
     /**
      * @inheritDoc
      */
     public function getContent(): string
     {
+        $sectionsHtmlContent = $this->getSectionsHtmlContent();
+
         return <<<HTML
                     <header class="blog-header">
                         <div class="row container-fluid mx-0 px-0">
@@ -42,19 +48,7 @@ class Header extends AbstractHelper
                                                     <span class="navbar-toggler-icon"></span>
                                                 </button>
                                                 <div class="collapse navbar-collapse justify-content-evenly"  id="navbarTogglerDemo01">
-                                                    <?php 
-                                                    foreach ($sections as $section):
-                                                        if (!$isHome && $section->getNom() === $category->getNom()):?>
-                                                            <a class="actual-page-link nav-link p-2" href="/<?php echo $section->getSlug() ?? 'Non défini';?>">
-                                                                <?php echo $section->getNom() ?? 'Non Défini'; ?>
-                                                            </a>
-                                                        <?php else : ?>
-                                                            <a class="nav-link p-2" href="/<?php echo $section->getSlug() ?? 'Non défini';?>">
-                                                                <?php echo $section->getNom() ?? 'Non Défini'; ?>
-                                                            </a>
-                                                        <?php
-                                                        endif;
-                                                    endforeach ?>
+                                                $sectionsHtmlContent
                                                 </div>
                                             </div>
                                         </nav>
@@ -67,11 +61,26 @@ class Header extends AbstractHelper
                 HTML;
     }
 
+
+    protected function getSectionsHtmlContent(): string
+    {
+        $html = '';
+        /** @var Categorie $section */
+        foreach ($this->sections as $section) {
+            $url = '/' . $section->getSlug();
+            $label = $section->getNom() ?? 'indéfini';
+            $html .= '<a class="nav-link p-2" href="' . $url . '">' . $label . '</a>';
+        }
+        return $html;
+    }
+
+
     /**
      * @inheritDoc
      */
-    public function __invoke()
+    public function __invoke(array $sections = [])
     {
+        $this->sections = $sections;
         return $this;
     }
 }
