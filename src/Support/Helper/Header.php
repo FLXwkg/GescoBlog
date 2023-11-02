@@ -3,11 +3,14 @@
 namespace App\Support\Helper;
 
 use App\Categorie;
+use Slim\Psr7\Request;
 
 class Header extends AbstractHelper
 {
 
     protected array $sections = [];
+
+    protected Request $request;
 
     /**
      * @inheritDoc
@@ -65,11 +68,15 @@ class Header extends AbstractHelper
     protected function getSectionsHtmlContent(): string
     {
         $html = '';
+        $currentUrl = $this->request->getUri()->getPath();
+
         /** @var Categorie $section */
         foreach ($this->sections as $section) {
             $url = '/' . $section->getSlug();
+            $isActive = $currentUrl === $url;
+            $activeClass = $isActive ? ' active' : '';
             $label = $section->getNom() ?? 'indéfini';
-            $html .= '<a class="nav-link p-2" href="' . $url . '">' . $label . '</a>';
+            $html .= '<a class="nav-link p-2'.$activeClass.'" href="' . $url . '">' . $label . '</a>';
         }
         return $html;
     }
@@ -78,9 +85,10 @@ class Header extends AbstractHelper
     /**
      * @inheritDoc
      */
-    public function __invoke(array $sections = [])
+    public function __invoke(array $sections = [], ?Request $request = null)
     {
         $this->sections = $sections;
+        $this->request = $request;
         return $this;
     }
 }

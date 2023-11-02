@@ -23,7 +23,8 @@ include_once "../scripts/slugifyText.php";
     </title>
 </head>
 <body>
-    <?= $helpers->header($sections); ?>
+
+    <?= $helpers->header($sections, $request); ?>
     
     <main role="main">
         <?= $content ?? '' ?>

@@ -12,6 +12,8 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 class BaseController
 {
 
+    protected Request $request;
+
     /**
      * @var TemplateFactory
      */
@@ -24,6 +26,7 @@ class BaseController
      */
     public function __construct(Request $request, Response $response, Configuration $configuration)
     {
+        $this->request = $request;
         $this->templateFactory = $this->createTemplateFactory($request, $response, $configuration);
     }
 
@@ -56,6 +59,9 @@ class BaseController
      */
     public function getRenderedResponse(array $args = [], ?string $customViewPath = null): ResponseInterface
     {
+        $args = array_merge([
+            'request' => $this->request
+        ], $args);
         return $this->getTemplateFactory()->getRenderedResponse($args,$customViewPath);
     }
 
