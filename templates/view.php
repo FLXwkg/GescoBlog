@@ -12,12 +12,7 @@
     $isHome = $title === 'Home';
     $helpers->title($title)
 ?>
-<nav class="article-category ps-5 py-2" aria-label="breadcrumb" style="--bs-breadcrumb-divider: '>';">
-    <ol class="breadcrumb my-0">
-        <li class="breadcrumb-item"><a href="/">Home</a></li>
-        <li class="breadcrumb-item active" aria-current="page"><?= $isHome ? 'Accueil' : $category->getNom();?></li>
-    </ol>
-</nav>
+<?= $helpers->breadcrumb([], $category->getNom())?>
 <div class="container-fluid">
     <div class="row">
         <div class="col-1 col-lg-2"></div>

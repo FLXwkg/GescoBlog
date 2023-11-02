@@ -9,6 +9,7 @@ use App\Support\Helper\AbstractHelper;
 use App\Support\Helper\Footer;
 use App\Support\Helper\Header;
 use App\Support\Helper\HeadTitle;
+use App\Support\Helper\Breadcrumb;
 
 
 class HelperManager

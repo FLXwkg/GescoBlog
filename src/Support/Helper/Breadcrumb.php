@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Application\Support\Helper;
+namespace App\Support\Helper;
 
 
 class Breadcrumb extends AbstractHelper
@@ -23,7 +23,7 @@ class Breadcrumb extends AbstractHelper
      */
     public function getContent(): string
     {
-        $urls = ['/' => 'Accueil'];
+        $urls = ['/' => 'Home'];
         $urls = array_merge($urls, $this->getParents());
         $html = '';
         foreach ($urls as $url => $title) {
