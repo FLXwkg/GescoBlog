@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Controller;
 
 use App\ArticlesRepository;
@@ -17,16 +18,8 @@ class HomeController extends BaseController
         $articles = new ArticlesRepository();
         $contentArticle = $articles->getAll();
         $args['articles'] = $contentArticle;
-        //var_dump($contentArticle);die();
-
 
         return $this->getRenderedResponse($args, 'home.php');
     }
-    
-    protected function getCommentaires($filter): array
-    {
-        $commentaire = new CommentairesRepository();
-        //equivalent SQL : select * from commentaire where id_article IN(1,2,3,4,5,6);
-        return $commentaire->getByManyArticlesIds($filter);
-    }
+
 }
