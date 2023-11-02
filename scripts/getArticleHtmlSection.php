@@ -1,6 +1,6 @@
 <?php 
 
-use App\Article;
+use App\Entity\Article;
 
 
 function getArticleHtmlSection(Article $article, $maxLength = 140)

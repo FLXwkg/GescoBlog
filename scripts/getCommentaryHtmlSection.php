@@ -1,7 +1,7 @@
 <?php 
 
-use App\Article;
-use App\Commentaire;
+use App\Entity\Article;
+use App\Entity\Commentaire;
 
 function getCommentaryHtmlSection(Article $article, Commentaire $commentaire, $maxLength = 140)
 {
