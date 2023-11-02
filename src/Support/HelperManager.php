@@ -20,6 +20,7 @@ class HelperManager
     protected $invokables = [
         'title' => HeadTitle::class,
         'header' => Header::class,
+        'breadcrumb' => Breadcrumb::class,
         'footer' => Footer::class
     ];
 
