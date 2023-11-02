@@ -1,11 +1,13 @@
 <?php
 
 
-namespace Application\Support;
+namespace App\Support;
 
 
-use Application\Configuration;
-use Application\Support\Helper\AbstractHelper;
+use App\Configuration;
+use App\Support\Helper\AbstractHelper;
+use App\Support\Helper\Footer;
+use App\Support\Helper\Header;
 
 
 class HelperManager

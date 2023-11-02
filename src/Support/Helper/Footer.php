@@ -1,6 +1,6 @@
 <?php
 
-namespace Application\Support\Helper;
+namespace App\Support\Helper;
 
 class Footer extends AbstractHelper
 {

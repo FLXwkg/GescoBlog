@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use App\Application\Handlers\HttpErrorHandler;
 use App\Application\ResponseEmitter\ResponseEmitter;
+use App\Configuration;
 use DI\ContainerBuilder;
 use Slim\Factory\AppFactory;
 use Slim\Factory\ServerRequestCreatorFactory;
@@ -13,9 +14,10 @@ require __DIR__ . '/../vendor/autoload.php';
 // Instantiate PHP-DI ContainerBuilder
 $containerBuilder = new ContainerBuilder();
 
-$conf = require __DIR__ . '/../config/application.config.php';
+$configuration = new Configuration(require __DIR__ . '/../config/application.config.php');
+$isProduction = $configuration->getConfiguration()['production'] ?? false;
 
-if ($conf['production'] ?? false) { // Should be set to true in production
+if ($isProduction) { // Should be set to true in production
     $containerBuilder->enableCompilation(__DIR__ . '/../var/cache');
 }
 
@@ -41,7 +43,7 @@ $callableResolver = $app->getCallableResolver();
 
 // Register routes
 $routes = require __DIR__ . '/../app/routes.php';
-$routes($app);
+$routes($app, $configuration);
 
 // Create Request object from globals
 $serverRequestCreator = ServerRequestCreatorFactory::create();

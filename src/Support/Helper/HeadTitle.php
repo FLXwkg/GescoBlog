@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Application\Support\Helper;
+namespace App\Support\Helper;
 
 
 class HeadTitle extends AbstractHelper

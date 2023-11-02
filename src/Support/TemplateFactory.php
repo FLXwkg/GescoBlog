@@ -1,10 +1,9 @@
 <?php
 
 
-namespace Application\Support;
+namespace App\Support;
 
 
-use Application\Configuration;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Slim\Exception\HttpNotFoundException;

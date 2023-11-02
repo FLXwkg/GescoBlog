@@ -1,10 +1,10 @@
 <?php
 
 
-namespace Application\Support\Helper;
+namespace App\Support\Helper;
 
 
-use Application\Support\HelperManager;
+use App\Support\HelperManager;
 
 abstract class AbstractHelper
 {
