@@ -1,5 +1,5 @@
-<?php 
-include "../scripts/getArticleHtmlSection.php";
+<?php
+//include_once "../scripts/getArticleHtmlSection.php";
 ?>
 
 <!DOCTYPE html>

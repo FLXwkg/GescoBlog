@@ -1,9 +1,7 @@
 <?php 
-include "../scripts/getArticleHtmlSection.php";
-include "../scripts/getCommentaryHtmlSection.php";
-?>
-
-<!DOCTYPE html>
+include_once "../scripts/getArticleHtmlSection.php";
+include_once "../scripts/getCommentaryHtmlSection.php";
+?><!DOCTYPE html>
 <html lang="en" data-bs-theme="light">
 <head>
     <meta charset="UTF-8">

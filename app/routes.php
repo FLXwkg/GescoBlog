@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use App\Configuration;
+use App\Support\TemplateFactory;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\App;
@@ -15,13 +16,20 @@ use App\CommentaireController;
 use App\PostArticleController;
 
 
+
 return function (App $app, Configuration $configuration) {
 
 
     /**
      * Page d'accueil
      */
-    $app->get('/', function (Request $request, Response $response) {
+    $app->get('/', function (Request $request, Response $response, $args) use($configuration) {
+        $templateFactory = new TemplateFactory($request, $response, $configuration);
+        $templateFactory->setDefaultLayout('layout/default.php');
+        $debug =  $templateFactory->getRenderedResponse($args, 'home.php');
+
+        var_dump($debug); die();
+
         return (new HomeController())->handle($response);
     });
 

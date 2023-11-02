@@ -4,6 +4,7 @@
 namespace App\Support;
 
 
+use App\Configuration;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Slim\Exception\HttpNotFoundException;
@@ -101,7 +102,7 @@ class TemplateFactory
     public function getRenderer(string $layout): PhpRenderer
     {
         if (is_null($this->renderer)) {
-            $renderer = new PhpRenderer($this->templatePath);
+            $renderer = new PhpRenderer($this->getRealTemplatePath());
             $renderer->setLayout($layout);
             $this->renderer = $renderer;
         }
@@ -152,11 +153,19 @@ class TemplateFactory
     protected function getView(?string $customViewPath = null): string
     {
         $view = $this->getViewFilePath($customViewPath);
-        $templatesPath = $this->templatePath;
+        $templatesPath = $this->getRealTemplatePath();
         if (!file_exists($templatesPath . DIRECTORY_SEPARATOR . $view)) {
             throw new HttpNotFoundException($this->getRequest());
         }
         return $view;
+    }
+
+    /**
+     * @return string
+     */
+    protected function getRealTemplatePath():string
+    {
+        return realpath(dirname(dirname(__DIR__)) . '/' . $this->templatePath);
     }
 
     /**
