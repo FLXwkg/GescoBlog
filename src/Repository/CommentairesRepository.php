@@ -1,8 +1,7 @@
 <?php
-namespace App;
+namespace App\Repository;
 
-use App\Article;
-use PDO;
+use App\Entity\Article;
 
 class CommentairesRepository extends ArticlesRepository{
     

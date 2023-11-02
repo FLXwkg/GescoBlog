@@ -1,10 +1,10 @@
 <?php
 namespace App\Controller;
 
-use App\Article;
-use App\ArticlesRepository;
-use App\CategoriesRepository;
-use App\CommentairesRepository;
+use App\Entity\Article;
+use App\Repository\ArticlesRepository;
+use App\Repository\CategoriesRepository;
+use App\Repository\CommentairesRepository;
 use Slim\Views\PhpRenderer;
 class GenericController extends BaseController
 {

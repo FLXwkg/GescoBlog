@@ -2,10 +2,10 @@
 
 namespace App\Controller;
 
-use App\ArticlesRepository;
-use App\CategoriesRepository;
-use App\CommentairesRepository;
-use Slim\Views\PhpRenderer;
+use App\Repository\ArticlesRepository;
+use App\Repository\CategoriesRepository;
+use App\Repository\CommentairesRepository;
+
 
 class HomeController extends BaseController
 {

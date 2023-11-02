@@ -1,9 +1,9 @@
 <?php
 namespace App\Controller;
 
-use App\ArticlesRepository;
-use App\CategoriesRepository;
-use App\CommentairesRepository;
+use App\Repository\ArticlesRepository;
+use App\Repository\CategoriesRepository;
+use App\Repository\CommentairesRepository;
 use Slim\Views\PhpRenderer;
 class ArticleController extends BaseController
 {

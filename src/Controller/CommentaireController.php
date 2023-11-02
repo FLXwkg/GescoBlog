@@ -1,7 +1,7 @@
 <?php
 namespace App\Controller;
 
-use App\ArticlesRepository;
+use App\Repository\ArticlesRepository;
 use App\CommentairesRepository;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;

@@ -1,11 +1,11 @@
 <?php
 
-namespace App;
+namespace App\Repository;
 
-use App\Article;
+use App\Entity\Article;
 use PDO;
 
-include_once "../scripts/slugifyText.php";
+include_once "../../scripts/slugifyText.php";
 
 class ArticlesRepository extends CategoriesRepository
 {

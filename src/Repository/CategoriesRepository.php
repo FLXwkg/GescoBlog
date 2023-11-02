@@ -1,14 +1,14 @@
 <?php
-namespace App;
+namespace App\Repository;
 
 use PDO;
 use App\PDOConfiguration;
-use App\Categorie;
+use App\Entity\Categorie;
 
 class CategoriesRepository{
     public function getPDO()
     {
-        $config = new PDOConfiguration(require __DIR__.'/../config/application.config.php');
+        $config = new PDOConfiguration(require __DIR__.'/../../config/application.config.php');
         $pdo = $config->getPDO();
 
         return $pdo;
