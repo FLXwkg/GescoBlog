@@ -8,6 +8,7 @@ use App\Configuration;
 use App\Support\Helper\AbstractHelper;
 use App\Support\Helper\Footer;
 use App\Support\Helper\Header;
+use App\Support\Helper\HeadTitle;
 
 
 class HelperManager
@@ -17,6 +18,7 @@ class HelperManager
      * @var string[]
      */
     protected $invokables = [
+        'title' => HeadTitle::class,
         'header' => Header::class,
         'footer' => Footer::class
     ];

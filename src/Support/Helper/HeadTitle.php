@@ -10,7 +10,7 @@ class HeadTitle extends AbstractHelper
     /**
      * @var string
      */
-    protected $headTitle = '';
+    protected $headTitle = 'Blog - ';
 
 
     /**
@@ -35,7 +35,7 @@ class HeadTitle extends AbstractHelper
      */
     public function setHeadTitle(string $headTitle): HeadTitle
     {
-        $this->headTitle = $headTitle;
+        $this->headTitle .= $headTitle;
         return $this;
     }
 

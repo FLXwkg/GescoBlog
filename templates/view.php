@@ -4,14 +4,14 @@
     $title = 'Home';
     if(isset($categories) && array_key_exists(0, $categories)){
         $category = $categories[0] ?? null;
-        if($category instanceof \App\Categorie){
+        if($category instanceof \App\Entity\Categorie){
             $title = $category->getNom();
         }
     }
     
     $isHome = $title === 'Home';
+    $helpers->title($title)
 ?>
-
 <nav class="article-category ps-5 py-2" aria-label="breadcrumb" style="--bs-breadcrumb-divider: '>';">
     <ol class="breadcrumb my-0">
         <li class="breadcrumb-item"><a href="/">Home</a></li>

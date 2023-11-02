@@ -1,8 +1,10 @@
 <?php
     $category = $categories[0];
-    $category->getNom();
+    $nomCat = $category->getNom();
     $article = $articles[0];
-    $article->getTitre();
+    $nomArt = $article->getTitre();
+    $title = $nomCat .' - '. $nomArt;
+    $helpers->title($title);
 ?>
 <nav class="article-category ps-5 py-2" aria-label="breadcrumb" style="--bs-breadcrumb-divider: '>';">
     <ol class="breadcrumb my-0">

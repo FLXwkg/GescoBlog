@@ -16,7 +16,7 @@
     <script src="/assets/js/toggleCommentaryButton.js"></script>
 
     <title>
-        Blog - Home
+        <?=$helpers->title()?>
     </title>
 </head>
 <body>
