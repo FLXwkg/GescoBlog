@@ -7,12 +7,14 @@ use App\Repository\CommentairesRepository;
 use Slim\Views\PhpRenderer;
 class ArticleController extends BaseController
 {
-    public function handle($response, $slugArticle, $id)
+    public function handle($response, $arg)
     {
-        $categories = new CategoriesRepository();
+        $categoriesRepository = new CategoriesRepository();
+        $id = $categoriesRepository->getCatIdBySlugArticle($arg['slug_article'])[0]->getId();
+        $slugArticle = $arg['slug_article'];
         $args = [];
-        $args['categories'] = $categories->GetByCatId($id);
-        $args['sections'] = $categories->GetAll();
+        $args['categories'] = $categoriesRepository->GetByCatId($id);
+        $args['sections'] = $categoriesRepository->GetAll();
 
         $articles = new ArticlesRepository();
         $contentArticle = $articles->getBySlug($slugArticle);
@@ -22,8 +24,7 @@ class ArticleController extends BaseController
         $idArticle = $contentArticle[0]->getId();
         $args['commentaires'] = $this->getCommentaires($idArticle);
         
-        $renderer = new PhpRenderer('../templates');
-        return $renderer->render($response, "viewArticle.php", $args);
+        return $this->getRenderedResponse($args, 'viewArticle.php');
     }
     
     protected function getCommentaires(int $idArticle): array

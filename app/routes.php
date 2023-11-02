@@ -39,10 +39,10 @@ return function (App $app, Configuration $configuration) {
      */
     $app->post('/{categorie}', function (Request $request, Response $response, $args) use ($configuration) {
         $categoriesRepository = new CategoriesRepository();
-        $id = $categoriesRepository->getIdByName($args['categorie']);
+        $id = $categoriesRepository->getIdByName($args['categorie'])[0]->getId();
         $slugCategorie = $args['categorie'];
 
-        return (new PostArticleController($request, $response, $configuration))->handle($request, $response, $slugCategorie, $id[0]->getId());
+        return (new PostArticleController($request, $response, $configuration))->handle($request, $response, $slugCategorie, $id);
     });
 
 
@@ -50,10 +50,7 @@ return function (App $app, Configuration $configuration) {
      * Les articles
      */
     $app->get('/{categorie}/{slug_article}', function (Request $request, Response $response, $args) use ($configuration) {
-        $categoriesRepository = new CategoriesRepository();
-        $id = $categoriesRepository->getCatIdBySlugArticle($args['slug_article']);
-
-        return (new ArticleController($request, $response, $configuration))->handle($response, $args['slug_article'], $id[0]->getId());
+        return (new ArticleController($request, $response, $configuration))->handle($response, $args);
     });
 
     /**
@@ -61,8 +58,8 @@ return function (App $app, Configuration $configuration) {
      */
     $app->post('/{categorie}/{slug_article}', function (Request $request, Response $response, $args) use ($configuration) {
         $categoriesRepository = new CategoriesRepository();
-        $id = $categoriesRepository->getCatIdBySlugArticle($args['slug_article']);
+        $id = $categoriesRepository->getCatIdBySlugArticle($args['slug_article'])[0]->getId();
 
-        return (new CommentaireController($request, $response, $configuration))->handle($request, $response, $args['slug_article'], $id[0]->getId());
+        return (new CommentaireController($request, $response, $configuration))->handle($request, $response, $args['slug_article'], $id);
     });
 };
