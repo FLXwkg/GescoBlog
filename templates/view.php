@@ -85,7 +85,7 @@
                                     <div class="col-4 px-0">
                                         <div class="article-picture row px-0">
                                             <a class="article-link" href="<?= $article->getUrlArticle(); ?>">
-                                                <img class="picture px-0" src="https://picsum.photos/id/<?php echo rand(1,1084)?>/1920/1080" alt="Article picture">
+                                                <img class="picture rounded px-0" src="https://picsum.photos/id/<?php echo rand(1,1084)?>/1920/1080" alt="Article picture">
                                             </a>
                                         </div>
                                     </div>

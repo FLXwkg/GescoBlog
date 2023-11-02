@@ -2,14 +2,18 @@
 namespace App\Controller;
 
 use App\Repository\ArticlesRepository;
+use App\Repository\CategoriesRepository;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
-use Slim\Views\PhpRenderer;
 
 class PostArticleController extends BaseController
 {
-    public function handle(Request $request, Response $response, string $urlCategorie, int $idCategorie)
+    public function handle(Request $request, Response $response, array $arg)
     {
+        $categoriesRepository = new CategoriesRepository();
+        $idCategorie = $categoriesRepository->getIdByName($arg['categorie'])[0]->getId();
+        $urlCategorie = $arg['categorie'];
+
         $data = $request->getParsedBody();
         if ($data) {
             
@@ -20,7 +24,6 @@ class PostArticleController extends BaseController
             $this->setArticle($titre, $auteur, $contenu, $idCategorie);
         }
         
-        $renderer = new PhpRenderer('../templates');
         return $response->withHeader('Location', "/$urlCategorie")->withStatus(301);
     }
     

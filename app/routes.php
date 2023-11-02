@@ -38,11 +38,7 @@ return function (App $app, Configuration $configuration) {
      * L'ajout d'articles
      */
     $app->post('/{categorie}', function (Request $request, Response $response, $args) use ($configuration) {
-        $categoriesRepository = new CategoriesRepository();
-        $id = $categoriesRepository->getIdByName($args['categorie'])[0]->getId();
-        $slugCategorie = $args['categorie'];
-
-        return (new PostArticleController($request, $response, $configuration))->handle($request, $response, $slugCategorie, $id);
+        return (new PostArticleController($request, $response, $configuration))->handle($request, $response, $args);
     });
 
 
@@ -57,9 +53,7 @@ return function (App $app, Configuration $configuration) {
      * L'ajout des commentaires
      */
     $app->post('/{categorie}/{slug_article}', function (Request $request, Response $response, $args) use ($configuration) {
-        $categoriesRepository = new CategoriesRepository();
-        $id = $categoriesRepository->getCatIdBySlugArticle($args['slug_article'])[0]->getId();
 
-        return (new CommentaireController($request, $response, $configuration))->handle($request, $response, $args['slug_article'], $id);
+        return (new CommentaireController($request, $response, $configuration))->handle($request, $response, $args);
     });
 };
