@@ -4,11 +4,8 @@ namespace App\Repository;
 use App\Entity\Commentaire;
 use PDO;
 
-class CommentairesRepository extends ArticlesRepository{
-    
-    public function __construct(){
-        
-    }
+class CommentairesRepository extends BaseRepository
+{
     public function getByArticleId($idArticle)
     {
         $pdo = $this->getPDO();

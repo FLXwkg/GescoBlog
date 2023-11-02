@@ -7,7 +7,7 @@ use PDO;
 
 include_once "../../scripts/slugifyText.php";
 
-class ArticlesRepository extends CategoriesRepository
+class ArticlesRepository extends BaseRepository
 {
 
     public function getByCategory(int $categoryId)

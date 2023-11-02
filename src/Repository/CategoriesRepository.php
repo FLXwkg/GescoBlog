@@ -2,18 +2,10 @@
 namespace App\Repository;
 
 use PDO;
-use App\PDOConfiguration;
 use App\Entity\Categorie;
 
-class CategoriesRepository{
-    public function getPDO()
-    {
-        $config = new PDOConfiguration(require __DIR__.'/../../config/application.config.php');
-        $pdo = $config->getPDO();
-
-        return $pdo;
-    }
-
+class CategoriesRepository extends BaseRepository
+{
     public function getCatSlugByCatId(int $idCategory)
     {
         $pdo = $this->getPDO();
