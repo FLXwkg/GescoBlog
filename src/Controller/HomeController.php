@@ -18,10 +18,9 @@ class HomeController extends BaseController
         $contentArticle = $articles->getAll();
         $args['articles'] = $contentArticle;
         //var_dump($contentArticle);die();
-    
-        
-        $renderer = new PhpRenderer('../templates');
-        return $renderer->render($response, "home.php", $args);
+
+
+        return $this->getRenderedResponse($args, 'home.php');
     }
     
     protected function getCommentaires($filter): array

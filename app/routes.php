@@ -16,65 +16,58 @@ use App\Controller\CommentaireController;
 use App\Controller\PostArticleController;
 
 
-
 return function (App $app, Configuration $configuration) {
 
 
     /**
      * Page d'accueil
      */
-    $app->get('/', function (Request $request, Response $response, $args) use($configuration) {
-        $templateFactory = new TemplateFactory($request, $response, $configuration);
-        $templateFactory->setDefaultLayout('layout/default.php');
-        $debug =  $templateFactory->getRenderedResponse($args, 'home.php');
-
-        var_dump($debug); die();
-
-        return (new HomeController())->handle($response);
+    $app->get('/', function (Request $request, Response $response, $args) use ($configuration) {
+        return (new HomeController($request, $response, $configuration))->handle($response);
     });
 
 
     /**
      * Les catégories principales
      */
-    $app->get('/{categorie}', function ($request, $response, $args) {
+    $app->get('/{categorie}', function (Request $request, Response $response, $args) use ($configuration) {
         $categoriesRepository = new CategoriesRepository();
         $id = $categoriesRepository->getIdByName($args['categorie']);
         if ($args['categorie'] === 'home') {
             return $response->withHeader('Location', "/")->withStatus(301);
         }
-        return (new GenericController())->handle($response, $id[0]->getId());
+        return (new GenericController($request, $response, $configuration))->handle($response, $id[0]->getId());
     });
 
     /**
      * L'ajout d'articles
      */
-    $app->post('/{categorie}', function ($request, $response, $args) {
+    $app->post('/{categorie}', function (Request $request, Response $response, $args) use ($configuration) {
         $categoriesRepository = new CategoriesRepository();
         $id = $categoriesRepository->getIdByName($args['categorie']);
         $slugCategorie = $args['categorie'];
 
-        return (new PostArticleController())->handle($request, $response, $slugCategorie, $id[0]->getId());
+        return (new PostArticleController($request, $response, $configuration))->handle($request, $response, $slugCategorie, $id[0]->getId());
     });
 
 
     /**
      * Les articles
      */
-    $app->get('/{categorie}/{slug_article}', function ($request, $response, $args) {
+    $app->get('/{categorie}/{slug_article}', function (Request $request, Response $response, $args) use ($configuration) {
         $categoriesRepository = new CategoriesRepository();
         $id = $categoriesRepository->getCatIdBySlugArticle($args['slug_article']);
-        
-        return (new ArticleController())->handle($response, $args['slug_article'], $id[0]->getId());
+
+        return (new ArticleController($request, $response, $configuration))->handle($response, $args['slug_article'], $id[0]->getId());
     });
 
     /**
      * L'ajout des commentaires
      */
-    $app->post('/{categorie}/{slug_article}', function ($request, $response, $args) {
+    $app->post('/{categorie}/{slug_article}', function (Request $request, Response $response, $args) use ($configuration) {
         $categoriesRepository = new CategoriesRepository();
         $id = $categoriesRepository->getCatIdBySlugArticle($args['slug_article']);
-        
-        return (new CommentaireController())->handle($request, $response, $args['slug_article'], $id[0]->getId());
+
+        return (new CommentaireController($request, $response, $configuration))->handle($request, $response, $args['slug_article'], $id[0]->getId());
     });
 };

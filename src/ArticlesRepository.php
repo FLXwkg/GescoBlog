@@ -5,7 +5,7 @@ namespace App;
 use App\Article;
 use PDO;
 
-include "../scripts/slugifyText.php";
+include_once "../scripts/slugifyText.php";
 
 class ArticlesRepository extends CategoriesRepository
 {
