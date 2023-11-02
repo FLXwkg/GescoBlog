@@ -1,11 +1,13 @@
 <?php
-namespace App;
+namespace App\Controller;
 
+use App\ArticlesRepository;
+use App\CommentairesRepository;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Views\PhpRenderer;
 
-class CommentaireController
+class CommentaireController extends BaseController
 {
     public function handle(Request $request, Response $response, $slugArticle, $id)
     {

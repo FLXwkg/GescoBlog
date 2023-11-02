@@ -1,8 +1,12 @@
 <?php
-namespace App;
+namespace App\Controller;
 
+use App\ArticlesRepository;
+use App\CategoriesRepository;
+use App\CommentairesRepository;
 use Slim\Views\PhpRenderer;
-class HomeController
+
+class HomeController extends BaseController
 {
     public function handle($response)
     {

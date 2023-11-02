@@ -1,11 +1,12 @@
 <?php
-namespace App;
+namespace App\Controller;
 
+use App\ArticlesRepository;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Views\PhpRenderer;
 
-class PostArticleController
+class PostArticleController extends BaseController
 {
     public function handle(Request $request, Response $response, string $urlCategorie, int $idCategorie)
     {

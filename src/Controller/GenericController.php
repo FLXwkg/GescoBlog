@@ -1,8 +1,12 @@
 <?php
-namespace App;
+namespace App\Controller;
 
+use App\Article;
+use App\ArticlesRepository;
+use App\CategoriesRepository;
+use App\CommentairesRepository;
 use Slim\Views\PhpRenderer;
-class GenericController
+class GenericController extends BaseController
 {
     public function handle($response, $id)
     {

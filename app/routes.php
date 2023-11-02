@@ -9,11 +9,11 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\App;
 
 use App\CategoriesRepository;
-use App\GenericController;
-use App\HomeController;
-use App\ArticleController;
-use App\CommentaireController;
-use App\PostArticleController;
+use App\Controller\GenericController;
+use App\Controller\HomeController;
+use App\Controller\ArticleController;
+use App\Controller\CommentaireController;
+use App\Controller\PostArticleController;
 
 
 

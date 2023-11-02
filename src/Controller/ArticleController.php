@@ -1,8 +1,11 @@
 <?php
-namespace App;
+namespace App\Controller;
 
+use App\ArticlesRepository;
+use App\CategoriesRepository;
+use App\CommentairesRepository;
 use Slim\Views\PhpRenderer;
-class ArticleController
+class ArticleController extends BaseController
 {
     public function handle($response, $slugArticle, $id)
     {
