@@ -32,4 +32,25 @@ class ArticleController extends BaseController
         $commentaire = $this->getRepository(CommentairesRepository::class);
         return $commentaire->getByArticleId($idArticle);
     }
+    
+    public function handleJson($args)
+    {
+        $articles = $this->getRepository(ArticlesRepository::class);
+        $idArticle = $args['id_article'];
+        $commentaires = $this->getCommentaires($idArticle);
+        $array = [];
+        foreach($commentaires as $commentaire){
+            $id = 0;
+            $array[$id] = [
+                'id_commentaire' => $commentaire->getId(),
+                'auteur_commentaire' => $commentaire->getAuteur(),
+                'texte_commentaire' => $commentaire->getDate(),
+                'date_modification_commentaire' => $commentaire->getDateModif(),
+                'id_article' => $commentaire->getIdArticle()
+            ];$id++;
+        };
+        $commentairesJson = json_encode($array);
+        //var_dump($array);die();
+        return $commentairesJson;
+    }
 }

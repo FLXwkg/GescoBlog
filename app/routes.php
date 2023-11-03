@@ -25,6 +25,12 @@ return function (App $app, Configuration $configuration) {
         return (new HomeController($request, $response, $configuration))->handle($response);
     });
 
+    /**
+     * Traitement Ajax des commentaires
+     */
+    $app->get('/commentaire/{id_article}', function (Request $request, Response $response, $args) use ($configuration) {
+        return (new ArticleController($request, $response, $configuration))->handleJson($args);
+    });
 
     /**
      * Les catégories principales
@@ -40,7 +46,6 @@ return function (App $app, Configuration $configuration) {
         return (new PostArticleController($request, $response, $configuration))->handle($request, $response, $args);
     });
 
-
     /**
      * Les articles
      */
@@ -51,8 +56,7 @@ return function (App $app, Configuration $configuration) {
     /**
      * L'ajout des commentaires
      */
-    $app->post('/{categorie}/{slug_article}', function (Request $request, Response $response, $args) use ($configuration) {
-
+    $app->post('/{categorie}/{slug_article}', function ($request, $response, $args) use ($configuration) {
         return (new CommentaireController($request, $response, $configuration))->handle($request, $response, $args);
     });
 };

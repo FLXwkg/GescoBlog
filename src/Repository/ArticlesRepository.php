@@ -79,6 +79,17 @@ class ArticlesRepository extends BaseRepository
         return $stmt->fetchAll(PDO::FETCH_CLASS, Article::class);
     }
 
+    public function getById(string $idArticle)
+    {
+        $base = $this->getBaseQuery();
+        $sql = $base . " WHERE a.id_article = :idArticle;";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindParam(':idArticle', $idArticle, PDO::PARAM_INT);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_CLASS, Article::class);
+    }
+
     public function setArticle(string $titre, string $auteur, string $contenu, int $idCategorie)
     {
         $date = date('Y-m-d h:i:s', time());
