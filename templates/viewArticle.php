@@ -49,9 +49,9 @@
             <div class="article-author col-12 col-sm-4 col-lg-2 order-3 order-sm-3 order-lg-3 pt-3 pb-2 px-0">
                 <div class="row container-fluid mx-0 px-0">
                     <a class="col-12 px-0" href="#">
-                        <div class="row d-flex justify-content-center">
+                        <div class="container row d-flex justify-content-center">
                             <img class="author-article-picture col-4 col-md-12 px-0" src="https://picsum.photos/id/<?php echo rand(1,1084)?>/1000" alt="Article picture">
-                            <p class="col-7 col-md-12 d-flex justify-content-center"><?php echo $article->getAuteur() ?? 'Auteur';?></p>
+                            <p class="col-6 col-md-12 d-flex justify-content-center"><?php echo $article->getAuteur() ?? 'Auteur';?></p>
                         </div>
                     </a>  
                 </div>
