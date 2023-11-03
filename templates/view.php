@@ -1,16 +1,14 @@
 <?php 
     include_once "../scripts/getArticleHtmlSection.php";
     include_once "../scripts/getCommentaryHtmlSection.php";
-    $title = 'Home';
+    $title = 'Category';
     if(isset($categories) && array_key_exists(0, $categories)){
         $category = $categories[0] ?? null;
         if($category instanceof \App\Entity\Categorie){
             $title = $category->getNom();
         }
     }
-    
-    $isHome = $title === 'Home';
-    $helpers->title($title)
+    $helpers->title($title);
 ?>
 <?= $helpers->breadcrumb([], $category->getNom())?>
 <div class="container-fluid">

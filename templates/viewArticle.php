@@ -6,21 +6,8 @@
     $title = $nomCat .' - '. $nomArt;
     $helpers->title($title);
 ?>
-<nav class="article-category ps-5 py-2" aria-label="breadcrumb" style="--bs-breadcrumb-divider: '>';">
-    <ol class="breadcrumb my-0">
-        <li class="breadcrumb-item">
-            <a href="/">Home</a>
-        </li>
-        <li class="breadcrumb-item">
-            <a href="/<?= $category->getSlug();?>">
-                <?= $category->getNom();?>
-            </a>
-        </li>
-        <li class="breadcrumb-item active" aria-current="page">
-            <?= $article->getTitre();?>
-        </li>
-    </ol>
-</nav>
+<?= $helpers->breadcrumb(['/'. $category->getSlug() => $category->getNom()], $article->getTitre())?>
+
 <div class="container">    
     <div class="article-section m-2 px-3 rounded">
         <div class="row mx-2 border-bottom border-dark-subtle article-head">
