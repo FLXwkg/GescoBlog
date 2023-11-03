@@ -28,9 +28,9 @@ class CategoriesRepository extends BaseRepository
 
     public function getIdByName(string $routeCategory)
     {
-        $pdo = $this->getPDO();
+
         $sql = "SELECT id_categorie FROM categorie WHERE nom_categorie = :routeCategory;";
-        $stmt = $pdo->prepare($sql);
+        $stmt = $this->pdo->prepare($sql);
         $stmt->bindParam(':routeCategory', $routeCategory, PDO::PARAM_STR);
         $stmt->execute();
 
