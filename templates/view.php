@@ -1,7 +1,5 @@
 <?= $helpers->script("loadMoreArticles.js")?>
 <?php 
-    include_once "../scripts/getArticleHtmlSection.php";
-    include_once "../scripts/getCommentaryHtmlSection.php";
     $title = 'Category';
     if(isset($categories) && array_key_exists(0, $categories)){
         $category = $categories[0] ?? null;
@@ -74,7 +72,7 @@
                                 </div>
                                 <div class="article-body container row py-3">
                                     <div class="article-text col-8 ps-2">
-                                        <?= getArticleHtmlSection($article);?>
+                                        <?= $helpers->truncateText($article->getTexte(), $article->getUrlArticle());?>
                                     </div>
                                     <div class="col-4 px-0">
                                         <div class="article-picture row px-0">
@@ -108,7 +106,7 @@
 
                                                 <p class="article-commentary-text row mx-2">
                                                     <a class="article-link col-12" href="<?= $article->getUrlArticle(); ?>">
-                                                        <?= getCommentaryHtmlSection($article, $commentaire) ?>
+                                                    <?= $helpers->truncateText($commentaire->getTexte(), $article->getUrlArticle());?>
                                                     </a>
                                                 </p>
                                             </div>

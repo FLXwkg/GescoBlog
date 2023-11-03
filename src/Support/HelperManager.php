@@ -11,6 +11,7 @@ use App\Support\Helper\Header;
 use App\Support\Helper\HeadTitle;
 use App\Support\Helper\Breadcrumb;
 use App\Support\Helper\Script;
+use App\Support\Helper\TruncateText;
 
 
 class HelperManager
@@ -24,6 +25,7 @@ class HelperManager
         'title' => HeadTitle::class,
         'header' => Header::class,
         'breadcrumb' => Breadcrumb::class,
+        'truncateText' => TruncateText::class,
         'footer' => Footer::class
     ];
 
