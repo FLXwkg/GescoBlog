@@ -4,7 +4,7 @@
 namespace App\Support\Helper;
 
 
-class Script extends AbstractHelper
+class Link extends AbstractHelper
 {
 
     /**
@@ -18,7 +18,7 @@ class Script extends AbstractHelper
      */
     public function getContent(): string
     {
-        return '<script src="/assets/js/' . $this->getFileName() . '"></script>';
+        return '<link href="/assets/css/' . $this->getFileName() . '" rel="stylesheet">';
     }
 
     /**
@@ -31,9 +31,9 @@ class Script extends AbstractHelper
 
     /**
      * @param string $fileName
-     * @return Script
+     * @return Link
      */
-    public function setFileName(string $fileName): Script
+    public function setFileName(string $fileName): Link
     {
         $this->fileName = $fileName;
         return $this;

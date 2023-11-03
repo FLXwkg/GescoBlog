@@ -1,4 +1,5 @@
-<?= $helpers->script("loadMoreArticles.js")?>
+<?= $helpers->link("cssCategorie.css");
+    $helpers->script("loadMoreArticles.js")?>
 <?php 
     $title = 'Category';
     if(isset($categories) && array_key_exists(0, $categories)){

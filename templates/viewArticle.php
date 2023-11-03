@@ -1,4 +1,5 @@
 <?php
+    $helpers->link("cssArticle.css");
     $category = $categories[0];
     $nomCat = $category->getNom();
     $article = $articles[0];
