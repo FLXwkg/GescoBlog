@@ -13,7 +13,7 @@ class CommentaireController extends BaseController
     {
         $slugArticle = $arg['slug_article'];
 
-        $articles = new ArticlesRepository();
+        $articles = $this->getRepository(ArticlesRepository::class);
         $contentArticle = $articles->getBySlug($slugArticle);
         
         $idArticle = $contentArticle[0]->getId();
@@ -33,7 +33,7 @@ class CommentaireController extends BaseController
 
     protected function setCommentaire(string $auteur, string $contenu, int $idArticle)
     {
-        $commentaire = new CommentairesRepository();
+        $commentaire = $this->getRepository(CommentairesRepository::class);
         $commentaire->setCommentaire($auteur, $contenu, $idArticle);
     }
 }

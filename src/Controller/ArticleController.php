@@ -9,14 +9,14 @@ class ArticleController extends BaseController
 {
     public function handle($response, $arg)
     {
-        $categoriesRepository = new CategoriesRepository();
+        $categoriesRepository = $this->getRepository(CategoriesRepository::class);
         $id = $categoriesRepository->getCatIdBySlugArticle($arg['slug_article'])[0]->getId();
         $slugArticle = $arg['slug_article'];
         $args = [];
         $args['categories'] = $categoriesRepository->GetByCatId($id);
         $args['sections'] = $categoriesRepository->GetAll();
 
-        $articles = new ArticlesRepository();
+        $articles = $this->getRepository(ArticlesRepository::class);
         $contentArticle = $articles->getBySlug($slugArticle);
         $args['articles'] = $contentArticle;
 
@@ -29,7 +29,7 @@ class ArticleController extends BaseController
     
     protected function getCommentaires(int $idArticle): array
     {
-        $commentaire = new CommentairesRepository();
+        $commentaire = $this->getRepository(CommentairesRepository::class);
         return $commentaire->getByArticleId($idArticle);
     }
 }

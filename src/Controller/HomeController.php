@@ -11,11 +11,11 @@ class HomeController extends BaseController
 {
     public function handle($response)
     {
-        $categories = new CategoriesRepository();
+        $categories = $this->getRepository(CategoriesRepository::class);
         $args = [];
         $args['sections'] = $categories->GetAll();
 
-        $articles = new ArticlesRepository();
+        $articles = $this->getRepository(ArticlesRepository::class);
         $contentArticle = $articles->getAll();
         $args['articles'] = $contentArticle;
 

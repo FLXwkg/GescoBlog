@@ -8,9 +8,8 @@ class CategoriesRepository extends BaseRepository
 {
     public function getCatSlugByCatId(int $idCategory)
     {
-        $pdo = $this->getPDO();
         $sql = "SELECT slug FROM categorie WHERE id_categorie = :idCategory;";
-        $stmt = $pdo->prepare($sql);
+        $stmt = $this->pdo->prepare($sql);
         $stmt->bindParam(':idCategory', $idCategory, PDO::PARAM_INT);
         $stmt->execute();
 
@@ -19,9 +18,8 @@ class CategoriesRepository extends BaseRepository
 
     public function getByCatId(int $idCategory)
     {
-        $pdo = $this->getPDO();
         $sql = "SELECT * FROM categorie WHERE id_categorie = :idCategory;";
-        $stmt = $pdo->prepare($sql);
+        $stmt = $this->pdo->prepare($sql);
         $stmt->bindParam(':idCategory', $idCategory, PDO::PARAM_INT);
         $stmt->execute();
 
@@ -41,9 +39,9 @@ class CategoriesRepository extends BaseRepository
 
     public function getCatIdBySlugArticle(string $slugArticle)
     {
-        $pdo = $this->getPDO();
+        
         $sql = "SELECT id_categorie FROM article WHERE slug = :slugArticle;";
-        $stmt = $pdo->prepare($sql);
+        $stmt = $this->pdo->prepare($sql);
         $stmt->bindParam(':slugArticle', $slugArticle, PDO::PARAM_STR);
         $stmt->execute();
 
@@ -52,9 +50,8 @@ class CategoriesRepository extends BaseRepository
 
     public function getAll()
     {
-        $pdo = $this->getPDO();
         $sql = "SELECT * FROM categorie;";
-        $stmt = $pdo->prepare($sql);
+        $stmt = $this->pdo->prepare($sql);
         $stmt->execute();
 
         return $stmt->fetchAll(PDO::FETCH_CLASS, Categorie::class);

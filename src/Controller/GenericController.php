@@ -14,13 +14,13 @@ class GenericController extends BaseController
         if ($arg['categorie'] === 'home') {
             return $response->withHeader('Location', "/")->withStatus(301);
         }
-        $categoriesRepository = new CategoriesRepository();
+        $categoriesRepository = $this->getRepository(CategoriesRepository::class);
         $id = $categoriesRepository->getIdByName($arg['categorie'])[0]->getId();
         $args = [];
         $args['categories'] = $categoriesRepository->GetByCatId($id);
         $args['sections'] = $categoriesRepository->GetAll(); 
 
-        $articles = new ArticlesRepository();
+        $articles = $this->getRepository(ArticlesRepository::class);
         $contentArticle = $articles->getByCategory($id);
         $args['articles'] = $contentArticle;
 
@@ -39,7 +39,7 @@ class GenericController extends BaseController
 
     protected function getCommentaires($filter): array
     {
-        $commentaire = new CommentairesRepository();
+        $commentaire = $this->getRepository(CommentairesRepository::class);
         //equivalent SQL : select * from commentaire where id_article IN(1,2,3,4,5,6);
         return $commentaire->getByManyArticlesIds($filter);
     }

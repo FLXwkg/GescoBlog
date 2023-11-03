@@ -10,11 +10,11 @@ class ArticlesRepository extends BaseRepository
 
     public function getByCategory(int $categoryId)
     {
-        $pdo = $this->getPDO();
+
         $start = $this->getNumberQueryStart();
         $end = $this->getNumberQueryEnd();
         $sql = $start . " WHERE a.id_categorie = :categoryId " . $end;
-        $stmt = $pdo->prepare($sql);
+        $stmt = $this->pdo->prepare($sql);
         $stmt->bindParam(':categoryId', $categoryId, PDO::PARAM_INT);
         $stmt->execute();
 
@@ -59,11 +59,10 @@ class ArticlesRepository extends BaseRepository
 
     public function getAll()
     {
-        $pdo = $this->getPDO();
         $start = $this->getNumberQueryStart();
         $end = $this->getNumberQueryEnd();
         $sql = $start . $end;
-        $stmt = $pdo->prepare($sql);
+        $stmt = $this->pdo->prepare($sql);
         $stmt->execute();
 
         return $stmt->fetchAll(PDO::FETCH_CLASS, Article::class);
@@ -71,10 +70,9 @@ class ArticlesRepository extends BaseRepository
 
     public function getBySlug(string $slugArticle)
     {
-        $pdo = $this->getPDO();
         $base = $this->getBaseQuery();
         $sql = $base . " WHERE a.slug = :slugArticle;";
-        $stmt = $pdo->prepare($sql);
+        $stmt = $this->pdo->prepare($sql);
         $stmt->bindParam(':slugArticle', $slugArticle, PDO::PARAM_STR);
         $stmt->execute();
 
@@ -83,12 +81,11 @@ class ArticlesRepository extends BaseRepository
 
     public function setArticle(string $titre, string $auteur, string $contenu, int $idCategorie)
     {
-        $pdo = $this->getPDO();
         $date = date('Y-m-d h:i:s', time());
         $slug = $this->slugifyText($titre);
         $sql = 'INSERT INTO article (titre_article, slug, texte_article, date_article, date_modification_article, auteur_article, id_categorie)
                 VALUES (:titre_article, :slug, :texte_article, :date_article, :date_modification_article, :auteur_article, :id_categorie);';
-        $stmt = $pdo->prepare($sql);
+        $stmt = $this->pdo->prepare($sql);
         $stmt->bindParam(':titre_article', $titre, PDO::PARAM_STR);
         $stmt->bindParam(':slug', $slug, PDO::PARAM_STR);
         $stmt->bindParam(':texte_article', $contenu, PDO::PARAM_STR);

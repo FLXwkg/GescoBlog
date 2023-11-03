@@ -10,7 +10,7 @@ class PostArticleController extends BaseController
 {
     public function handle(Request $request, Response $response, array $arg)
     {
-        $categoriesRepository = new CategoriesRepository();
+        $categoriesRepository = $this->getRepository(CategoriesRepository::class);
         $idCategorie = $categoriesRepository->getIdByName($arg['categorie'])[0]->getId();
         $urlCategorie = $arg['categorie'];
 
@@ -30,7 +30,7 @@ class PostArticleController extends BaseController
 
     protected function setArticle(string $titre, string $auteur, string $contenu, int $idCategorie)
     {
-        $article = new ArticlesRepository();
+        $article = $this->getRepository(ArticlesRepository::class);
         $article->setArticle($titre, $auteur, $contenu, $idCategorie);
     }
 }
