@@ -5,8 +5,6 @@ namespace App\Repository;
 use App\Entity\Article;
 use PDO;
 
-include_once "../scripts/slugifyText.php";
-
 class ArticlesRepository extends BaseRepository
 {
 
@@ -87,7 +85,7 @@ class ArticlesRepository extends BaseRepository
     {
         $pdo = $this->getPDO();
         $date = date('Y-m-d h:i:s', time());
-        $slug = slugifyText($titre);
+        $slug = $this->slugifyText($titre);
         $sql = 'INSERT INTO article (titre_article, slug, texte_article, date_article, date_modification_article, auteur_article, id_categorie)
                 VALUES (:titre_article, :slug, :texte_article, :date_article, :date_modification_article, :auteur_article, :id_categorie);';
         $stmt = $pdo->prepare($sql);
