@@ -1,3 +1,4 @@
+<?= $helpers->script("loadMoreArticles.js")?>
 <?php 
     include_once "../scripts/getArticleHtmlSection.php";
     include_once "../scripts/getCommentaryHtmlSection.php";

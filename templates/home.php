@@ -1,3 +1,4 @@
+<?= $helpers->script("loadMoreArticlesHome.js")?>
 <?php $helpers->title('Home')?>
 <nav class="article-category ps-5 py-2" aria-label="breadcrumb">
     <ol class="breadcrumb my-0">

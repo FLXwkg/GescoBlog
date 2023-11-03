@@ -10,6 +10,7 @@ use App\Support\Helper\Footer;
 use App\Support\Helper\Header;
 use App\Support\Helper\HeadTitle;
 use App\Support\Helper\Breadcrumb;
+use App\Support\Helper\Script;
 
 
 class HelperManager
@@ -19,6 +20,7 @@ class HelperManager
      * @var string[]
      */
     protected $invokables = [
+        'script' => Script::class,
         'title' => HeadTitle::class,
         'header' => Header::class,
         'breadcrumb' => Breadcrumb::class,
