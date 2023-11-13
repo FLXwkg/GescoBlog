@@ -28,8 +28,8 @@ return function (App $app, Configuration $configuration) {
     /**
      * Traitement Ajax des commentaires
      */
-    $app->get('/commentaire/{id_article}', function (Request $request, Response $response, $args) use ($configuration) {
-        return (new ArticleController($request, $response, $configuration))->handleJson($args);
+    $app->get('/commentaire/{slug_article}', function (Request $request, Response $response, $args) use ($configuration) {
+        return (new ArticleController($request, $response, $configuration))->handleJson($response, $args);
     });
 
     /**

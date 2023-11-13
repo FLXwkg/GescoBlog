@@ -5,6 +5,7 @@ use App\Repository\ArticlesRepository;
 use App\Repository\CategoriesRepository;
 use App\Repository\CommentairesRepository;
 use Slim\Views\PhpRenderer;
+
 class ArticleController extends BaseController
 {
     public function handle($response, $arg)
@@ -19,10 +20,6 @@ class ArticleController extends BaseController
         $articles = $this->getRepository(ArticlesRepository::class);
         $contentArticle = $articles->getBySlug($slugArticle);
         $args['articles'] = $contentArticle;
-
-        
-        $idArticle = $contentArticle[0]->getId();
-        $args['commentaires'] = $this->getCommentaires($idArticle);
         
         return $this->getRenderedResponse($args, 'viewArticle.php');
     }
@@ -33,24 +30,44 @@ class ArticleController extends BaseController
         return $commentaire->getByArticleId($idArticle);
     }
     
-    public function handleJson($args)
+    public function handleJson($response, $args)
     {
-        $articles = $this->getRepository(ArticlesRepository::class);
-        $idArticle = $args['id_article'];
-        $commentaires = $this->getCommentaires($idArticle);
-        $array = [];
-        foreach($commentaires as $commentaire){
-            $id = 0;
-            $array[$id] = [
-                'id_commentaire' => $commentaire->getId(),
-                'auteur_commentaire' => $commentaire->getAuteur(),
-                'texte_commentaire' => $commentaire->getDate(),
-                'date_modification_commentaire' => $commentaire->getDateModif(),
-                'id_article' => $commentaire->getIdArticle()
-            ];$id++;
-        };
-        $commentairesJson = json_encode($array);
-        //var_dump($array);die();
-        return $commentairesJson;
+        try {
+            $articles = $this->getRepository(ArticlesRepository::class);
+            $idArticle = $articles->getBySlug($args['slug_article'])[0]->getId();
+            $commentaires = $this->getCommentaires($idArticle);
+
+            $array = [];
+            foreach ($commentaires as $commentaire) {
+                $array[] = (object) [
+                    'idCommentaire' => $commentaire->getId(),
+                    'auteurCommentaire' => $commentaire->getAuteur(),
+                    'texteCommentaire' => $commentaire->getTexte(),
+                    'dateCommentaire' => $commentaire->getDate(),
+                    'dateModificationCommentaire' => $commentaire->getDateModif(),
+                    'idArticle' => $commentaire->getIdArticle()
+                ];
+            }
+
+            $commentairesJson = json_encode($array);
+
+            if ($commentairesJson === false) {
+                throw new \RuntimeException('JSON encoding error');
+            }
+
+            $response->getBody()->write($commentairesJson);
+            return $response->withHeader('Content-Type', 'application/json');
+        } catch (\Exception $e) {
+            // Log the exception for debugging
+            console.log($e->getMessage());
+
+            // Return a proper error response
+            return $response
+                ->withStatus(500)
+                ->withHeader('Content-Type', 'application/json')
+                ->getBody()
+                ->write(json_encode(['error' => 'Internal Server Error']));
+        }
     }
+
 }

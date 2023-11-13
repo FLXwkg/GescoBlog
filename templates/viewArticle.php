@@ -1,15 +1,14 @@
 <?php
     $helpers->link("cssArticle.css");
     $category = $categories[0];
-    $nomCat = $category->getNom();
     $article = $articles[0];
-    $nomArt = $article->getTitre();
-    $title = $nomCat .' - '. $nomArt;
+    $title = $category->getNom() .' - '. $article->getTitre();
     $helpers->title($title);
 ?>
 <?= $helpers->breadcrumb(['/'. $category->getSlug() => $category->getNom()], $article->getTitre())?>
 
-<div class="container">    
+<div class="container">   
+    <div class=" articleSlug d-none"><?= $article->getSlug()?></div> 
     <div class="article-section m-2 px-3 rounded">
         <div class="row mx-2 border-bottom border-dark-subtle article-head">
             <div class="article-date col-12 col-sm-8 col-lg-2 order-3 order-sm-2 order-lg-1 py-3 align-items-top "> 
@@ -69,39 +68,10 @@
 
 
         <div class="article-commentaries row container collapse" id="collapseCommentary">
-            <?php 
-            $hasComments = false;
-            foreach ($commentaires as $commentaire): ?>
-                <?php if ($commentaire->getIdArticle() == $article->getId()): ?>
-                    <div class="article-commentary row px-0 ms-2 pt-3 mt-2">
-                        <div class="article-commentaries-author col-4 d-flex flex-column">
-                            <a class="row container align-items-center" href="#">
-                                <img class="author-commentary-picture col-2 px-0" src="https://picsum.photos/id/<?php echo rand(1,300)?>/1000" alt="Profile picture">
-                                <h5 class="col-9"><?php echo $commentaire->getAuteur() ?? 'Auteur';?></h5>
-                            </a>
-                            <div class="article-commentary-date row container ms-4 pt-2">
-                                <?php if($commentaire->getDate() >= $commentaire->getDateModif()):?>
-                                    <small>Published on 
-                                        <?php $date = $commentaire->getDate(); 
-                                            echo ($date instanceof \DateTime) ? $date->format('d/m/Y') : 'Date';?>
-                                    </small>
-                                <?php else: ?>
-                                    <small>Modified on 
-                                        <?php $date = $commentaire->getDateModif(); 
-                                            echo ($date instanceof \DateTime) ? $date->format('d/m/Y') : 'Date';?>
-                                    </small>
-                                <?php endif ?>
-                            </div>
-                        </div>
-
-                        <p class="article-commentary-text col-8 mt-2">
-                            <?php echo $commentaire->getTexte() ?? 'Texte';?>
-                        </p>
-                    </div>
-                    <?php
-                    $hasComments = true;
-                endif;
-            endforeach; 
+            <?php if($article->getNombreCommentaires() === 0){
+                $hasComments = false;
+            }
+            $hasComments = true;
             ?>
         </div>
 
@@ -109,7 +79,7 @@
             <div class="row container-fluid">
                 <div class="col-xs-0 col-sm-2 col-lg-4"></div>
                 <div class="d-flex flex-column align-items-center col-xs-12 col-sm-8 col-lg-4 mb-2">
-                    <button class="toggle-button btn btn-outline-secondary mb-2" type="button" data-bs-toggle="collapse"
+                    <button class="toggle-button ajaxComments btn btn-outline-secondary mb-2" type="button" data-bs-toggle="collapse"
                             data-bs-target="#collapseCommentary" data-article-id="<?php echo $article->getId(); ?>"
                             aria-expanded="false" aria-controls="collapseCommentary">
                         Afficher les commentaires
@@ -150,3 +120,44 @@
         </fieldset>
     </form>
 </div>
+<script type="application/javascript">
+    document.addEventListener('DOMContentLoaded', function() {
+        var commentsContainer = document.querySelector('.article-commentaries');
+        var articleSlug = document.querySelector('.articleSlug').textContent;
+        
+        fetch('http://blog.local/commentaire/' + articleSlug)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                
+                commentsContainer.innerHTML = ''; // Clear existing content
+
+                data.forEach(comment => {
+                    
+                    var commentDiv = document.createElement('div');
+                    var date = comment.dateCommentaire.date
+                    var dateModif = comment.dateModificationCommentaire.date
+                    commentDiv.innerHTML = '<div class="article-commentary row px-0 ms-2 pt-3 mt-2">' +
+                        '<div class="article-commentaries-author col-4 d-flex flex-column">' +
+                        '<a class="row container align-items-center" href="#">' +
+                        '<img class="author-commentary-picture col-2 px-0" src="https://picsum.photos/id/' + 
+                        Math.floor(Math.random() * 300) + '/1000" alt="Profile picture"></img>' + // Fix concatenation
+                        '<h5 class="col-9">' + comment.auteurCommentaire + '</h5></a>' +
+                        '<div class="article-commentary-date row container ms-4 pt-2">' +
+                        '<small>Published on ' + (date >= dateModif ? 
+                        '<?php echo date("d/m/Y", strtotime("' + comment.dateCommentaire + '")); ?>' : 
+                        '<?php echo date("d/m/Y", strtotime("' + comment.dateModificationCommentaire + '")); ?>') + '</small>' +
+                        '</div></div>' + '<p class="article-commentary-text col-8 mt-2">' + comment.texteCommentaire + '</p>' + 
+                        '</div>';
+                    commentsContainer.appendChild(commentDiv);
+                });
+            })
+            .catch(error => {
+                console.error('Error fetching comments:', error);
+            });
+    });
+</script>
