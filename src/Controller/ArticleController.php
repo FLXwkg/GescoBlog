@@ -39,12 +39,14 @@ class ArticleController extends BaseController
 
             $array = [];
             foreach ($commentaires as $commentaire) {
+                $date = $commentaire->getDate();
+                $dateModif = $commentaire->getDateModif();
                 $array[] = (object) [
                     'idCommentaire' => $commentaire->getId(),
                     'auteurCommentaire' => $commentaire->getAuteur(),
                     'texteCommentaire' => $commentaire->getTexte(),
-                    'dateCommentaire' => $commentaire->getDate(),
-                    'dateModificationCommentaire' => $commentaire->getDateModif(),
+                    'dateCommentaire' => $date->format('c'),
+                    'dateModificationCommentaire' => $dateModif->format('c'),
                     'idArticle' => $commentaire->getIdArticle()
                 ];
             }
