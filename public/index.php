@@ -5,10 +5,10 @@ declare(strict_types=1);
 use App\Application\Handlers\HttpErrorHandler;
 use App\Application\ResponseEmitter\ResponseEmitter;
 use App\Configuration;
+use App\Error\Renderer\HtmlErrorRenderer;
 use DI\ContainerBuilder;
 use Slim\Factory\AppFactory;
 use Slim\Factory\ServerRequestCreatorFactory;
-use Psr\Http\Message\ServerRequestInterface;
 
 require __DIR__ . '/../vendor/autoload.php';
 
@@ -59,6 +59,10 @@ $app->addRoutingMiddleware();
 
 // Add Error Middleware
 $errorMiddleware = $app->addErrorMiddleware(true, true, true);
+/*$errorHandler = $errorMiddleware->getDefaultErrorHandler();
+$htmlErrorRenderer = new HtmlErrorRenderer();
+$htmlErrorRenderer->setDependencies($app->getRequest(), $app->getResponse());
+$errorHandler->registerErrorRenderer('text/html', $htmlErrorRenderer);*/
 
 // Add Body Parsing Middleware
 $app->addBodyParsingMiddleware();

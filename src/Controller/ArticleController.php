@@ -25,7 +25,7 @@ class ArticleController extends BaseController
             
             return $this->getRenderedResponse($args, 'viewArticle.php');
         }catch (\Exception $e) {
-            throw new HttpInternalServerErrorException($request)
+            throw new HttpInternalServerErrorException($request);
         }
     }
     
