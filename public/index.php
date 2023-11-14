@@ -8,6 +8,7 @@ use App\Configuration;
 use DI\ContainerBuilder;
 use Slim\Factory\AppFactory;
 use Slim\Factory\ServerRequestCreatorFactory;
+use Psr\Http\Message\ServerRequestInterface;
 
 require __DIR__ . '/../vendor/autoload.php';
 
@@ -55,6 +56,9 @@ $errorHandler = new HttpErrorHandler($callableResolver, $responseFactory);
 
 // Add Routing Middleware
 $app->addRoutingMiddleware();
+
+// Add Error Middleware
+$errorMiddleware = $app->addErrorMiddleware(true, true, true);
 
 // Add Body Parsing Middleware
 $app->addBodyParsingMiddleware();

@@ -29,7 +29,7 @@ return function (App $app, Configuration $configuration) {
      * Traitement Ajax des commentaires
      */
     $app->get('/commentaire/{slug_article}', function (Request $request, Response $response, $args) use ($configuration) {
-        return (new ArticleController($request, $response, $configuration))->handleJson($response, $args);
+        return (new ArticleController($request, $response, $configuration))->handleJson($request, $response, $args);
     });
 
     /**
@@ -50,7 +50,7 @@ return function (App $app, Configuration $configuration) {
      * Les articles
      */
     $app->get('/{categorie}/{slug_article}', function (Request $request, Response $response, $args) use ($configuration) {
-        return (new ArticleController($request, $response, $configuration))->handle($response, $args);
+        return (new ArticleController($request, $response, $configuration))->handle($request, $response, $args);
     });
 
     /**
