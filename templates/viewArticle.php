@@ -68,11 +68,7 @@
 
 
         <div class="article-commentaries row container collapse" id="collapseCommentary">
-            <?php if($article->getNombreCommentaires() === 0){
-                $hasComments = false;
-            }
-            $hasComments = true;
-            ?>
+            <?php $hasComments = ($article->getNombreCommentaires() !== 0);?>
         </div>
 
         <?php if ($hasComments):?>

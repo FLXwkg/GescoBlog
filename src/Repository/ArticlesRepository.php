@@ -70,7 +70,7 @@ class ArticlesRepository extends BaseRepository
 
     public function getBySlug(string $slugArticle)
     {
-        $base = $this->getBaseQuery();
+        $base = $this->getNumberQueryStart();
         $sql = $base . " WHERE a.slug = :slugArticle;";
         $stmt = $this->pdo->prepare($sql);
         $stmt->bindParam(':slugArticle', $slugArticle, PDO::PARAM_STR);
