@@ -15,13 +15,13 @@ class GenericController extends BaseController
             return $response->withHeader('Location', "/")->withStatus(301);
         }
         $categoriesRepository = $this->getRepository(CategoriesRepository::class);
-        $id = $categoriesRepository->getIdByName($arg['categorie'])[0]->getId();
+        $category = $categoriesRepository->findOneBySlug($arg['categorie']);
         $args = [];
-        $args['categories'] = $categoriesRepository->GetByCatId($id);
+        $args['category'] = $category;
         $args['sections'] = $categoriesRepository->GetAll(); 
 
         $articles = $this->getRepository(ArticlesRepository::class);
-        $contentArticle = $articles->getByCategory($id);
+        $contentArticle = $articles->getByCategory($category->getId());
         $args['articles'] = $contentArticle;
 
         $articleIds = [];

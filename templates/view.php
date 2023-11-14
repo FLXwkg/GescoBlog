@@ -2,11 +2,9 @@
     $helpers->script("loadMoreArticles.js")?>
 <?php 
     $title = 'Category';
-    if(isset($categories) && array_key_exists(0, $categories)){
-        $category = $categories[0] ?? null;
-        if($category instanceof \App\Entity\Categorie){
-            $title = $category->getNom();
-        }
+    $category = $category ?? null;
+    if($category instanceof \App\Entity\Categorie){
+        $title = $category->getNom();
     }
     $helpers->title($title);
 ?>
