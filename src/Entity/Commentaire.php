@@ -1,8 +1,6 @@
 <?php
-namespace App;
+namespace App\Entity;
 
-use PDO;
-use App\PDOConfiguration;
 use DateTime;
 
 class Commentaire

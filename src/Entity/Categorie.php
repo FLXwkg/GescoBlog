@@ -1,8 +1,5 @@
 <?php
-namespace App;
-
-use PDO;
-use App\PDOConfiguration;
+namespace App\Entity;
 
 class Categorie
 {

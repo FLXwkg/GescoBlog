@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Configuration;
+use App\Repository\BaseRepository;
 use App\Support\TemplateFactory;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ResponseInterface as Response;
@@ -13,6 +14,8 @@ class BaseController
 {
 
     protected Request $request;
+
+    protected Configuration $configuration;
 
     /**
      * @var TemplateFactory
@@ -27,6 +30,7 @@ class BaseController
     public function __construct(Request $request, Response $response, Configuration $configuration)
     {
         $this->request = $request;
+        $this->configuration = $configuration;
         $this->templateFactory = $this->createTemplateFactory($request, $response, $configuration);
     }
 
@@ -65,5 +69,15 @@ class BaseController
         return $this->getTemplateFactory()->getRenderedResponse($args,$customViewPath);
     }
 
-
+    protected function getRepository($class)
+    {
+        $conf = $this->configuration->getConfiguration();
+        $array = [
+            'host' => $conf['host'],
+            'name' => $conf['name'],
+            'login' => $conf['login'],
+            'password' => $conf['password'],
+        ];
+        return BaseRepository::createRepository($class, $array);
+    }
 }

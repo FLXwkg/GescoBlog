@@ -1,17 +1,19 @@
 <?php
 namespace App\Controller;
 
-use App\ArticlesRepository;
-use App\CommentairesRepository;
+use App\Repository\ArticlesRepository;
+use App\Repository\CommentairesRepository;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
-use Slim\Views\PhpRenderer;
+
 
 class CommentaireController extends BaseController
 {
-    public function handle(Request $request, Response $response, $slugArticle, $id)
+    public function handle(Request $request, Response $response, $arg)
     {
-        $articles = new ArticlesRepository();
+        $slugArticle = $arg['slug_article'];
+
+        $articles = $this->getRepository(ArticlesRepository::class);
         $contentArticle = $articles->getBySlug($slugArticle);
         
         $idArticle = $contentArticle[0]->getId();
@@ -26,13 +28,12 @@ class CommentaireController extends BaseController
             $this->setCommentaire($auteur, $contenu, $idArticle);
         }
         
-        $renderer = new PhpRenderer('../templates');
         return $response->withHeader('Location', "/$urlArticle")->withStatus(301);
     }
 
     protected function setCommentaire(string $auteur, string $contenu, int $idArticle)
     {
-        $commentaire = new CommentairesRepository();
+        $commentaire = $this->getRepository(CommentairesRepository::class);
         $commentaire->setCommentaire($auteur, $contenu, $idArticle);
     }
 }

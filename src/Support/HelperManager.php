@@ -8,6 +8,11 @@ use App\Configuration;
 use App\Support\Helper\AbstractHelper;
 use App\Support\Helper\Footer;
 use App\Support\Helper\Header;
+use App\Support\Helper\HeadTitle;
+use App\Support\Helper\Breadcrumb;
+use App\Support\Helper\Script;
+use App\Support\Helper\TruncateText;
+use App\Support\Helper\Link;
 
 
 class HelperManager
@@ -17,7 +22,12 @@ class HelperManager
      * @var string[]
      */
     protected $invokables = [
+        'link' => Link::class,
+        'script' => Script::class,
+        'title' => HeadTitle::class,
         'header' => Header::class,
+        'breadcrumb' => Breadcrumb::class,
+        'truncateText' => TruncateText::class,
         'footer' => Footer::class
     ];
 
