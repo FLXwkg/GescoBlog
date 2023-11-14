@@ -11,8 +11,8 @@ class PostArticleController extends BaseController
     public function handle(Request $request, Response $response, array $arg)
     {
         $categoriesRepository = $this->getRepository(CategoriesRepository::class);
-        $idCategorie = $categoriesRepository->getIdByName($arg['categorie'])[0]->getId();
-        $urlCategorie = $arg['categorie'];
+        $category = $categoriesRepository->findOneBySlug($arg['categorie']);
+        $urlCategorie = ;
 
         $data = $request->getParsedBody();
         if ($data) {
@@ -21,10 +21,10 @@ class PostArticleController extends BaseController
             $auteur = $data['auteur_article'];
             $contenu = $data['texte_article'];
         
-            $this->setArticle($titre, $auteur, $contenu, $idCategorie);
+            $this->setArticle($titre, $auteur, $contenu, $category->getId());
         }
         
-        return $response->withHeader('Location', "/$urlCategorie")->withStatus(301);
+        return $response->withHeader('Location', "/$arg['categorie']")->withStatus(301);
     }
     
 
