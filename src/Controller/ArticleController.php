@@ -16,7 +16,7 @@ class ArticleController extends BaseController
             $category = $categoriesRepository->findOneBySlug($arg['categorie']);
             
             $args['category'] = $category;
-            $args['sections'] = $this->getSections();
+            $args['sections'] = $this->getSections($category);
 
             $articles = $this->getRepository(ArticlesRepository::class);
             $contentArticle = $articles->getBySlug($arg['slug_article']);

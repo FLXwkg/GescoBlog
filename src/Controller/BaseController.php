@@ -92,9 +92,8 @@ class BaseController
         return BaseRepository::createRepository($class, $array);
     }
 
-    protected function getSections()
+    protected function getSections($categoriesRepository)
     {
-        $categoriesRepository = $this->getRepository(CategoriesRepository::class);
         return $categoriesRepository->GetAll();
     }
 }
