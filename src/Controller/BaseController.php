@@ -14,8 +14,14 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 class BaseController
 {
 
+    /**
+     * @var Request
+     */
     protected Request $request;
 
+    /**
+     * @var Configuration
+     */
     protected Configuration $configuration;
 
     /**
@@ -23,6 +29,10 @@ class BaseController
      */
     protected TemplateFactory $templateFactory;
 
+    /**
+     * @var array
+     */
+    protected array $args = [];
     /**
      * @param Request $request
      * @param Response $response

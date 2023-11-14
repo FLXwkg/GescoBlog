@@ -16,7 +16,7 @@ class GenericController extends BaseController
         }
         $categoriesRepository = $this->getRepository(CategoriesRepository::class);
         $category = $categoriesRepository->findOneBySlug($arg['categorie']);
-        $args = [];
+        
         $args['category'] = $category;
         $args['sections'] = $this->getSections(); 
 

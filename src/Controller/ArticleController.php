@@ -14,8 +14,7 @@ class ArticleController extends BaseController
         try{
             $categoriesRepository = $this->getRepository(CategoriesRepository::class);
             $category = $categoriesRepository->findOneBySlug($arg['categorie']);
-            //var_dump($category);die();
-            $args = [];
+            
             $args['category'] = $category;
             $args['sections'] = $this->getSections();
 

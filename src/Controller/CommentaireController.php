@@ -11,10 +11,8 @@ class CommentaireController extends BaseController
 {
     public function handle(Request $request, Response $response, $arg)
     {
-        $slugArticle = $arg['slug_article'];
-
         $articles = $this->getRepository(ArticlesRepository::class);
-        $contentArticle = $articles->getBySlug($slugArticle);
+        $contentArticle = $articles->getBySlug($arg['slug_article']);
         
         $idArticle = $contentArticle[0]->getId();
         $urlArticle = $contentArticle[0]->getUrlArticle();
