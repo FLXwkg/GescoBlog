@@ -18,35 +18,64 @@ class Script extends AbstractHelper
      */
     public function getContent(): string
     {
-        return '<script src="/assets/js/' . $this->getFileName() . '"></script>';
+        $files = $this->getFileName();
+
+        if (is_string($files)) {
+            $files = [$files];
+        }
+
+        $scriptTags = '';
+        foreach ($files as $file) {
+            $scriptTags .= '<script src="/assets/js/' . $file . '"></script>';
+        }
+
+        return $scriptTags;
     }
 
     /**
      * @return string
      */
-    public function getFileName(): string
+    public function getFileName()
     {
         return $this->fileName;
     }
 
     /**
-     * @param string $fileName
+     * @param string|array $fileName
      * @return Script
      */
-    public function setFileName(string $fileName): Script
+    public function setFileName($fileName): Script
     {
-        $this->fileName = $fileName;
+        if (is_array($fileName)) {
+            // Handle an array of filenames
+            $this->fileName = $fileName;
+        } elseif (is_string($fileName)|| is_null($fileName)) {
+            // Handle a single filename
+            $this->fileName = [$fileName];
+        } else {
+            throw new \InvalidArgumentException('Invalid argument type for fileName');
+        }
+
         return $this;
     }
 
     /**
      * @inheritDoc
      */
-    public function __invoke(?string $fileName = null)
+    public function __invoke($fileName = null)
     {
-        if (!is_null($fileName)) {
-            $this->setFileName($fileName);
+        if (is_null($fileName)) {
+            return $this;
         }
+
+        if (is_string($fileName)) {
+            $this->setFileName([$fileName]); // Convert to array
+        } elseif (is_array($fileName)) {
+            $this->setFileName($fileName);
+        } else {
+            throw new \InvalidArgumentException('Invalid argument type for fileName');
+        }
+
         return $this;
     }
 

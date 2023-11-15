@@ -1,6 +1,6 @@
 <?php 
     $helpers->link("cssCategorie.css");
-    $helpers->script("loadMoreArticles.js");
+    $helpers->script(["loadMoreArticles.js","toggleCommentaryButton.js"]);
     $title = 'Category';
     if($category instanceof \App\Entity\Categorie){
         $title = $category->getNom();
