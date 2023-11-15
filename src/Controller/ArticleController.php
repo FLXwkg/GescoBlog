@@ -30,6 +30,12 @@ class ArticleController extends BaseController
     protected function getCommentaires(int $idArticle): array
     {
         $commentaire = $this->getRepository(CommentairesRepository::class);
+        return $commentaire->getByArticleId($idArticle);
+    }
+
+    protected function get3Commentaires(int $idArticle): array
+    {
+        $commentaire = $this->getRepository(CommentairesRepository::class);
         return $commentaire->get3ByArticleId($idArticle);
     }
     
@@ -38,7 +44,8 @@ class ArticleController extends BaseController
         try {
             $articles = $this->getRepository(ArticlesRepository::class);
             $idArticle = $articles->findOneBySlug($args['slug_article'])->getId();
-            $commentaires = $this->getCommentaires($idArticle);
+            $nbCommentsNeeded = $request->getHeader('nbComments');
+            $commentaires = (!$nbCommentsNeeded == 3) ? $this->getCommentaires($idArticle) : $this->get3Commentaires($idArticle);
 
             $array = [];
             foreach ($commentaires as $commentaire) {

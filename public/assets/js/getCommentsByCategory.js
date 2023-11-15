@@ -1,7 +1,3 @@
-
-
-
-
 document.addEventListener('DOMContentLoaded', function() {
     var toggleButtons = document.querySelectorAll('.toggle-button');
 
@@ -34,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
             if (!commentaryContainer.classList.contains('comments-loaded')) {
                 
-                fetch(url)
+                fetch(url, {headers:{'nbComments': '3'}})
                     .then(response => response.json())
                     .then(data => {
                         commentaryContainer.innerHTML = ''; 
