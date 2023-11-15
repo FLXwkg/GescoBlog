@@ -30,10 +30,6 @@ class BaseController
     protected TemplateFactory $templateFactory;
 
     /**
-     * @var array
-     */
-    protected array $args = [];
-    /**
      * @param Request $request
      * @param Response $response
      * @param Configuration $configuration
@@ -94,6 +90,6 @@ class BaseController
 
     protected function getSections($categoriesRepository)
     {
-        return $categoriesRepository->GetAll();
+        return $categoriesRepository->getAll();
     }
 }

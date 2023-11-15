@@ -16,11 +16,10 @@ class ArticleController extends BaseController
             $category = $categoriesRepository->findOneBySlug($arg['categorie']);
             
             $args['category'] = $category;
-            $args['sections'] = $this->getSections($category);
+            $args['sections'] = $this->getSections($categoriesRepository);
 
-            $articles = $this->getRepository(ArticlesRepository::class);
-            $contentArticle = $articles->getBySlug($arg['slug_article']);
-            $args['articles'] = $contentArticle;
+            $articlesRepository = $this->getRepository(ArticlesRepository::class);
+            $args['article'] = $articlesRepository->findOneBySlug($arg['slug_article']);
             
             return $this->getRenderedResponse($args, 'viewArticle.php');
         }catch (\Exception $e) {
@@ -34,11 +33,11 @@ class ArticleController extends BaseController
         return $commentaire->getByArticleId($idArticle);
     }
     
-    public function handleJson(Request $request, $response, $args)
+    public function handleJson($request, $response, $args)
     {
         try {
             $articles = $this->getRepository(ArticlesRepository::class);
-            $idArticle = $articles->getBySlug($args['slug_article'])[0]->getId();
+            $idArticle = $articles->findOneBySlug($args['slug_article'])->getId();
             $commentaires = $this->getCommentaires($idArticle);
 
             $array = [];

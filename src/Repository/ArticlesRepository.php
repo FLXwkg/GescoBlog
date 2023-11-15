@@ -68,27 +68,31 @@ class ArticlesRepository extends BaseRepository
         return $stmt->fetchAll(PDO::FETCH_CLASS, Article::class);
     }
 
-    public function getBySlug(string $slugArticle)
+    public function findOneBySlug(string $slugArticle)
     {
         $base = $this->getNumberQueryStart();
         $sql = $base . " WHERE a.slug = :slugArticle;";
         $stmt = $this->pdo->prepare($sql);
         $stmt->bindParam(':slugArticle', $slugArticle, PDO::PARAM_STR);
         $stmt->execute();
+        $stmt->setFetchMode(PDO::FETCH_CLASS, Article::class);
+        $result = $stmt->fetch(PDO::FETCH_CLASS, PDO::FETCH_ORI_NEXT, 0);
 
-        return $stmt->fetchAll(PDO::FETCH_CLASS, Article::class);
+        return $result !== false ? $result : null;
     }
 
-    public function getById(string $idArticle)
+    /*public function findOneById(string $idArticle)
     {
         $base = $this->getBaseQuery();
         $sql = $base . " WHERE a.id_article = :idArticle;";
         $stmt = $this->pdo->prepare($sql);
         $stmt->bindParam(':idArticle', $idArticle, PDO::PARAM_INT);
         $stmt->execute();
+        $stmt->setFetchMode(PDO::FETCH_CLASS, Article::class);
+        $result = $stmt->fetch(PDO::FETCH_CLASS, PDO::FETCH_ORI_NEXT, 0);
 
-        return $stmt->fetchAll(PDO::FETCH_CLASS, Article::class);
-    }
+        return $result !== false ? $result : null;
+    }*/
 
     public function setArticle(string $titre, string $auteur, string $contenu, int $idCategorie)
     {

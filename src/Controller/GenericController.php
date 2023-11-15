@@ -5,36 +5,38 @@ use App\Entity\Article;
 use App\Repository\ArticlesRepository;
 use App\Repository\CategoriesRepository;
 use App\Repository\CommentairesRepository;
-use Slim\Views\PhpRenderer;
+
 class GenericController extends BaseController
 {
     public function handle($response, $arg)
     {
+        try{
+            if ($arg['categorie'] === 'home') {
+                return $response->withHeader('Location', "/")->withStatus(301);
+            }
+            $categoriesRepository = $this->getRepository(CategoriesRepository::class);
+            $category = $categoriesRepository->findOneBySlug($arg['categorie']);
+            
+            $args['category'] = $category;
+            $args['sections'] = $this->getSections($categoriesRepository); 
 
-        if ($arg['categorie'] === 'home') {
-            return $response->withHeader('Location', "/")->withStatus(301);
+            $articlesRepository = $this->getRepository(ArticlesRepository::class);
+            $args['articles'] = $articlesRepository->getByCategory($category->getId());
+
+            $articleIds = [];
+            /** @var Article $article */
+            foreach ($args['articles'] as $article){
+                $articleIds[] = $article->getId();
+            }
+            $args['commentaires'] = [];
+            if(!empty($articleIds)){
+                $args['commentaires'] = $this->getCommentaires($articleIds);
+            }
+
+            return $this->getRenderedResponse($args, 'view.php');
+        }catch (\Exception $e) {
+            throw new HttpInternalServerErrorException($request);
         }
-        $categoriesRepository = $this->getRepository(CategoriesRepository::class);
-        $category = $categoriesRepository->findOneBySlug($arg['categorie']);
-        
-        $args['category'] = $category;
-        $args['sections'] = $this->getSections($category); 
-
-        $articles = $this->getRepository(ArticlesRepository::class);
-        $contentArticle = $articles->getByCategory($category->getId());
-        $args['articles'] = $contentArticle;
-
-        $articleIds = [];
-        /** @var Article $article */
-        foreach ($args['articles'] as $article){
-            $articleIds[] = $article->getId();
-        }
-        $args['commentaires'] = [];
-        if(!empty($articleIds)){
-            $args['commentaires'] = $this->getCommentaires($articleIds);
-        }
-
-        return $this->getRenderedResponse($args, 'view.php');
     }
 
     protected function getCommentaires($filter): array

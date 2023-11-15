@@ -11,13 +11,17 @@ class HomeController extends BaseController
 {
     public function handle($response)
     {
-        $args['sections'] = $this->getSections($category);
+        try{
+            $categoriesRepository = $this->getRepository(CategoriesRepository::class);
+            $args['sections'] = $this->getSections($categoriesRepository);
 
-        $articles = $this->getRepository(ArticlesRepository::class);
-        $contentArticle = $articles->getAll();
-        $args['articles'] = $contentArticle;
+            $articlesRepository = $this->getRepository(ArticlesRepository::class);
+            $args['articles'] = $articlesRepository->getAll();
 
-        return $this->getRenderedResponse($args, 'home.php');
+            return $this->getRenderedResponse($args, 'home.php');
+        }catch (\Exception $e) {
+            throw new HttpInternalServerErrorException($request);
+        }
     }
 
 }
