@@ -1,6 +1,6 @@
 <?php 
     $helpers->link("cssCategorie.css");
-    $helpers->script(["loadMoreArticles.js","toggleCommentaryButton.js"]);
+    $helpers->script(["loadMoreArticles.js","toggleCommentaryButton.js", "getCommentsByCategory.js"]);
     $title = 'Category';
     if($category instanceof \App\Entity\Categorie){
         $title = $category->getNom();
@@ -41,6 +41,7 @@
                 /** @var \App\Entity\Article[] $articles */
                 foreach ($articles as $article):?> 
                     <div class="article-bloc col-12 col-xl-6">
+                        <div class="articleSlug<?php echo $article->getId(); ?> d-none"><?= $article->getSlug()?></div>
                         <div class="article-section rounded my-2">
                             <div class="row container pt-2">
                                 <div class="article-head-title col-7 pe-0">
@@ -82,48 +83,16 @@
                                 </div>
                         
                             <div class="container article-commentaries collapse" id="collapseCommentary<?php echo $article->getId(); ?>">
-                                <?php
-                                $comment_count = 0;
-                                $hasComments = false;
-
-                                foreach ($commentaires as $commentaire):
-                                    if ($commentaire->getIdArticle() == $article->getId() && $comment_count < 3):
-                                        ?>
-                                        <div class="row">
-                                            <div class="article-commentary col mx-2 px-0">
-                                                <div class="article-commentary-author row pt-2 pb-2">
-                                                    <img class="author-commentary-picture col-2 px-0" src="https://picsum.photos/id/<?php echo rand(1,1084)?>/1000" alt="Profile picture">
-                                                    <a class="article-link col-8" href="<?= $article->getUrlArticle(); ?>">
-                                                        <h6 class="py-1"><?php echo $commentaire->getAuteur() ?? 'Auteur';?></h6>
-                                                    </a>
-                                                    <small class="col-2 px-0"> 
-                                                        <?php $date = $commentaire->getDate(); 
-                                                            echo ($date instanceof \DateTime) ? $date->format('d/m/Y') : 'Date';?>
-                                                    </small>
-                                                </div>
-
-                                                <p class="article-commentary-text row mx-2">
-                                                    <a class="article-link col-12" href="<?= $article->getUrlArticle(); ?>">
-                                                    <?= $helpers->truncateText($commentaire->getTexte(), $article->getUrlArticle());?>
-                                                    </a>
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <?php
-                                        $comment_count++;
-                                        $hasComments = true;
-                                    endif;
-                                endforeach;
-                                ?>
+                                <?php $hasComments = ($article->getNombreCommentaires() !== 0);?>
                             </div>
                         
                             <?php if ($hasComments):?>
                                 <div class="row">
                                     <div class="col-2"></div>
                                     <button class="toggle-button col-8 mb-2 btn btn-outline-secondary" type="button" data-bs-toggle="collapse"
-                                            data-bs-target="#collapseCommentary<?php echo $article->getId(); ?>"
-                                            data-article-id="<?php echo $article->getId(); ?>"
-                                            aria-expanded="false" aria-controls="collapseCommentary<?php echo $article->getId(); ?>">
+                                            data-bs-target="#collapseCommentary<?php echo $article->getId();?>"
+                                            data-article-id="<?php echo $article->getId();?>"
+                                            aria-expanded="false" aria-controls="collapseCommentary<?php echo $article->getId();?>">
                                         Afficher les commentaires
                                     </button>
                                     <div class="col-2"></div>

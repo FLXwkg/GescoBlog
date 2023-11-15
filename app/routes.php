@@ -26,13 +26,6 @@ return function (App $app, Configuration $configuration) {
     });
 
     /**
-     * Traitement Ajax des commentaires
-     */
-    $app->get('/commentaire/{slug_article}', function (Request $request, Response $response, $args) use ($configuration) {
-        return (new ArticleController($request, $response, $configuration))->handleJson($request, $response, $args);
-    });
-
-    /**
      * Les catégories principales
      */
     $app->get('/{categorie}', function (Request $request, Response $response, $args) use ($configuration) {
@@ -47,6 +40,13 @@ return function (App $app, Configuration $configuration) {
     });
 
     /**
+     * Traitement Ajax des commentaires des articles d'une catégorie
+     */
+    //$app->get('/{categorie}/commentaires', function (Request $request, Response $response, $args) use ($configuration) {
+        //return (new GenericController($request, $response, $configuration))->handleJson($request, $response, $args);
+    //});
+
+    /**
      * Les articles
      */
     $app->get('/{categorie}/{slug_article}', function (Request $request, Response $response, $args) use ($configuration) {
@@ -59,4 +59,12 @@ return function (App $app, Configuration $configuration) {
     $app->post('/{categorie}/{slug_article}', function ($request, $response, $args) use ($configuration) {
         return (new CommentaireController($request, $response, $configuration))->handle($request, $response, $args);
     });
+    
+    /**
+     * Traitement Ajax des commentaires d'un article
+     */
+    $app->get('/{categorie}/{slug_article}/commentaires', function (Request $request, Response $response, $args) use ($configuration) {
+        return (new ArticleController($request, $response, $configuration))->handleJson($request, $response, $args);
+    });
+    
 };

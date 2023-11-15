@@ -30,7 +30,7 @@ class ArticleController extends BaseController
     protected function getCommentaires(int $idArticle): array
     {
         $commentaire = $this->getRepository(CommentairesRepository::class);
-        return $commentaire->getByArticleId($idArticle);
+        return $commentaire->get3ByArticleId($idArticle);
     }
     
     public function handleJson($request, $response, $args)
