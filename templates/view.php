@@ -1,8 +1,7 @@
-<?= $helpers->link("cssCategorie.css");
-    $helpers->script("loadMoreArticles.js")?>
 <?php 
+    $helpers->link("cssCategorie.css");
+    $helpers->script("loadMoreArticles.js");
     $title = 'Category';
-    $category = $category ?? null;
     if($category instanceof \App\Entity\Categorie){
         $title = $category->getNom();
     }

@@ -26,6 +26,6 @@
     </main>
 
     <?= $helpers->footer(); ?>
-
+    <?= $helpers->script(); ?>
 </body>
 </html>

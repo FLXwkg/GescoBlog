@@ -1,6 +1,5 @@
 <?php
     $helpers->link("cssArticle.css");
-    $article = $articles[0];
     $title = $category->getNom() .' - '. $article->getTitre();
     $helpers->title($title);
 ?>
