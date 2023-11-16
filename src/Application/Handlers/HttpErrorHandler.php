@@ -6,7 +6,11 @@ namespace App\Application\Handlers;
 
 use App\Application\Actions\ActionError;
 use App\Application\Actions\ActionPayload;
+use App\Configuration;
+use App\Support\TemplateFactory;
+use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ResponseInterface as Response;
+use Psr\Log\LoggerInterface;
 use Slim\Exception\HttpBadRequestException;
 use Slim\Exception\HttpException;
 use Slim\Exception\HttpForbiddenException;
@@ -15,10 +19,49 @@ use Slim\Exception\HttpNotFoundException;
 use Slim\Exception\HttpNotImplementedException;
 use Slim\Exception\HttpUnauthorizedException;
 use Slim\Handlers\ErrorHandler as SlimErrorHandler;
+use Slim\Interfaces\CallableResolverInterface;
 use Throwable;
 
 class HttpErrorHandler extends SlimErrorHandler
 {
+
+    protected Configuration $configuration;
+
+    public function __construct(CallableResolverInterface $callableResolver, ResponseFactoryInterface $responseFactory, ?LoggerInterface $logger = null, ?Configuration $configuration = null)
+    {
+        parent::__construct($callableResolver, $responseFactory, $logger);
+        if(!is_null($configuration)){
+            $this->setConfiguration($configuration);
+        }
+    }
+
+    /**
+     * @return Configuration
+     */
+    public function getConfiguration(): Configuration
+    {
+        return $this->configuration;
+    }
+
+    /**
+     * @param Configuration $configuration
+     * @return HttpErrorHandler
+     */
+    public function setConfiguration(Configuration $configuration): HttpErrorHandler
+    {
+        $this->configuration = $configuration;
+        return $this;
+    }
+
+    protected function createTemplateFactory($response): TemplateFactory
+    {
+        $request = $this->request;
+        $templateFactory = new TemplateFactory($request,$response,$this->getConfiguration());
+        $templateFactory->setDefaultLayout('layout/default.php');
+        return $templateFactory;
+    }
+
+
     /**
      * @inheritdoc
      */
@@ -62,6 +105,8 @@ class HttpErrorHandler extends SlimErrorHandler
         $encodedPayload = json_encode($payload, JSON_PRETTY_PRINT);
 
         $response = $this->responseFactory->createResponse($statusCode);
+        $templateFactory = $this->createTemplateFactory($response);
+        var_dump($templateFactory); die();
         $response->getBody()->write($encodedPayload);
 
         return $response->withHeader('Content-Type', 'application/json');

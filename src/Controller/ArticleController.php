@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Categorie;
+use App\Entity\Commentaire;
 use App\Repository\ArticlesRepository;
 use App\Repository\CategoriesRepository;
 use App\Repository\CommentairesRepository;
@@ -48,9 +49,10 @@ class ArticleController extends BaseController
 
             $array = [];
             foreach ($commentaires as $commentaire) {
+                // TODO ici appeller Commentaire::toArray()
                 $date = $commentaire->getDate();
                 $dateModif = $commentaire->getDateModif();
-                $array[] = (object)[
+                $array[] = [
                     'idCommentaire' => $commentaire->getId(),
                     'auteurCommentaire' => $commentaire->getAuteur(),
                     'texteCommentaire' => $commentaire->getTexte(),
@@ -59,7 +61,6 @@ class ArticleController extends BaseController
                     'idArticle' => $commentaire->getIdArticle()
                 ];
             }
-
             $commentairesJson = json_encode($array);
 
             if ($commentairesJson === false) {
@@ -74,6 +75,10 @@ class ArticleController extends BaseController
         }
     }
 
+    /**
+     * @param int $idArticle
+     * @return Commentaire[]
+     */
     protected function getCommentaires(int $idArticle): array
     {
         $commentaire = $this->getRepository(CommentairesRepository::class);

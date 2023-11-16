@@ -12,7 +12,7 @@ class HtmlErrorRenderer
     protected $request;
     protected $response;
 
-    public function __invoke(Throwable $exception, bool $displayErrorDetails): string
+    public function __invoke(Throwable $exception, bool $displayErrorDetails)
     {
         $args = [];
         $title = 'Error';

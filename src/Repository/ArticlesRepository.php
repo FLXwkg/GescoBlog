@@ -72,13 +72,11 @@ class ArticlesRepository extends BaseRepository
     {
         $base = $this->getNumberQueryStart();
         $sql = $base . " WHERE a.slug = :slugArticle;";
-        var_dump($sql); die();
         $stmt = $this->pdo->prepare($sql);
         $stmt->bindParam(':slugArticle', $slugArticle, PDO::PARAM_STR);
         $stmt->execute();
         $stmt->setFetchMode(PDO::FETCH_CLASS, Article::class);
         $result = $stmt->fetch(PDO::FETCH_CLASS, PDO::FETCH_ORI_NEXT, 0);
-        var_dump($result); die();
         return $result !== false ? $result : null;
     }
 
