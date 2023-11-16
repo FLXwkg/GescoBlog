@@ -39,8 +39,12 @@ class ArticleController extends BaseController
     public function handleJson($request, $response, $args)
     {
         try {
-            $articles = $this->getRepository(ArticlesRepository::class);
-            $idArticle = $articles->findOneBySlug($args['slug_article'])->getId();
+            $articlesRepository = $this->getRepository(ArticlesRepository::class);
+            $article = $articlesRepository->findOneBy(['slug' => $args['slug_article']]);
+            if (is_null($article)) {
+                throw new HttpNotFoundException($request->withHeader('Accept', 'application/json'));
+            }
+            $idArticle = $article->getId();
             $nbCommentsNeeded = $request->getHeader('nbComments');
             $commentaires = (!$nbCommentsNeeded == 3) ? $this->getCommentaires($idArticle) : $this->get3Commentaires($idArticle);
 

@@ -102,20 +102,28 @@ class HttpErrorHandler extends SlimErrorHandler
             $error->setDescription($exception->getMessage());
         }
 
+        $acceptHeader = $this->request->getHeaderLine('Accept');
+        $isJsonRequested = strpos($acceptHeader, 'application/json') !== false;
+
         $payload = new ActionPayload($statusCode, null, $error);
-        $encodedPayload = json_encode($payload, JSON_PRETTY_PRINT); 
 
-        $arrayPayload['statusCode'] = ':( '.$statusCode;
-        $arrayPayload['errorType'] = $error->getType();
-        $arrayPayload['errorDescription'] = $error->getDescription();
+        if ($isJsonRequested) {
+            $encodedPayload = json_encode($payload, JSON_PRETTY_PRINT);
+            $response = $this->responseFactory->createResponse($statusCode);
+            $response->getBody()->write($encodedPayload);
+
+            return $response->withHeader('Content-Type', 'application/json');
+        } else {
+
+            $arrayPayload['statusCode'] = ':( '.$statusCode;
+            $arrayPayload['errorType'] = $error->getType();
+            $arrayPayload['errorDescription'] = $error->getDescription();
 
 
-        $response = $this->responseFactory->createResponse($statusCode);
-        $templateFactory = $this->createTemplateFactory($response);
-        $templateFactory->setDefaultLayout('layout/defaultError.php');
-        return $templateFactory->getRenderedResponse($arrayPayload,'errors.php');
-        //$response->getBody()->write($encodedPayload);
-
-        //return $response->withHeader('Content-Type', 'application/json');
+            $response = $this->responseFactory->createResponse($statusCode);
+            $templateFactory = $this->createTemplateFactory($response);
+            $templateFactory->setDefaultLayout('layout/defaultError.php');
+            return $templateFactory->getRenderedResponse($arrayPayload,'errors.php');
+        }
     }
 }
