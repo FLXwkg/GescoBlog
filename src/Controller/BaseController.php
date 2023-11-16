@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Configuration;
 use App\Repository\BaseRepository;
+use App\Repository\CategoriesRepository;
 use App\Support\TemplateFactory;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ResponseInterface as Response;
@@ -13,8 +14,14 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 class BaseController
 {
 
+    /**
+     * @var Request
+     */
     protected Request $request;
 
+    /**
+     * @var Configuration
+     */
     protected Configuration $configuration;
 
     /**
@@ -79,5 +86,10 @@ class BaseController
             'password' => $conf['password'],
         ];
         return BaseRepository::createRepository($class, $array);
+    }
+
+    protected function getSections($categoriesRepository)
+    {
+        return $categoriesRepository->getAll();
     }
 }

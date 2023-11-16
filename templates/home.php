@@ -1,11 +1,8 @@
-<?= $helpers->link("cssHome.css");
-    $helpers->script("loadMoreArticlesHome.js")?>
-<?php $helpers->title('Home')?>
-<nav class="article-category ps-5 py-2" aria-label="breadcrumb">
-    <ol class="breadcrumb my-0">
-        <li class="breadcrumb-item active" aria-current="page">Home</li>
-    </ol>
-</nav>
+<?php $helpers->link("cssHome.css");
+    $helpers->script("loadMoreArticlesHome.js");
+    $helpers->title('Home');
+?>
+
 <div class="container-fluid">
     <div class="row">
         <div class="col-1 col-lg-2"></div>

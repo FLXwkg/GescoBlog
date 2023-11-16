@@ -16,6 +16,16 @@ class CommentairesRepository extends BaseRepository
         return $stmt->fetchAll(PDO::FETCH_CLASS, Commentaire::class);
     }
 
+    public function get3ByArticleId($idArticle)
+    {
+        $sql = 'SELECT * FROM commentaire WHERE id_article = :idArticle LIMIT 0,3;';
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindParam(':idArticle', $idArticle, PDO::PARAM_INT);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_CLASS, Commentaire::class);
+    }
+
     public function getByManyArticlesIds(array $ids)
     {
         if(empty($ids)){

@@ -11,24 +11,26 @@ class CommentaireController extends BaseController
 {
     public function handle(Request $request, Response $response, $arg)
     {
-        $slugArticle = $arg['slug_article'];
-
-        $articles = $this->getRepository(ArticlesRepository::class);
-        $contentArticle = $articles->getBySlug($slugArticle);
-        
-        $idArticle = $contentArticle[0]->getId();
-        $urlArticle = $contentArticle[0]->getUrlArticle();
-
-        $data = $request->getParsedBody();
-        if ($data) {
+        try{
+            $articlesRepository = $this->getRepository(ArticlesRepository::class);
+            $contentArticle = $articlesRepository->findOneBySlug($arg['slug_article']);
             
-            $auteur = $data['auteur_commentaire'];
-            $contenu = $data['texte_commentaire'];
-        
-            $this->setCommentaire($auteur, $contenu, $idArticle);
+            $idArticle = $contentArticle->getId();
+            $urlArticle = $contentArticle->getUrlArticle();
+
+            $data = $request->getParsedBody();
+            if ($data) {
+                
+                $auteur = $data['auteur_commentaire'];
+                $contenu = $data['texte_commentaire'];
+            
+                $this->setCommentaire($auteur, $contenu, $idArticle);
+            }
+            
+            return $response->withHeader('Location', "/$urlArticle")->withStatus(301);
+        }catch (\Exception $e) {
+            throw new HttpInternalServerErrorException($request);
         }
-        
-        return $response->withHeader('Location', "/$urlArticle")->withStatus(301);
     }
 
     protected function setCommentaire(string $auteur, string $contenu, int $idArticle)
