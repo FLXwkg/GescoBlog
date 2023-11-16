@@ -49,17 +49,7 @@ class ArticleController extends BaseController
 
             $array = [];
             foreach ($commentaires as $commentaire) {
-                // TODO ici appeller Commentaire::toArray()
-                $date = $commentaire->getDate();
-                $dateModif = $commentaire->getDateModif();
-                $array[] = [
-                    'idCommentaire' => $commentaire->getId(),
-                    'auteurCommentaire' => $commentaire->getAuteur(),
-                    'texteCommentaire' => $commentaire->getTexte(),
-                    'dateCommentaire' => $date->format('c'),
-                    'dateModificationCommentaire' => $dateModif->format('c'),
-                    'idArticle' => $commentaire->getIdArticle()
-                ];
+                $array[] = $commentaire->toArray();
             }
             $commentairesJson = json_encode($array);
 
@@ -71,24 +61,10 @@ class ArticleController extends BaseController
             return $response->withHeader('Content-Type', 'application/json');
         } catch (\Exception $e) {
             // Log the exception for debugging
-            throw new HttpInternalServerErrorException($request);
+            throw $e;
         }
     }
 
-    /**
-     * @param int $idArticle
-     * @return Commentaire[]
-     */
-    protected function getCommentaires(int $idArticle): array
-    {
-        $commentaire = $this->getRepository(CommentairesRepository::class);
-        return $commentaire->getByArticleId($idArticle);
-    }
-
-    protected function get3Commentaires(int $idArticle): array
-    {
-        $commentaire = $this->getRepository(CommentairesRepository::class);
-        return $commentaire->get3ByArticleId($idArticle);
-    }
+    
 
 }

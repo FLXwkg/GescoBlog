@@ -4,7 +4,9 @@ namespace App\Controller;
 
 use App\Configuration;
 use App\Repository\BaseRepository;
+use App\Repository\ArticlesRepository;
 use App\Repository\CategoriesRepository;
+use App\Repository\CommentairesRepository;
 use App\Support\TemplateFactory;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ResponseInterface as Response;
@@ -91,5 +93,21 @@ class BaseController
     protected function getSections($categoriesRepository)
     {
         return $categoriesRepository->getAll();
+    }
+
+    /**
+     * @param int $idArticle
+     * @return Commentaire[]
+     */
+    protected function getCommentaires(int $idArticle): array
+    {
+        $commentaire = $this->getRepository(CommentairesRepository::class);
+        return $commentaire->getByArticleId($idArticle);
+    }
+
+    protected function get3Commentaires(int $idArticle): array
+    {
+        $commentaire = $this->getRepository(CommentairesRepository::class);
+        return $commentaire->get3ByArticleId($idArticle);
     }
 }

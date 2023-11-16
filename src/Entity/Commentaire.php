@@ -44,10 +44,17 @@ class Commentaire
         return $this->id_article;
     }
 
-    public function toArray()
+    public function toArray() : array
     {
+        $date = $this->getDate();
+        $dateModif = $this->getDateModif();
         return [
-
+            'idCommentaire' => $this->getId(),
+            'auteurCommentaire' => $this->getAuteur(),
+            'texteCommentaire' => $this->getTexte(),
+            'dateCommentaire' => $date->format('c'),
+            'dateModificationCommentaire' => $dateModif->format('c'),
+            'idArticle' => $this->getIdArticle()
         ];
     }
 }
