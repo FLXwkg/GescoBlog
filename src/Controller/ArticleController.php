@@ -17,10 +17,7 @@ class ArticleController extends BaseController
     {
         $categoriesRepository = $this->getRepository(CategoriesRepository::class);
         /** @var Categorie $category */
-        $category = $categoriesRepository->findOneBySlug($arg['categorie']);
-        if (is_null($category)) {
-            throw new HttpNotFoundException($request);
-        }
+        $category = $this->getCategorie($arg['categorie'], $categoriesRepository);
 
         $args['category'] = $category;
         $args['sections'] = $this->getSections($categoriesRepository);

@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Configuration;
+use App\Entity\Categorie;
 use App\Repository\BaseRepository;
 use App\Repository\ArticlesRepository;
 use App\Repository\CategoriesRepository;
@@ -92,7 +93,11 @@ class BaseController
 
     protected function getSections($categoriesRepository)
     {
-        return $categoriesRepository->getAll();
+        $sections = $categoriesRepository->getAll();
+        if (is_null($sections)) {
+            throw new HttpNotFoundException($request);
+        }
+        return $sections;
     }
 
     /**
@@ -101,13 +106,30 @@ class BaseController
      */
     protected function getCommentaires(int $idArticle): array
     {
-        $commentaire = $this->getRepository(CommentairesRepository::class);
-        return $commentaire->getByArticleId($idArticle);
+        $commentairesRepository = $this->getRepository(CommentairesRepository::class);
+        $commentaires = $commentairesRepository->getByArticleId($idArticle);
+        if (is_null($commentaires)) {
+            throw new HttpNotFoundException($request);
+        }
+        return $commentaires;
     }
 
     protected function get3Commentaires(int $idArticle): array
     {
-        $commentaire = $this->getRepository(CommentairesRepository::class);
-        return $commentaire->get3ByArticleId($idArticle);
+        $commentairesRepository = $this->getRepository(CommentairesRepository::class);
+        $commentaires = $commentairesRepository->get3ByArticleId($idArticle);
+        if (is_null($commentaires)) {
+            throw new HttpNotFoundException($request);
+        }
+        return $commentaires;
+    }
+
+    protected function getCategorie(string $slugCategorie,CategoriesRepository $categoriesRepository)
+    {
+        $category = $categoriesRepository->findOneBySlug($slugCategorie);
+        if (is_null($category)) {
+            throw new HttpNotFoundException($request);
+        }
+        return $category;
     }
 }

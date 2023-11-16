@@ -16,11 +16,15 @@ class HomeController extends BaseController
             $args['sections'] = $this->getSections($categoriesRepository);
 
             $articlesRepository = $this->getRepository(ArticlesRepository::class);
-            $args['articles'] = $articlesRepository->getAll();
+            $articles = $articlesRepository->getAll();
+            if (is_null($articles)) {
+                throw new HttpNotFoundException($request);
+            }
+            $args['articles'] = $articles;
 
             return $this->getRenderedResponse($args, 'home.php');
         }catch (\Exception $e) {
-            throw new HttpInternalServerErrorException($request);
+            throw $e;
         }
     }
 

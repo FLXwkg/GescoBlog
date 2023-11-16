@@ -11,8 +11,8 @@ class PostArticleController extends BaseController
     public function handle(Request $request, Response $response, array $arg)
     {
         try{
-            $categoriesRepository = $this->getRepository(CategoriesRepository::class);
-            $category = $categoriesRepository->findOneBySlug($arg['categorie']);
+            $categoriesRepository = $this->getRepository(CategoriesRepository::class); 
+            $category = $this->getCategorie($arg['categorie'], $categoriesRepository);
 
             $data = $request->getParsedBody();
             if ($data) {

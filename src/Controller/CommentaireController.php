@@ -13,7 +13,12 @@ class CommentaireController extends BaseController
     {
         try{
             $articlesRepository = $this->getRepository(ArticlesRepository::class);
-            $contentArticle = $articlesRepository->findOneBySlug($arg['slug_article']);
+            $contentArticle = $articlesRepository->findOneBy([
+                'slug' => $arg['slug_article'],
+            ]);
+            if (is_null($contentArticle)) {
+                throw new HttpNotFoundException($request);
+            }
             
             $idArticle = $contentArticle->getId();
             $urlArticle = $contentArticle->getUrlArticle();
