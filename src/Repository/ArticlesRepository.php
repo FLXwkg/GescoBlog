@@ -72,13 +72,41 @@ class ArticlesRepository extends BaseRepository
     {
         $base = $this->getNumberQueryStart();
         $sql = $base . " WHERE a.slug = :slugArticle;";
+        var_dump($sql); die();
         $stmt = $this->pdo->prepare($sql);
         $stmt->bindParam(':slugArticle', $slugArticle, PDO::PARAM_STR);
         $stmt->execute();
         $stmt->setFetchMode(PDO::FETCH_CLASS, Article::class);
         $result = $stmt->fetch(PDO::FETCH_CLASS, PDO::FETCH_ORI_NEXT, 0);
-
+        var_dump($result); die();
         return $result !== false ? $result : null;
+    }
+
+    /**
+     * @param array $params
+     * @return Article|null
+     * @throws \Exception
+     */
+    public function findOneBy(array $params):?Article
+    {
+        $base = $this->getNumberQueryStart();
+        $sql = $base . " WHERE 1";
+        if(0 === count($params)){
+            throw new \Exception('au moins un parametre dans le find by');
+        }
+        foreach ($params as $key => $value){
+            $sql.= ' AND a.'.$key.' = :'.$key;
+        }
+        $sql.= ' GROUP BY a.id_article LIMIT 0,1';
+        $stmt = $this->pdo->prepare($sql);
+        $queryParams = [];
+        foreach ($params as $key => $value){
+            $queryParams[':'.$key] = $value;
+        }
+        $stmt->execute($queryParams);
+        $stmt->setFetchMode(PDO::FETCH_CLASS, Article::class);
+        $result = $stmt->fetch();
+        return $result instanceof Article ? $result : null;
     }
 
     /*public function findOneById(string $idArticle)

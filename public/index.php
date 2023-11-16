@@ -59,10 +59,7 @@ $app->addRoutingMiddleware();
 
 // Add Error Middleware
 $errorMiddleware = $app->addErrorMiddleware(true, true, true);
-/*$errorHandler = $errorMiddleware->getDefaultErrorHandler();
-$htmlErrorRenderer = new HtmlErrorRenderer();
-$htmlErrorRenderer->setDependencies($app->getRequest(), $app->getResponse());
-$errorHandler->registerErrorRenderer('text/html', $htmlErrorRenderer);*/
+$errorMiddleware->setDefaultErrorHandler($errorHandler);
 
 // Add Body Parsing Middleware
 $app->addBodyParsingMiddleware();
