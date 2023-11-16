@@ -80,6 +80,7 @@ class HttpErrorHandler extends SlimErrorHandler
 
             if ($exception instanceof HttpNotFoundException) {
                 $error->setType(ActionError::RESOURCE_NOT_FOUND);
+                $arrayPayload['message'] = 'The requested url was not found on this server';
             } elseif ($exception instanceof HttpMethodNotAllowedException) {
                 $error->setType(ActionError::NOT_ALLOWED);
             } elseif ($exception instanceof HttpUnauthorizedException) {
@@ -102,13 +103,19 @@ class HttpErrorHandler extends SlimErrorHandler
         }
 
         $payload = new ActionPayload($statusCode, null, $error);
-        $encodedPayload = json_encode($payload, JSON_PRETTY_PRINT);
+        $encodedPayload = json_encode($payload, JSON_PRETTY_PRINT); 
+
+        $arrayPayload['statusCode'] = ':( '.$statusCode;
+        $arrayPayload['errorType'] = $error->getType();
+        $arrayPayload['errorDescription'] = $error->getDescription();
+
 
         $response = $this->responseFactory->createResponse($statusCode);
         $templateFactory = $this->createTemplateFactory($response);
-        var_dump($templateFactory); die();
-        $response->getBody()->write($encodedPayload);
+        $templateFactory->setDefaultLayout('layout/defaultError.php');
+        return $templateFactory->getRenderedResponse($arrayPayload,'errors.php');
+        //$response->getBody()->write($encodedPayload);
 
-        return $response->withHeader('Content-Type', 'application/json');
+        //return $response->withHeader('Content-Type', 'application/json');
     }
 }
