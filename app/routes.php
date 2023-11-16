@@ -29,7 +29,7 @@ return function (App $app, Configuration $configuration) {
      * Les catégories principales
      */
     $app->get('/{categorie}', function (Request $request, Response $response, $args) use ($configuration) {
-        return (new GenericController($request, $response, $configuration))->handle($response, $args);
+        return (new GenericController($request, $response, $configuration))->handle($request, $response, $args);
     });
 
     /**

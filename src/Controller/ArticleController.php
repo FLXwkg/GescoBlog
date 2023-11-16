@@ -1,44 +1,44 @@
 <?php
+
 namespace App\Controller;
 
+use App\Entity\Categorie;
+use App\Entity\Commentaire;
 use App\Repository\ArticlesRepository;
 use App\Repository\CategoriesRepository;
 use App\Repository\CommentairesRepository;
 use Psr\Http\Message\ServerRequestInterface as Request;
+use Slim\Exception\HttpNotFoundException;
 use Slim\Views\PhpRenderer;
 
 class ArticleController extends BaseController
 {
     public function handle($request, $response, $arg)
     {
-        try{
-            $categoriesRepository = $this->getRepository(CategoriesRepository::class);
-            $category = $categoriesRepository->findOneBySlug($arg['categorie']);
-            
-            $args['category'] = $category;
-            $args['sections'] = $this->getSections($categoriesRepository);
-
-            $articlesRepository = $this->getRepository(ArticlesRepository::class);
-            $args['article'] = $articlesRepository->findOneBySlug($arg['slug_article']);
-            
-            return $this->getRenderedResponse($args, 'viewArticle.php');
-        }catch (\Exception $e) {
-            throw new HttpInternalServerErrorException($request);
+        $categoriesRepository = $this->getRepository(CategoriesRepository::class);
+        /** @var Categorie $category */
+        $category = $categoriesRepository->findOneBySlug($arg['categorie']);
+        if (is_null($category)) {
+            throw new HttpNotFoundException($request);
         }
-    }
-    
-    protected function getCommentaires(int $idArticle): array
-    {
-        $commentaire = $this->getRepository(CommentairesRepository::class);
-        return $commentaire->getByArticleId($idArticle);
+
+        $args['category'] = $category;
+        $args['sections'] = $this->getSections($categoriesRepository);
+
+        /** @var ArticlesRepository $articlesRepository */
+        $articlesRepository = $this->getRepository(ArticlesRepository::class);
+        $article = $articlesRepository->findOneBy([
+            'slug' => $arg['slug_article'],
+            'id_categorie' => $category->getId(),
+        ]);
+        if (is_null($article)) {
+            throw new HttpNotFoundException($request);
+        }
+        $args['article'] = $article;
+
+        return $this->getRenderedResponse($args, 'viewArticle.php');
     }
 
-    protected function get3Commentaires(int $idArticle): array
-    {
-        $commentaire = $this->getRepository(CommentairesRepository::class);
-        return $commentaire->get3ByArticleId($idArticle);
-    }
-    
     public function handleJson($request, $response, $args)
     {
         try {
@@ -49,9 +49,10 @@ class ArticleController extends BaseController
 
             $array = [];
             foreach ($commentaires as $commentaire) {
+                // TODO ici appeller Commentaire::toArray()
                 $date = $commentaire->getDate();
                 $dateModif = $commentaire->getDateModif();
-                $array[] = (object) [
+                $array[] = [
                     'idCommentaire' => $commentaire->getId(),
                     'auteurCommentaire' => $commentaire->getAuteur(),
                     'texteCommentaire' => $commentaire->getTexte(),
@@ -60,7 +61,6 @@ class ArticleController extends BaseController
                     'idArticle' => $commentaire->getIdArticle()
                 ];
             }
-
             $commentairesJson = json_encode($array);
 
             if ($commentairesJson === false) {
@@ -73,6 +73,22 @@ class ArticleController extends BaseController
             // Log the exception for debugging
             throw new HttpInternalServerErrorException($request);
         }
+    }
+
+    /**
+     * @param int $idArticle
+     * @return Commentaire[]
+     */
+    protected function getCommentaires(int $idArticle): array
+    {
+        $commentaire = $this->getRepository(CommentairesRepository::class);
+        return $commentaire->getByArticleId($idArticle);
+    }
+
+    protected function get3Commentaires(int $idArticle): array
+    {
+        $commentaire = $this->getRepository(CommentairesRepository::class);
+        return $commentaire->get3ByArticleId($idArticle);
     }
 
 }

@@ -52,17 +52,14 @@ $request = $serverRequestCreator->createServerRequestFromGlobals();
 
 // Create Error Handler
 $responseFactory = $app->getResponseFactory();
-$errorHandler = new HttpErrorHandler($callableResolver, $responseFactory);
+$errorHandler = new HttpErrorHandler($callableResolver, $responseFactory,null, $configuration);
 
 // Add Routing Middleware
 $app->addRoutingMiddleware();
 
 // Add Error Middleware
 $errorMiddleware = $app->addErrorMiddleware(true, true, true);
-/*$errorHandler = $errorMiddleware->getDefaultErrorHandler();
-$htmlErrorRenderer = new HtmlErrorRenderer();
-$htmlErrorRenderer->setDependencies($app->getRequest(), $app->getResponse());
-$errorHandler->registerErrorRenderer('text/html', $htmlErrorRenderer);*/
+$errorMiddleware->setDefaultErrorHandler($errorHandler);
 
 // Add Body Parsing Middleware
 $app->addBodyParsingMiddleware();

@@ -43,4 +43,11 @@ class Commentaire
     {
         return $this->id_article;
     }
+
+    public function toArray()
+    {
+        return [
+
+        ];
+    }
 }

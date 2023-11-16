@@ -1,42 +1,44 @@
 <?php
+
 namespace App\Controller;
 
 use App\Entity\Article;
 use App\Repository\ArticlesRepository;
 use App\Repository\CategoriesRepository;
 use App\Repository\CommentairesRepository;
+use Slim\Exception\HttpInternalServerErrorException;
+use Slim\Exception\HttpNotFoundException;
 
 class GenericController extends BaseController
 {
-    public function handle($response, $arg)
+    public function handle($request, $response, $arg)
     {
-        try{
             if ($arg['categorie'] === 'home') {
                 return $response->withHeader('Location', "/")->withStatus(301);
             }
             $categoriesRepository = $this->getRepository(CategoriesRepository::class);
             $category = $categoriesRepository->findOneBySlug($arg['categorie']);
-            
+            if (is_null($category)) {
+                throw new HttpNotFoundException($request);
+            }
+
             $args['category'] = $category;
-            $args['sections'] = $this->getSections($categoriesRepository); 
+            $args['sections'] = $this->getSections($categoriesRepository);
 
             $articlesRepository = $this->getRepository(ArticlesRepository::class);
             $args['articles'] = $articlesRepository->getByCategory($category->getId());
 
             $articleIds = [];
             /** @var Article $article */
-            foreach ($args['articles'] as $article){
+            foreach ($args['articles'] as $article) {
                 $articleIds[] = $article->getId();
             }
             $args['commentaires'] = [];
-            if(!empty($articleIds)){
+            if (!empty($articleIds)) {
                 $args['commentaires'] = $this->getCommentaires($articleIds);
             }
 
             return $this->getRenderedResponse($args, 'view.php');
-        }catch (\Exception $e) {
-            throw new HttpInternalServerErrorException($request);
-        }
     }
 
     protected function getCommentaires($filter): array
