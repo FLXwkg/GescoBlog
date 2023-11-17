@@ -25,9 +25,17 @@ use Throwable;
 
 class HttpErrorHandler extends SlimErrorHandler
 {
-
+    /**
+     * @var Configuration $configuration
+     */
     protected Configuration $configuration;
 
+    /**
+     * @param CallableResolverInterface $callableResolver
+     * @param ResponseFactoryInterface $responseFactory
+     * @param LoggerInterface|null $logger
+     * @param Configuration|null $configuration
+     */
     public function __construct(CallableResolverInterface $callableResolver, ResponseFactoryInterface $responseFactory, ?LoggerInterface $logger = null, ?Configuration $configuration = null)
     {
         parent::__construct($callableResolver, $responseFactory, $logger);
@@ -54,7 +62,11 @@ class HttpErrorHandler extends SlimErrorHandler
         return $this;
     }
 
-    protected function createTemplateFactory($response): TemplateFactory
+    /**
+     * @param string $response
+     * @return TemplateFactory
+     */
+    protected function createTemplateFactory(string $response): TemplateFactory
     {
         $request = $this->request;
         $templateFactory = new TemplateFactory($request,$response,$this->getConfiguration());
@@ -65,6 +77,7 @@ class HttpErrorHandler extends SlimErrorHandler
 
     /**
      * @inheritdoc
+     * @return Response
      */
     protected function respond(): Response
     {
