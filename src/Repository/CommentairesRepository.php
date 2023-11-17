@@ -6,7 +6,11 @@ use PDO;
 
 class CommentairesRepository extends BaseRepository
 {
-    public function getByArticleId($idArticle)
+    /**
+     * @param int $idArticle
+     * @return array[Commentaire] 
+     */
+    public function getByArticleId(int $idArticle): array
     {
         $sql = 'SELECT * FROM commentaire WHERE id_article = :idArticle;';
         $stmt = $this->pdo->prepare($sql);
@@ -16,7 +20,11 @@ class CommentairesRepository extends BaseRepository
         return $stmt->fetchAll(PDO::FETCH_CLASS, Commentaire::class);
     }
 
-    public function get3ByArticleId($idArticle)
+    /**
+     * @param int $idArticle
+     * @return array[Commentaire] 
+     */
+    public function get3ByArticleId(int $idArticle): array
     {
         $sql = 'SELECT * FROM commentaire WHERE id_article = :idArticle LIMIT 0,3;';
         $stmt = $this->pdo->prepare($sql);
@@ -26,7 +34,11 @@ class CommentairesRepository extends BaseRepository
         return $stmt->fetchAll(PDO::FETCH_CLASS, Commentaire::class);
     }
 
-    public function getByManyArticlesIds(array $ids)
+    /**
+     * @param array[int] $ids
+     * @return array[Commentaire] 
+     */
+    public function getByManyArticlesIds(array $ids): array
     {
         if(empty($ids)){
             return [];
@@ -36,9 +48,13 @@ class CommentairesRepository extends BaseRepository
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_CLASS, Commentaire::class);
-
     }
 
+    /**
+     * @param string $auteur
+     * @param string $contenu
+     * @param int $idArticle 
+     */
     public function setCommentaire(string $auteur, string $contenu, int $idArticle)
     {
         $date = date('Y-m-d h:i:s', time());
@@ -51,6 +67,5 @@ class CommentairesRepository extends BaseRepository
         $stmt->bindParam(':date_modification_commentaire', $date, PDO::PARAM_STR);
         $stmt->bindParam(':idArticle', $idArticle, PDO::PARAM_INT);
         $stmt->execute();
-
     }
 }

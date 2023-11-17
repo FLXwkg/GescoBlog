@@ -8,6 +8,10 @@ use PDO;
 class ArticlesRepository extends BaseRepository
 {
 
+    /**
+     * @param int $categoryId
+     * @return array[Article] 
+     */
     public function getByCategory(int $categoryId)
     {
 
@@ -21,6 +25,9 @@ class ArticlesRepository extends BaseRepository
         return $stmt->fetchAll(PDO::FETCH_CLASS, Article::class);
     }
 
+    /**
+     * @return string  
+     */
     protected function getNumberQueryStart(): string
     {
         return <<<SQL
@@ -36,6 +43,9 @@ class ArticlesRepository extends BaseRepository
                 SQL;
     }
 
+    /**
+     * @return string
+     */
     protected function getNumberQueryEnd(): string
     {
         return <<<SQL
@@ -44,6 +54,9 @@ class ArticlesRepository extends BaseRepository
                 SQL;
     }
 
+    /**
+     * @return string
+     */
     protected function getBaseQuery(): string
     {  
         return <<<SQL
@@ -57,7 +70,10 @@ class ArticlesRepository extends BaseRepository
                 SQL;
     }
 
-    public function getAll()
+    /**
+     * @return array[Article] 
+     */
+    public function getAll(): array
     {
         $start = $this->getNumberQueryStart();
         $end = $this->getNumberQueryEnd();
@@ -66,18 +82,6 @@ class ArticlesRepository extends BaseRepository
         $stmt->execute();
 
         return $stmt->fetchAll(PDO::FETCH_CLASS, Article::class);
-    }
-
-    public function findOneBySlug(string $slugArticle)
-    {
-        $base = $this->getNumberQueryStart();
-        $sql = $base . " WHERE a.slug = :slugArticle;";
-        $stmt = $this->pdo->prepare($sql);
-        $stmt->bindParam(':slugArticle', $slugArticle, PDO::PARAM_STR);
-        $stmt->execute();
-        $stmt->setFetchMode(PDO::FETCH_CLASS, Article::class);
-        $result = $stmt->fetch(PDO::FETCH_CLASS, PDO::FETCH_ORI_NEXT, 0);
-        return $result !== false ? $result : null;
     }
 
     /**
@@ -107,19 +111,12 @@ class ArticlesRepository extends BaseRepository
         return $result instanceof Article ? $result : null;
     }
 
-    /*public function findOneById(string $idArticle)
-    {
-        $base = $this->getBaseQuery();
-        $sql = $base . " WHERE a.id_article = :idArticle;";
-        $stmt = $this->pdo->prepare($sql);
-        $stmt->bindParam(':idArticle', $idArticle, PDO::PARAM_INT);
-        $stmt->execute();
-        $stmt->setFetchMode(PDO::FETCH_CLASS, Article::class);
-        $result = $stmt->fetch(PDO::FETCH_CLASS, PDO::FETCH_ORI_NEXT, 0);
-
-        return $result !== false ? $result : null;
-    }*/
-
+    /**
+     * @param string $titre
+     * @param string $auteur
+     * @param string $contenu
+     * @param int $idCategorie 
+     */
     public function setArticle(string $titre, string $auteur, string $contenu, int $idCategorie)
     {
         $date = date('Y-m-d h:i:s', time());
@@ -135,6 +132,5 @@ class ArticlesRepository extends BaseRepository
         $stmt->bindParam(':auteur_article', $auteur, PDO::PARAM_STR);
         $stmt->bindParam(':id_categorie', $idCategorie, PDO::PARAM_INT);
         $stmt->execute();
-
     }
 }

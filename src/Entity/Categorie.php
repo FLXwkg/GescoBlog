@@ -3,21 +3,71 @@ namespace App\Entity;
 
 class Categorie
 {
-    protected $id_categorie;
-    protected $nom_categorie;
-    protected $slug;
+    /**
+     * @var int
+     */
+    protected int $id_categorie;
 
-    public function getId()
+    /**
+     * @var string
+     */
+    protected string $nom_categorie;
+
+    /**
+     * @var string
+     */
+    protected string $slug;
+
+    /**
+     * @param int $id
+     * @return Categorie 
+     */
+    public function setId(int $id): Categorie
+    {
+        $this->id_categorie = $id;
+        return $this;
+    }
+
+    /**
+     * @return int 
+     */
+    public function getId(): int
     {
         return $this->id_categorie;
     }
 
-    public function getNom()
+    /**
+     * @param string $nom
+     * @return Categorie 
+     */
+    public function setNom(string $nom): Categorie
+    {
+        $this->nom_categorie = $nom;
+        return $this;
+    }
+
+    /**
+     * @return string 
+     */
+    public function getNom(): string
     {
         return $this->nom_categorie;
     }
 
-    public function getSlug()
+    /**
+     * @param string $slug
+     * @return Categorie 
+     */
+    public function setSlug(int $slug): Categorie
+    {
+        $this->slug = $slug;
+        return $this;
+    }
+
+    /**
+     * @return string 
+     */
+    public function getSlug(): string
     {
         return $this->slug;
     }

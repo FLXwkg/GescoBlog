@@ -3,16 +3,30 @@ namespace App\Controller;
 
 use App\Repository\ArticlesRepository;
 use App\Repository\CategoriesRepository;
+use App\Application\Exceptions\CustomNotFoundException;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
 class PostArticleController extends BaseController
 {
+    /**
+     * @param Request $request
+     * @param Response $response
+     * @param array $arg
+     * @throws CustomNotFoundException
+     * @throws HttpInternalServerErrorException
+     * @return Response
+     */
     public function handle(Request $request, Response $response, array $arg)
     {
         try{
-            $categoriesRepository = $this->getRepository(CategoriesRepository::class); 
+            /** @var CategoriesRepository $categoriesRepository */
+            $categoriesRepository = $this->getRepository(CategoriesRepository::class);
+            /** @var Categorie $categorie */
             $category = $this->getCategorie($arg['categorie'], $categoriesRepository);
+            if (is_null($category)) {
+                throw new CustomNotFoundException($request);
+            }
 
             $data = $request->getParsedBody();
             if ($data) {
@@ -28,11 +42,5 @@ class PostArticleController extends BaseController
         }catch (\Exception $e) {
             throw new HttpInternalServerErrorException($request);
         }
-    }
-    
-    protected function setArticle(string $titre, string $auteur, string $contenu, int $idCategorie)
-    {
-        $article = $this->getRepository(ArticlesRepository::class);
-        $article->setArticle($titre, $auteur, $contenu, $idCategorie);
     }
 }

@@ -6,8 +6,11 @@ use App\Entity\Categorie;
 
 class CategoriesRepository extends BaseRepository
 {
-
-    public function getByCatId(int $idCategory)
+    /**
+     * @param int $idCategory
+     * @return array[Categorie] 
+     */
+    public function getByCatId(int $idCategory): array
     {
         $sql = "SELECT * FROM categorie WHERE id_categorie = :idCategory;";
         $stmt = $this->pdo->prepare($sql);
@@ -17,6 +20,10 @@ class CategoriesRepository extends BaseRepository
         return $stmt->fetchAll(PDO::FETCH_CLASS, Categorie::class);
     }
 
+    /**
+     * @param string $slugCategory
+     * @return Categorie|null
+     */
     public function findOneBySlug(string $slugCategory): ?Categorie
     {
         $sql = "SELECT * FROM categorie WHERE slug = :slugCategory LIMIT 1;";
@@ -31,19 +38,10 @@ class CategoriesRepository extends BaseRepository
         return $result !== false ? $result : null;
     }
 
-
-    public function getCatIdBySlugArticle(string $slugArticle)
-    {
-        
-        $sql = "SELECT id_categorie FROM article WHERE slug = :slugArticle;";
-        $stmt = $this->pdo->prepare($sql);
-        $stmt->bindParam(':slugArticle', $slugArticle, PDO::PARAM_STR);
-        $stmt->execute();
-
-        return $stmt->fetchAll(PDO::FETCH_CLASS, Categorie::class);
-    }
-
-    public function getAll()
+    /**
+     * @return array[Categorie]
+     */
+    public function getAll(): array
     {
         $sql = "SELECT * FROM categorie;";
         $stmt = $this->pdo->prepare($sql);

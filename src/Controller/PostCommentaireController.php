@@ -5,23 +5,34 @@ use App\Repository\ArticlesRepository;
 use App\Repository\CommentairesRepository;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
+use Slim\Exception\HttpInternalServerErrorException;
 
 
-class CommentaireController extends BaseController
+class PostCommentaireController extends BaseController
 {
-    public function handle(Request $request, Response $response, $arg)
+    /**
+     * @param Request $request
+     * @param Response $response
+     * @param array $arg
+     * @throws CustomNotFoundException
+     * @throws HttpInternalServerErrorException
+     * @return Response
+     */
+    public function handle(Request $request, Response $response, array $arg)
     {
         try{
+            /** @var ArticlesRepository $articlesRepository */
             $articlesRepository = $this->getRepository(ArticlesRepository::class);
-            $contentArticle = $articlesRepository->findOneBy([
+            /** @var Article $article */
+            $article = $articlesRepository->findOneBy([
                 'slug' => $arg['slug_article'],
             ]);
-            if (is_null($contentArticle)) {
+            if (is_null($article)) {
                 throw new CustomNotFoundException($request);
             }
             
-            $idArticle = $contentArticle->getId();
-            $urlArticle = $contentArticle->getUrlArticle();
+            $idArticle = $article->getId();
+            $urlArticle = $article->getUrlArticle();
 
             $data = $request->getParsedBody();
             if ($data) {
@@ -38,9 +49,4 @@ class CommentaireController extends BaseController
         }
     }
 
-    protected function setCommentaire(string $auteur, string $contenu, int $idArticle)
-    {
-        $commentaire = $this->getRepository(CommentairesRepository::class);
-        $commentaire->setCommentaire($auteur, $contenu, $idArticle);
-    }
 }

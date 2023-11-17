@@ -5,36 +5,128 @@ use DateTime;
 
 class Article
 {
+    /**
+     * @var int
+     */
+    protected int $id_article;
 
-    protected $id_article;
-    protected $titre_article;
-    protected $texte_article;
-    protected $date_article;
-    protected $date_modification_article;
-    protected $auteur_article;
-    protected $id_categorie;
+    /**
+     * @var string
+     */
+    protected string $titre_article;
 
-    protected $url_article;
-    protected $slug;
+    /**
+     * @var string
+     */
+    protected string $texte_article;
 
-    protected $nom_categorie;
-    protected $nombre_commentaires;
-    protected $categorie_slug;
+    /**
+     * @var string
+     */
+    protected string $date_article;
 
+    /**
+     * @var string
+     */
+    protected string $date_modification_article;
 
-    public function getId()
+    /**
+     * @var string
+     */
+    protected string $auteur_article;
+
+    /**
+     * @var int
+     */
+    protected int $id_categorie;
+
+    /**
+     * @var string
+     */
+    protected string $url_article;
+
+    /**
+     * @var string
+     */
+    protected string $slug;
+
+    /**
+     * @var string
+     */
+    protected string $nom_categorie;
+
+    /**
+     * @var int
+     */
+    protected int $nombre_commentaires;
+
+    /**
+     * @var string
+     */
+    protected string $categorie_slug;
+
+    /**
+     * @param int $id
+     * @return Article 
+     */
+    public function setId(int $id): Article
+    {
+        $this->id_article = $id;
+        return $this;
+    }
+
+    /**
+     * @return int 
+     */
+    public function getId(): int
     {
         return $this->id_article;
     }
 
-    public function getTitre()
+    /**
+     * @param string $titre
+     * @return Article 
+     */
+    public function setTitre(string $titre): Article
+    {
+        $this->titre_article = $titre;
+        return $this;
+    }
+
+    /**
+     * @return string 
+     */
+    public function getTitre(): string
     {
         return $this->titre_article;
     }
 
-    public function getTexte()
+    /**
+     * @param string $texte
+     * @return Article 
+     */
+    public function setTexte(string $texte): Article
+    {
+        $this->texte_article = $texte;
+        return $this;
+    }
+
+    /**
+     * @return string 
+     */
+    public function getTexte(): string
     {
         return $this->texte_article;
+    }
+
+    /**
+     * @param string $date
+     * @return Article 
+     */
+    public function setDate(string $date): Article
+    {
+        $this->date_article = $date;
+        return $this;
     }
 
     public function getDate() : DateTime
@@ -42,88 +134,145 @@ class Article
         return DateTime::createFromFormat('Y-m-d H:i:s',$this->date_article);
     }
 
+    /**
+     * @param string $date
+     * @return Article 
+     */
+    public function setDateModif(string $date): Article
+    {
+        $this->date_modification_article = $date;
+        return $this;
+    }
+
+    /**
+     * @return DateTime 
+     */
     public function getDateModif() : DateTime
     {
-        //var_dump($this->date_modification_article);
         return DateTime::createFromFormat('Y-m-d H:i:s',$this->date_modification_article);
     }
 
-    public function getAuteur()
+    /**
+     * @param string $auteur
+     * @return Article 
+     */
+    public function setAuteur(string $auteur): Article
+    {
+        $this->auteur_article = $auteur;
+        return $this;
+    }
+
+    /**
+     * @return string 
+     */
+    public function getAuteur(): string
     {
         return $this->auteur_article;
     }
+    /**
+     * @param int $id
+     * @return Article 
+     */
+    public function setIdCategorie(int $id): Article
+    {
+        $this->id_categorie = $id;
+        return $this;
+    }
 
-    public function getIdCategorie()
+    /**
+     * @return int 
+     */
+    public function getIdCategorie(): int
     {
         return $this->id_categorie;
     }
 
     /**
-     * @return mixed
+     * @param string $url
+     * @return Article 
      */
-    public function getUrlArticle()
+    public function setUrlArticle(string $url): Article
+    {
+        $this->yurl_article = $url;
+        return $this;
+    }
+
+    /**
+     * @return string 
+     */
+    public function getUrlArticle(): string
     {
         return $this->url_article;
     }
 
     /**
-     * @param mixed $url_article
-     * @return Article
+     * @param string $slug
+     * @return Article 
      */
-    public function setUrlArticle($url_article)
-    {
-        $this->url_article = $url_article;
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getSlug()
-    {
-        return $this->slug;
-    }
-
-    /**
-     * @param mixed $slug
-     * @return Article
-     */
-    public function setSlug($slug)
+    public function setSlug(string $slug): Article
     {
         $this->slug = $slug;
         return $this;
     }
 
     /**
-     * @return mixed
+     * @return string 
      */
-    public function getNomCategorie()
+    public function getSlug(): string
     {
-        return $this->nom_categorie;
+        return $this->slug;
     }
 
     /**
-     * @param mixed $nom_categorie
+     * @param string  $nom_categorie
      * @return Article
      */
-    public function setNomCategorie($nom_categorie)
+    public function setNomCategorie($nom_categorie): Article
     {
         $this->nom_categorie = $nom_categorie;
         return $this;
     }
 
     /**
-     * @return mixed
+     * @return string 
      */
-    public function getNombreCommentaires()
+    public function getNomCategorie(): string
+    {
+        return $this->nom_categorie;
+    }
+
+    /**
+     * @param int $nombre
+     * @return Article 
+     */
+    public function setNombreCommentaires(int $nombre): Article
+    {
+        $this->nombre_commentaires = $nombre;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getNombreCommentaires(): int
     {
         return $this->nombre_commentaires;
     }
 
     /**
-     * @return mixed
+     * @param string $slug
+     * @return Article 
      */
-    public function getSlugCategorie()
+    public function setSlugCategorie(string $slug): Article
+    {
+        $this->categorie_slug = $slug;
+        return $this;
+    }
+
+    /**
+     * @return string 
+     */
+    public function getSlugCategorie(): string
     {
         return $this->categorie_slug;
     }

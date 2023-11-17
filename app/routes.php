@@ -8,12 +8,11 @@ use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\App;
 
-use App\Controller\GenericController;
 use App\Controller\HomeController;
+use App\Controller\CategoryController;
 use App\Controller\ArticleController;
-use App\Controller\CommentaireController;
+use App\Controller\PostCommentaireController;
 use App\Controller\PostArticleController;
-
 
 return function (App $app, Configuration $configuration) {
 
@@ -22,14 +21,14 @@ return function (App $app, Configuration $configuration) {
      * Page d'accueil
      */
     $app->get('/', function (Request $request, Response $response, $args) use ($configuration) {
-        return (new HomeController($request, $response, $configuration))->handle($response);
+        return (new HomeController($request, $response, $configuration))->handle($request, $response);
     });
 
     /**
      * Les catégories principales
      */
     $app->get('/{categorie}', function (Request $request, Response $response, $args) use ($configuration) {
-        return (new GenericController($request, $response, $configuration))->handle($request, $response, $args);
+        return (new CategoryController($request, $response, $configuration))->handle($request, $response, $args);
     });
 
     /**
@@ -57,7 +56,7 @@ return function (App $app, Configuration $configuration) {
      * L'ajout des commentaires
      */
     $app->post('/{categorie}/{slug_article}', function ($request, $response, $args) use ($configuration) {
-        return (new CommentaireController($request, $response, $configuration))->handle($request, $response, $args);
+        return (new PostCommentaireController($request, $response, $configuration))->handle($request, $response, $args);
     });
     
     /**
