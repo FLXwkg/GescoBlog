@@ -8,6 +8,7 @@ use App\Repository\BaseRepository;
 use App\Repository\ArticlesRepository;
 use App\Repository\CategoriesRepository;
 use App\Repository\CommentairesRepository;
+use App\Application\Exceptions\CustomNotFoundException;
 use App\Support\TemplateFactory;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ResponseInterface as Response;
@@ -95,7 +96,7 @@ class BaseController
     {
         $sections = $categoriesRepository->getAll();
         if (is_null($sections)) {
-            throw new HttpNotFoundException($request);
+            throw new CustomNotFoundException($request);
         }
         return $sections;
     }
@@ -109,7 +110,7 @@ class BaseController
         $commentairesRepository = $this->getRepository(CommentairesRepository::class);
         $commentaires = $commentairesRepository->getByArticleId($idArticle);
         if (is_null($commentaires)) {
-            throw new HttpNotFoundException($request);
+            throw new CustomNotFoundException($request);
         }
         return $commentaires;
     }
@@ -119,7 +120,7 @@ class BaseController
         $commentairesRepository = $this->getRepository(CommentairesRepository::class);
         $commentaires = $commentairesRepository->get3ByArticleId($idArticle);
         if (is_null($commentaires)) {
-            throw new HttpNotFoundException($request);
+            throw new CustomNotFoundException($request);
         }
         return $commentaires;
     }
@@ -128,7 +129,7 @@ class BaseController
     {
         $category = $categoriesRepository->findOneBySlug($slugCategorie);
         if (is_null($category)) {
-            throw new HttpNotFoundException($request);
+            throw new CustomNotFoundException($request);
         }
         return $category;
     }

@@ -22,7 +22,7 @@ class GenericController extends BaseController
         $articlesRepository = $this->getRepository(ArticlesRepository::class);
         $articles = $articlesRepository->getByCategory($category->getId());
         if (is_null($articles)) {
-            throw new HttpNotFoundException($request);
+            throw new CustomNotFoundException($request);
         }
         $args['articles'] = $articles;
 

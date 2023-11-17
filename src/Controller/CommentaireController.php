@@ -17,7 +17,7 @@ class CommentaireController extends BaseController
                 'slug' => $arg['slug_article'],
             ]);
             if (is_null($contentArticle)) {
-                throw new HttpNotFoundException($request);
+                throw new CustomNotFoundException($request);
             }
             
             $idArticle = $contentArticle->getId();
