@@ -7,9 +7,9 @@ use App\Entity\Commentaire;
 use App\Repository\ArticlesRepository;
 use App\Repository\CategoriesRepository;
 use App\Repository\CommentairesRepository;
+use App\Application\Exceptions\CustomNotFoundException;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Exception\HttpNotFoundException;
-use Slim\Views\PhpRenderer;
 
 class ArticleController extends BaseController
 {
@@ -29,12 +29,14 @@ class ArticleController extends BaseController
             'id_categorie' => $category->getId(),
         ]);
         if (is_null($article)) {
-            throw new HttpNotFoundException($request);
+            throw new CustomNotFoundException($request);
         }
         $args['article'] = $article;
+        
 
         return $this->getRenderedResponse($args, 'viewArticle.php');
     }
+        
 
     public function handleJson($request, $response, $args)
     {
@@ -42,7 +44,7 @@ class ArticleController extends BaseController
             $articlesRepository = $this->getRepository(ArticlesRepository::class);
             $article = $articlesRepository->findOneBy(['slug' => $args['slug_article']]);
             if (is_null($article)) {
-                throw new HttpNotFoundException($request->withHeader('Accept', 'application/json'));
+                throw new CustomNotFoundException($request, 'application/json');
             }
             $idArticle = $article->getId();
             $nbCommentsNeeded = $request->getHeader('nbComments');

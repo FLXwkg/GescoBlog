@@ -7,6 +7,7 @@ namespace App\Application\Handlers;
 use App\Application\Actions\ActionError;
 use App\Application\Actions\ActionPayload;
 use App\Configuration;
+use App\Application\Exceptions\CustomNotFoundException;
 use App\Support\TemplateFactory;
 use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ResponseInterface as Response;
@@ -80,7 +81,6 @@ class HttpErrorHandler extends SlimErrorHandler
 
             if ($exception instanceof HttpNotFoundException) {
                 $error->setType(ActionError::RESOURCE_NOT_FOUND);
-                $arrayPayload['message'] = 'The requested url was not found on this server';
             } elseif ($exception instanceof HttpMethodNotAllowedException) {
                 $error->setType(ActionError::NOT_ALLOWED);
             } elseif ($exception instanceof HttpUnauthorizedException) {
@@ -91,6 +91,8 @@ class HttpErrorHandler extends SlimErrorHandler
                 $error->setType(ActionError::BAD_REQUEST);
             } elseif ($exception instanceof HttpNotImplementedException) {
                 $error->setType(ActionError::NOT_IMPLEMENTED);
+            } elseif ($exception instanceof CustomNotFoundException) {
+                $error->setType(ActionError::RESOURCE_NOT_FOUND);
             }
         }
 
@@ -102,12 +104,11 @@ class HttpErrorHandler extends SlimErrorHandler
             $error->setDescription($exception->getMessage());
         }
 
-        $acceptHeader = $this->request->getHeaderLine('Accept');
-        $isJsonRequested = strpos($acceptHeader, 'application/json') !== false;
-
-        $payload = new ActionPayload($statusCode, null, $error);
+        $customTypeHeader = $exception->getCustomHeader();
+        $isJsonRequested = ($customTypeHeader === 'application/json');
 
         if ($isJsonRequested) {
+            $payload = new ActionPayload($statusCode, null, $error);
             $encodedPayload = json_encode($payload, JSON_PRETTY_PRINT);
             $response = $this->responseFactory->createResponse($statusCode);
             $response->getBody()->write($encodedPayload);
@@ -115,9 +116,8 @@ class HttpErrorHandler extends SlimErrorHandler
             return $response->withHeader('Content-Type', 'application/json');
         } else {
 
-            $arrayPayload['statusCode'] = ':( '.$statusCode;
-            $arrayPayload['errorType'] = $error->getType();
-            $arrayPayload['errorDescription'] = $error->getDescription();
+            $arrayPayload['statusCode'] = ':( '.$exception->getTitre();
+            $arrayPayload['errorMessage'] = $exception->getDescription();
 
 
             $response = $this->responseFactory->createResponse($statusCode);
