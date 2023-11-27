@@ -1,11 +1,12 @@
 document.addEventListener('DOMContentLoaded', function() {
     var commentsContainer = document.querySelector('.article-commentaries');
     var articleFullSlug = document.querySelector('.articleUrl').textContent;
+    var nbComments = document.querySelector('.nbComments').textContent;
     var host = document.location.host;
     var protocol = document.location.protocol;
     var url = protocol + '//' + host + '/' + articleFullSlug +'/commentaires';
 
-    if (!commentsContainer.classList.contains('comments-loaded')) {
+    if (!commentsContainer.classList.contains('comments-loaded') || !nbComments === 0) {
         fetch(url)
             .then(response => response.json())
             .then(data => {

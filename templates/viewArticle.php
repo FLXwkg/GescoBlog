@@ -7,7 +7,8 @@
 <?= $helpers->breadcrumb(['/'. $category->getSlug() => $category->getNom()], $article->getTitre())?>
 
 <div class="container">   
-    <div class=" articleUrl d-none"><?= $article->getUrlArticle()?></div> 
+    <div class="articleUrl d-none"><?= $article->getUrlArticle()?></div>
+    <div class="nbComments d-none"><?= $article->getNombreCommentaires()?></div> 
     <div class="article-section m-2 px-3 rounded">
         <div class="row mx-2 border-bottom border-dark-subtle article-head">
             <div class="article-date col-12 col-sm-8 col-lg-2 order-3 order-sm-2 order-lg-1 py-3 align-items-top "> 
