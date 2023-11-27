@@ -3,7 +3,6 @@
 declare(strict_types=1);
 
 use App\Configuration;
-use App\Support\TemplateFactory;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\App;
@@ -37,13 +36,6 @@ return function (App $app, Configuration $configuration) {
     $app->post('/{categorie}', function (Request $request, Response $response, $args) use ($configuration) {
         return (new PostArticleController($request, $response, $configuration))->handle($request, $response, $args);
     });
-
-    /**
-     * Traitement Ajax des commentaires des articles d'une catégorie
-     */
-    //$app->get('/{categorie}/commentaires', function (Request $request, Response $response, $args) use ($configuration) {
-        //return (new GenericController($request, $response, $configuration))->handleJson($request, $response, $args);
-    //});
 
     /**
      * Les articles
