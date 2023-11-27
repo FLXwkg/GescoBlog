@@ -24,9 +24,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function reduceArticles() {
         visibleArticles -= articlesPerPage;
+        loadMoreButton.style.display = "block";
         if (visibleArticles <= articlesPerPage) {
             visibleArticles = articlesPerPage;
-            loadMoreButton.style.display = "block";
             reduceButton.style.display = "none"; // Cacher le bouton "Réduire" lorsque le nombre d'articles visibles est revenu à la quantité initiale
         }
         const articles = articleContainer.querySelectorAll(".article-bloc");
