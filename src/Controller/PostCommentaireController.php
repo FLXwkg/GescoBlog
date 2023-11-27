@@ -2,9 +2,9 @@
 namespace App\Controller;
 
 use App\Repository\ArticlesRepository;
-use App\Repository\CommentairesRepository;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
+use App\Application\Exceptions\CustomNotFoundException;
 use Slim\Exception\HttpInternalServerErrorException;
 
 

@@ -94,7 +94,7 @@ class ArticlesRepository extends BaseRepository
         $base = $this->getNumberQueryStart();
         $sql = $base . " WHERE 1";
         if(0 === count($params)){
-            throw new \Exception('au moins un parametre dans le find by');
+            throw new \Exception('At least 1 parameter needed');
         }
         foreach ($params as $key => $value){
             $sql.= ' AND a.'.$key.' = :'.$key;

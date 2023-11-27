@@ -39,7 +39,7 @@ class HttpErrorHandler extends SlimErrorHandler
     public function __construct(CallableResolverInterface $callableResolver, ResponseFactoryInterface $responseFactory, ?LoggerInterface $logger = null, ?Configuration $configuration = null)
     {
         parent::__construct($callableResolver, $responseFactory, $logger);
-        if(!is_null($configuration)){
+        if (!is_null($configuration)) {
             $this->setConfiguration($configuration);
         }
     }
@@ -63,13 +63,13 @@ class HttpErrorHandler extends SlimErrorHandler
     }
 
     /**
-     * @param string $response
+     * @param Response $response
      * @return TemplateFactory
      */
-    protected function createTemplateFactory(string $response): TemplateFactory
+    protected function createTemplateFactory(Response $response): TemplateFactory
     {
         $request = $this->request;
-        $templateFactory = new TemplateFactory($request,$response,$this->getConfiguration());
+        $templateFactory = new TemplateFactory($request, $response, $this->getConfiguration());
         $templateFactory->setDefaultLayout('layout/default.php');
         return $templateFactory;
     }
@@ -117,6 +117,7 @@ class HttpErrorHandler extends SlimErrorHandler
             $error->setDescription($exception->getMessage());
         }
 
+        /** @var mixed $exception */
         $customTypeHeader = $exception->getCustomHeader();
         $isJsonRequested = ($customTypeHeader === 'application/json');
 
@@ -129,14 +130,14 @@ class HttpErrorHandler extends SlimErrorHandler
             return $response->withHeader('Content-Type', 'application/json');
         } else {
 
-            $arrayPayload['statusCode'] = ':( '.$exception->getTitre();
+            $arrayPayload['statusCode'] = ':( ' . $exception->getTitre();
             $arrayPayload['errorMessage'] = $exception->getDescription();
 
 
             $response = $this->responseFactory->createResponse($statusCode);
             $templateFactory = $this->createTemplateFactory($response);
             $templateFactory->setDefaultLayout('layout/defaultError.php');
-            return $templateFactory->getRenderedResponse($arrayPayload,'errors.php');
+            return $templateFactory->getRenderedResponse($arrayPayload, 'errors.php');
         }
     }
 }

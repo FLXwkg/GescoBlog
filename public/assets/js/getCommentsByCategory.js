@@ -25,12 +25,13 @@ document.addEventListener('DOMContentLoaded', function() {
             var host = document.location.host;
             var pathname = document.location.pathname
             var protocol = document.location.protocol;
-            var url = protocol + '//' + host + pathname + '/' + articleSlug +'/commentaires'
             var urlArticle = protocol + '//' + host + pathname + '/' + articleSlug
+            var url = urlArticle +'/commentaires'
             
             if (!commentaryContainer.classList.contains('comments-loaded')) {
-                
-                fetch(url, {headers:{'nbComments': '3'}})
+                fetch(url, {headers: {
+                    "nb-comments": "3"
+                  }})
                     .then(response => response.json())
                     .then(data => {
                         commentaryContainer.innerHTML = ''; 

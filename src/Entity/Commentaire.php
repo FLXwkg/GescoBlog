@@ -126,26 +126,6 @@ class Commentaire
     }
 
     /**
-     * @param string $date
-     * @return Commentaire 
-     */
-    public function setDate(string $date): Commentaire
-    {
-        $this->date_commentaire = $date;
-        return $this;
-    }
-
-    /**
-     * @param int $id
-     * @return Commentaire 
-     */
-    public function setDate(int $id): Commentaire
-    {
-        $this->id_article = $id;
-        return $this;
-    }
-
-    /**
      * @return int 
      */
     public function getIdArticle(): int

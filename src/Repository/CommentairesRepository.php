@@ -12,7 +12,7 @@ class CommentairesRepository extends BaseRepository
      */
     public function getByArticleId(int $idArticle): array
     {
-        $sql = 'SELECT * FROM commentaire WHERE id_article = :idArticle;';
+        $sql = 'SELECT * FROM commentaire WHERE id_article = :idArticle ORDER BY date_commentaire DESC;';
         $stmt = $this->pdo->prepare($sql);
         $stmt->bindParam(':idArticle', $idArticle, PDO::PARAM_INT);
         $stmt->execute();
@@ -26,7 +26,7 @@ class CommentairesRepository extends BaseRepository
      */
     public function get3ByArticleId(int $idArticle): array
     {
-        $sql = 'SELECT * FROM commentaire WHERE id_article = :idArticle LIMIT 0,3;';
+        $sql = 'SELECT * FROM commentaire WHERE id_article = :idArticle ORDER BY date_commentaire DESC LIMIT 0,3;';
         $stmt = $this->pdo->prepare($sql);
         $stmt->bindParam(':idArticle', $idArticle, PDO::PARAM_INT);
         $stmt->execute();

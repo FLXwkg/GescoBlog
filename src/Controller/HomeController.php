@@ -4,9 +4,9 @@ namespace App\Controller;
 
 use App\Repository\ArticlesRepository;
 use App\Repository\CategoriesRepository;
-use App\Repository\CommentairesRepository;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
+use App\Application\Exceptions\CustomNotFoundException;
 
 
 class HomeController extends BaseController
@@ -21,7 +21,7 @@ class HomeController extends BaseController
     {
         /** @var CategoriesRepository $categoriesRepository */
         $categoriesRepository = $this->getRepository(CategoriesRepository::class);
-        $args['sections'] = $this->getSections($categoriesRepository);
+        $args['sections'] = $this->getSections($categoriesRepository, $request);
 
         /** @var ArticlesRepository $articlesRepository */
         $articlesRepository = $this->getRepository(ArticlesRepository::class);

@@ -22,10 +22,10 @@ class CategoryController extends BaseController
         /** @var CategoriesRepository $categoriesRepository */
         $categoriesRepository = $this->getRepository(CategoriesRepository::class);
         /** @var Categorie $category */
-        $category = $this->getCategorie($arg['categorie'], $categoriesRepository);
+        $category = $this->getCategorie($arg['categorie'], $categoriesRepository, $request);
             
         $args['category'] = $category;
-        $args['sections'] = $this->getSections($categoriesRepository);
+        $args['sections'] = $this->getSections($categoriesRepository, $request);
 
         /** @var ArticlesRepository $articlesRepository */
         $articlesRepository = $this->getRepository(ArticlesRepository::class);

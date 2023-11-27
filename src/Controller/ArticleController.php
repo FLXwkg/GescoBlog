@@ -23,10 +23,10 @@ class ArticleController extends BaseController
         /** @var CategoriesRepository $categoriesRepository */
         $categoriesRepository = $this->getRepository(CategoriesRepository::class);
         /** @var Categorie $category */
-        $category = $this->getCategorie($arg['categorie'], $categoriesRepository);
+        $category = $this->getCategorie($arg['categorie'], $categoriesRepository, $request);
 
         $args['category'] = $category;
-        $args['sections'] = $this->getSections($categoriesRepository);
+        $args['sections'] = $this->getSections($categoriesRepository, $request);
 
         /** @var ArticlesRepository $articlesRepository */
         $articlesRepository = $this->getRepository(ArticlesRepository::class);
@@ -50,7 +50,6 @@ class ArticleController extends BaseController
      * @param array $arg
      * @throws CustomNotFoundException
      * @throws \RuntimeException
-     * @return Response
      */
     public function handleJson(Request $request, Response $response, array $args)
     {
@@ -63,14 +62,15 @@ class ArticleController extends BaseController
                 throw new CustomNotFoundException($request, 'application/json');
             }
             $idArticle = $article->getId();
-            $nbCommentsNeeded = $request->getHeader('nbComments');
+            $nbCommentsNeeded = $request->getHeader('nb-comments');//var_dump($nbCommentsNeeded);die();
             /** @var array[Commentaire] $commentaires */
-            $commentaires = (!$nbCommentsNeeded == 3) ? $this->getCommentaires($idArticle) : $this->get3Commentaires($idArticle);
+            $commentaires = (!$nbCommentsNeeded == 3) ? $this->getCommentaires($idArticle, $request) : $this->get3Commentaires($idArticle, $request);
 
             foreach ($commentaires as $commentaire) {
                 $array[] = $commentaire->toArray();
             }
             $commentairesJson = json_encode($array);
+            
 
             if ($commentairesJson === false) {
                 throw new \RuntimeException('JSON encoding error');

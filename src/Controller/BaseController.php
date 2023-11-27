@@ -97,10 +97,11 @@ class BaseController
 
     /**
      * @param CategoriesRepository $categoriesRepository
+     * @param Request $request
      * @return Categorie[]
      * @throws CustomNotFoundException
      */
-    protected function getSections(CategoriesRepository $categoriesRepository): array
+    protected function getSections(CategoriesRepository $categoriesRepository, Request $request): array
     {
         $sections = $categoriesRepository->getAll();
         if (is_null($sections)) {
@@ -111,10 +112,12 @@ class BaseController
 
     /**
      * @param int $idArticle
+     * @param Request $request
      * @return Commentaire[]
      */
-    protected function getCommentaires(int $idArticle): array
+    protected function getCommentaires(int $idArticle, Request $request): array
     {
+        /** @var CommentairesRepository $commentairesRepository */
         $commentairesRepository = $this->getRepository(CommentairesRepository::class);
         $commentaires = $commentairesRepository->getByArticleId($idArticle);
         if (is_null($commentaires)) {
@@ -125,10 +128,12 @@ class BaseController
 
     /**
      * @param int $idArticle
+     * @param Request $request
      * @return Commentaire[]
      */
-    protected function get3Commentaires(int $idArticle): array
+    protected function get3Commentaires(int $idArticle, Request $request): array
     {
+        /** @var CommentairesRepository $commentairesRepository */
         $commentairesRepository = $this->getRepository(CommentairesRepository::class);
         $commentaires = $commentairesRepository->get3ByArticleId($idArticle);
         if (is_null($commentaires)) {
@@ -140,10 +145,11 @@ class BaseController
     /**
      * @param string $slugCategorie
      * @param CategoriesRepository $categoriesRepository
+     * @param Request $request
      * @return Categorie
      * @throws CustomNotFoundException
      */
-    protected function getCategorie(string $slugCategorie, CategoriesRepository $categoriesRepository): Categorie 
+    protected function getCategorie(string $slugCategorie, CategoriesRepository $categoriesRepository, Request $request): Categorie 
     {
         $category = $categoriesRepository->findOneBySlug($slugCategorie);
         if (is_null($category)) {
@@ -159,8 +165,9 @@ class BaseController
      */
     protected function setCommentaire(string $auteur, string $contenu, int $idArticle)
     {
-        $commentaire = $this->getRepository(CommentairesRepository::class);
-        $commentaire->setCommentaire($auteur, $contenu, $idArticle);
+        /** @var CommentairesRepository $commentairesRepository */
+        $commentairesRepository = $this->getRepository(CommentairesRepository::class);
+        $commentairesRepository->setCommentaire($auteur, $contenu, $idArticle);
     }
 
     /**
@@ -171,7 +178,8 @@ class BaseController
      */
     protected function setArticle(string $titre, string $auteur, string $contenu, int $idCategorie)
     {
-        $article = $this->getRepository(ArticlesRepository::class);
-        $article->setArticle($titre, $auteur, $contenu, $idCategorie);
+        /** @var ArticlesRepository $articlesRepository */
+        $articlesRepository = $this->getRepository(ArticlesRepository::class);
+        $articlesRepository->setArticle($titre, $auteur, $contenu, $idCategorie);
     }
 }
